@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+        <link rel="shortcut icon" href="images/icons/logo.png"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+	<script src="Scripts/index.js"></script>
+        <script src="Scripts/noscroll.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <title class="localize">Publications</title>
+    </head>
+    <body ng-app="publicationsApp" ng-controller="publicationsController">
+        <div class="page-wrap">
+            <div id="headSect"></div>
+            <br>    
+            <div class="cart" id="scrl"><c><a href={{orderPage}} ng-click="addDataToURL();" id="cartLink" style="pointer-events: none; cursor: default;"><img class="" id="cartImg" src="images/icons/cart.png" style="width: 40%;"/> <br>You chose <br> {{goods}} items.</a></c></div>
+            <div class="pageheader localize" style="margin: 0 40% 0 0;">
+                PUBLICATIONS
+            </div>
+            <div class="container-fluid">    
+                <div class="mission-text">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td style="width: 30%;">
+                                    <div class="cont">
+                                        <div class="imag" id={{curBook.bookId}}>
+                                            <a href="{{curBook.finalURL}}">
+                                                <c><img  ng-src={{curBook.bookImagSource}} title={{curBook.bookTitle}} style="width: 50%; " id="bookIm"/></c>
+                                                <p id="text" style="position: absolute; top: 40%; left: 35%; opacity: 0; color: #006461; font-weight: bold; z-index: 10; font-size: 40px; text-shadow : 5px 5px 10px #006461;">VIEW</p>    
+                                            </a>
+                                        </div>                                        
+                                    </div>
+                                    <br>
+                                    <div class="imag" id={{curBook.bookId}}>
+                                        <select ng-model="selectedItem" ng-options="lang.label for lang in curBook.langOptions track by lang.value" ng-change="changeImage(curBook.bookId, selectedItem.value)">
+                                            <option value="" ng-disabled>Choose language</option>
+                                        </select>
+                                    </div><br>
+                                    <div class="text-center" style="color: green;"><b>PRICE: {{curBook.price}}€</div><br>
+                                    <div class="imag"><div class="comm" id="comment_form"><c><input type="submit" value="Put in basket" ng-click="addToCart(curBook.bookId);"></c></div> </div>
+                                    <br>
+                                </td>
+                                <td ng-bind-html="curBook.description" style="font-size: 1vw;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        <div class="tab-content">
+                            <div id="menu1" class="tab-pane fade in active">
+                                <div class="col-xs-12">
+                                    <div class="carousel slide" id="myCarousel1">
+                                        <div class="carousel-inner">
+                                            <div ng-repeat="sld in dataForCarousel" class="item" ng-class="($index===0) ? 'active' : ''">
+                                                <ul class="thumbnails">
+                                                    <li class="col-sm-3" ng-repeat="i in sld.inst">
+                                                        <c><img ng-src={{i.image}} alt="" style="width: 10vw;" ng-click='showBook(i.bookId);'></c>
+                                                        <div class="caption">
+                                                            <p>{{i.header}}</p>
+                                                            <h4 style="font-size: 1.5vw;">{{i.text}}</h4>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <nav id="navigation{{$index+1}}">
+                                   <ul class="control-box">
+                                      <li><c data-slide="prev" href="#myCarousel1" class=""><i class="glyphicon glyphicon-chevron-left"></i></c></li>
+                                      <li><c data-slide="next" href="#myCarousel1" class=""><i class="glyphicon glyphicon-chevron-right"></i></c></li>
+                                   </ul>
+                                </nav>      
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <script>
+           var app = angular.module("publicationsApp", ['ngSanitize']);
+           app.controller("publicationsController", function($scope, $http){
+                    $("#bookIm").hover(
+                        function(){
+                            $("#text").animate(  {opacity: '1'});
+                        },
+                        function(){
+                            $("#text").animate(  {opacity: '0'});
+                        }
+                    );
+		   $scope.hostURL='https://agile-waters-10164.herokuapp.com/';
+                   $scope.goods=0;
+                   $scope.goodsList = [];
+                   $scope.orderPage = "order.html";
+                   $http.get($scope.hostURL + "getPublications").then(function(response){
+                           $scope.data = response.data;
+                           for(var i = 0; i<$scope.data.length; ++i){
+                                   $scope.data[i].finalURL = $scope.data[i].viewBookPage + "?id=" + $scope.data[i].bookId + "&lang=" + $scope.data[i].langOptions[0].value;
+                                   $scope.data[i].lastIdWithLang = $scope.data[i].bookId+ "&" + $scope.data[i].langOptions[0].value;
+                           }
+                           $scope.changeImage = function(bookId, value){
+                                   var i;
+                                   for(i = 0; i<$scope.data.length; ++i){
+                                           if($scope.data[i].bookId === bookId)
+                                                   break;
+                                   }
+                                   $scope.data[i].bookImagSource = $scope.data[i].bookDiffLangImages[value];
+                                   $scope.data[i].finalURL = $scope.data[i].viewBookPage + "?id=" + bookId + "&lang=" + value;
+                                   $scope.data[i].lastIdWithLang = bookId +"&"+ value;
+                           };
+                           $scope.addToCart = function(bookId){
+			       $("#cartLink").css({"pointer-events" : "", "cursor": ""});
+                               var i;
+                               for(i = 0; i<$scope.data.length; ++i){
+                                   if($scope.data[i].bookId === bookId)
+                                       break;
+                               }
+                               var bookIdentifier = $scope.data[i].lastIdWithLang.split("&");
+			       for(i = 0; i<$scope.goodsList.length; ++i){
+                                   if($scope.goodsList[i]["bookId"] === bookIdentifier[0] && $scope.goodsList[i]["lang"] === bookIdentifier[1])
+                                       break;
+                               }
+			       if(i<$scope.goodsList.length){
+	                               $scope.goodsList[i]["quant"]++;
+			       } else {
+	                               $scope.goodsList.push({"bookId":  bookIdentifier[0], "lang":  bookIdentifier[1], "quant": 1});
+			       }
+                               $scope.goods++;
+                           };
+                           $scope.addDataToURL = function(){
+                               if($scope.goodsList.length>0){
+                                  $scope.orderPage=$scope.orderPage+"?";
+                                  $scope.orderPage=$scope.orderPage+"books="+$scope.goods+"&";
+                                  for(var i=0; i<($scope.goodsList.length-1); ++i)
+                                       $scope.orderPage+="bookId"+(i+1)+"="+$scope.goodsList[i]["bookId"]+"&"+"lang"+(i+1)+"="+$scope.goodsList[i]["lang"]+"&"+"quant"+(i+1)+"="+$scope.goodsList[i]["quant"]+"&";
+                                  $scope.orderPage+="bookId"+($scope.goodsList.length)+"="+$scope.goodsList[$scope.goodsList.length-1]["bookId"] + "&"+"lang"+($scope.goodsList.length)+"="+$scope.goodsList[$scope.goodsList.length-1]["lang"]+"&"+"quant"+($scope.goodsList.length)+"="+$scope.goodsList[$scope.goodsList.length-1]["quant"];
+                               }
+                           };
+                           if($scope.data.length>0){
+                               $scope.curBook = $scope.data[0];
+                           }
+                    });
+                    $http.get($scope.hostURL + "getPublicationsPageSettings").then(
+                        function(response){
+                            $scope.dataForCarousel = response.data.carousel;
+                        }
+                    );
+                    $scope.showBook = function(bookId){
+                        for(var i=0; i<$scope.data.length; ++i){
+                            if(bookId === $scope.data[i].bookId){
+                                $scope.curBook = $scope.data[i];
+                            }
+                        }
+                    }
+           });
+           $('.carousel').carousel({
+                interval: 6000
+    	   });
+        </script>
+        
+        <footer id="footer">
+            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+    </body>
+</html>
+

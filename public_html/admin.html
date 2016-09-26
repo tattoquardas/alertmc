@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html ng-app="adminApp" ng-controller="adminController" style="width:100%; height:100%;">
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="Scripts/jquery-timepicker/jquery.timepicker.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+		<script src="Scripts/jquery-timepicker/jquery.timepicker.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<title>Admin Page</title>
+	</head>
+	<body style="width:100%; height:100%;">
+		<aside style="float : left; background-color: black; height: 100%; width: 15%; color: white; position:fixed;">
+			<center style="position: relative; top:1%;"><h4>Admin Menu</h4></center>
+			<hr/>
+			<center><button id="publicationsSection" type="button" class="btn btn-default" style="width: 80%;" ng-click="switchSection('publicationsSection');">Data For Publications</button></center>
+			<hr/>
+			<center><button id="reportsSection" type="button" class="btn btn-default" style="width: 80%;" ng-click="switchSection('reportsSection');">Data For Reports</button></center>
+			<hr/>
+			<center><button id="viewbookSection" type="button" class="btn btn-default" style="width: 80%;" ng-click="switchSection('viewbookSection');">Data For ViewBook</button></center>
+			<hr/>
+			<center><button id="calenderSection" type="button" class="btn btn-default" style="width: 80%;" ng-click="switchSection('calenderSection');">Calender Settings</button></center>
+			<hr/>
+			<center><button id="externalCallSection" type="button" class="btn btn-default" style="width: 80%;" ng-click="switchSection('externalCallSection');">External Calls</button></center>
+			<hr/>
+			<center><button id="testCredentialsSection" type="button" class="btn btn-default" style="width: 80%;" ng-click="switchSection('testCredentialsSection');">Credentials</button></center>
+			<hr/>
+			<center><button id="poliglotSection" type="button" class="btn btn-default" style="width: 80%;" ng-click="switchSection('poliglotSection');">Poliglot Settings</button></center>
+			<hr/>
+
+		</aside>
+		<div class="container-fluid">
+		<article style="position : relative; left:15%; height: 100%; width: 85%;">
+<!--DataForPublications.json-->
+			<div id="DataForPublications" style="display : {{show('publicationsSection')}};">
+				<br/><center><h1>Data For Publications</h1></center>
+				<br/><input type="button" value="Load Data" ng-click="getDataForPublications();" ng-disabled="dataLoaded.publicationsSection"></center>
+				<input type="button" value="Save Data" ng-click="saveDataForPublications();" ng-disabled="!dataLoaded.publicationsSection">
+				<input type="button" value="Discard Changes" ng-click="resetPublications();" ng-disabled="!dataLoaded.publicationsSection">
+				<br/>
+				<div ng-show="dataLoaded.publicationsSection">
+					<br/>
+					<center>
+						<input type="button" value="Add book" ng-click="addNewInstanceToPublicationData();">
+						<input type="button" value="Delete Selected" ng-click="deleteSelected();">
+					</center>
+				</div>
+				</br>
+				<div class="well" ng-repeat="book in publicationData">
+					
+					<label>Book Id: </label><input type="text" value={{book.bookId}} required ng-model="book.bookId">
+					<label>Book Viewer: </label><input type="text" value={{book.viewBookPage}} required ng-model="book.viewBookPage">
+					<label>Default Picture: </label><input type="text" value={{book.bookImagSource}} required ng-model="book.bookImagSource">
+					<label>Book Title: </label><input type="text" value={{book.bookTitle}} ng-model="book.bookTitle">
+					<br/><label>Book Price: </label><input type="text" value={{book.price}} ng-model="book.price">
+					<br/>
+					<div class="row">
+						<div class="col-xs-2">
+							<label>Available Languages: </label>
+							<br/>
+							<select multiple disabled>
+								<option ng-repeat="lang in book.langOptions">{{lang.label}}</option>
+							</select>
+							<br/>
+							<input type="button" value="Manage" ng-click="showLanguageModal(book.bookId);">
+						</div>
+						<div class="col-xs-2">
+							<label>Pictures: </label>
+							<br/>
+							<select multiple disabled>
+								<option ng-repeat="(lang, imag) in book.bookDiffLangImages">{{lang}} - {{imag}}</option>
+							</select>
+							<br/>
+							<input type="button" value="Manage" ng-click="showPictureModal(book.bookId);">
+						</div>
+					</div>
+					<label>Description: </label>
+					<br/><textarea cols="100" rows="15" ng-model="book.description">{{book.description}}</textarea>
+                                        <br/>
+                                        <br/>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+						<a data-toggle="collapse" href="#{{book.bookId}}">Carousel Settings</a>
+                                            </div>
+                                            <div id={{book.bookId}} class="collapse">
+						<div class="panel-body">
+                                                    <label>Carousel Image: </label><input type="text" value={{book.carouselImage}} required ng-model="book.carouselImage">
+                                                    <label>Carousel Header: </label><input type="text" value={{book.carouselHeader}} required ng-model="book.carouselHeader">
+                                                    <label>Carousel Text: </label><input type="text" value={{book.carouselText}} required ng-model="book.carouselText">
+                                                    <label>Slide Number: </label><input type="text" value={{book.carouselSlideNumber}} required ng-model="book.carouselSlideNumber">
+						</div>
+                                            </div>
+					</div>
+					<br/><input type="button" ng-click="deleteInstance(book.bookId);" value="Delete Book">
+					<label>Select element: </label><input type="checkbox" ng-model="book.selected">
+				</div>
+				<div id="manageLanguage" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Manage Languages</h4>
+							</div>
+							<div class="modal-body">
+								<span  ng-repeat="lang in languages">
+									<br/><input type="checkbox" ng-model="lang.selected"><label>{{lang.label}} - {{lang.value}}</label>
+								</span>
+								<br/><input type="button" value="Delete Selected" ng-click="deleteSelected();">
+								<br/><input type="button" value="Add New/Change Selected" ng-click="addNewOrChange();">
+								Label:<input type="text" ng-model="newLangLabel" style="width:25%;">
+								Value:<input type="text" ng-model="newLangValue" style="width:25%;">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="managePictures" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Manage Pictures</h4>
+							</div>
+							<div class="modal-body">
+								<span  ng-repeat="(lang, imag) in pictures">
+									<br/><label>{{lang}}</label>
+									<label>-</label>
+									<input type="text" value={{imag}} ng-model="pictures[lang]">
+								</span>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-show="dataLoaded.publicationsSection">
+					<center>
+						<input type="button" value="Add book" ng-click="addNewInstanceToPublicationData();">
+						<input type="button" value="Delete Selected" ng-click="deleteSelected();">
+					</center>
+					<br/>
+				</div>
+			</div>
+<!---------------------------->
+<!--DataForReports.json-->
+			<div id="DataForReports" style="display : {{show('reportsSection')}};">
+				<br/><center><h1>Data For Reports</h1></center>
+				<br/><input type="button" value="Load Data" ng-click="getDataForReports();" ng-disabled="dataLoaded.reportsSection"></center>
+				<input type="button" value="Save Data" ng-click="saveDataForReports();" ng-disabled="!dataLoaded.reportsSection">
+				<input type="button" value="Discard Changes" ng-click="resetReports();" ng-disabled="!dataLoaded.reportsSection">
+				<br/>
+				<div ng-show="dataLoaded.reportsSection">
+					<br/>
+					<center>
+						<input type="button" value="Add report" ng-click="addNewInstanceToReportData();">
+						<input type="button" value="Delete Selected" ng-click="deleteSelectedReport();">
+					</center>
+				</div>
+				</br>
+				<div class="well" ng-repeat="report in reportData">
+					
+					<label>Report Id: </label><input type="text" value={{report.reportId}} required ng-model="report.reportId">
+					<label>Report Viewer: </label><input type="text" value={{report.viewReportPage}} required ng-model="report.viewReportPage">
+					<label>Default Picture: </label><input type="text" value={{report.reportImagSource}} required ng-model="report.reportImagSource">
+					<label>Report Title: </label><input type="text" value={{report.reportTitle}} ng-model="report.reportTitle">
+					<br/>
+					<label>Image Id: </label><input type="text" value={{report.imagId}} ng-model="report.imagId">
+					<label>Select Id: </label><input type="text" value={{report.selectId}} ng-model="report.selectId">
+					<br/>
+					<div class="row">
+						<div class="col-xs-2">
+							<label>Available Languages: </label>
+							<br/>
+							<select multiple disabled>
+								<option ng-repeat="lang in report.langOptions">{{lang.label}}</option>
+							</select>
+							<br/>
+							<input type="button" value="Manage" ng-click="showLanguageModalReport(report.reportId);">
+						</div>
+						<div class="col-xs-2">
+							<label>Pictures: </label>
+							<br/>
+							<select multiple disabled>
+								<option ng-repeat="(lang, imag) in report.reportDiffLangImages">{{lang}} - {{imag}}</option>
+							</select>
+							<br/>
+							<input type="button" value="Manage" ng-click="showPictureModalReport(report.reportId);">
+						</div>
+					</div>
+					<br/><input type="button" ng-click="deleteInstanceReport(report.reportId);" value="Delete Report">
+					<label>Select element: </label><input type="checkbox" ng-model="report.selected">
+				</div>
+				<div id="manageLanguageReport" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Manage Languages</h4>
+							</div>
+							<div class="modal-body">
+								<span  ng-repeat="lang in languages">
+									<br/><input type="checkbox" ng-model="lang.selected"><label>{{lang.label}} - {{lang.value}}</label>
+								</span>
+								<br/><input type="button" value="Delete Selected" ng-click="deleteSelected();">
+								<br/><input type="button" value="Add New/Change Selected" ng-click="addNewOrChange();">
+								Label:<input type="text" ng-model="newLangLabel" style="width:25%;">
+								Value:<input type="text" ng-model="newLangValue" style="width:25%;">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="managePicturesReport" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Manage Pictures</h4>
+							</div>
+							<div class="modal-body">
+								<span  ng-repeat="(lang, imag) in pictures">
+									<br/><label>{{lang}}</label>
+									<label>-</label>
+									<input type="text" value={{imag}} ng-model="pictures[lang]">
+								</span>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-show="dataLoaded.reportsSection">
+					<center>
+						<input type="button" value="Add report" ng-click="addNewInstanceToReportData();">
+						<input type="button" value="Delete Selected" ng-click="deleteSelectedReport();">
+					</center>
+					<br/>
+				</div>
+			</div>
+<!----------------------->
+<!--DataForViewBook.json-->
+			<div id="DataForViewbook" style="display : {{show('viewbookSection')}};">
+				<br/><center><h1>Data For ViewBook</h1></center>
+				<br/><input type="button" value="Load Data" ng-click="getDataForViewbook();" ng-disabled="dataLoaded.viewbookSection"></center>
+				<input type="button" value="Refresh" ng-click="refreshDataForViewbook();" ng-disabled="!dataLoaded.viewbookSection">
+				<input type="button" value="Save Data" ng-click="saveDataForViewbook();" ng-disabled="!dataLoaded.viewbookSection">
+				<input type="button" value="Discard Changes" ng-click="resetViewbook();" ng-disabled="!dataLoaded.viewbookSection">
+				<br/>
+				<br/>
+				<div class="panel panel-default" ng-repeat="(sourceId, instance) in viewbookData">
+					<div class="panel-heading"><label>Source Id: </label><label>{{sourceId}}</label></div>
+					<div class="panel-body">
+						<div class="panel panel-default" ng-repeat="(lang, objct) in instance">
+							<div class="panel-heading">
+								<a data-toggle="collapse" href="#{{sourceId+lang}}">Language - {{lang}}</a>
+							</div>
+							<div id={{sourceId+lang}} class="collapse">
+								<div class="panel-body">
+									<label>Shortcut Icon: </label><input type="text" value={{objct.shortcutIcon}} ng-model="objct.shortcutIcon">
+									<label>Title: </label><input type="text" value={{objct.title}} ng-model="objct.title">
+									<br/>
+									<ul class="list-group">
+										<li class="list-group-item list-group-item-info" ng-repeat="item in objct.items">
+											<input type="checkbox" ng-model="item.selected">
+											<label>Item Name: </label><input type="text" value={{item.itemName}} ng-model="item.itemName">
+											<label>Image: </label><input type="text" value={{item.image}} ng-model="item.image">
+										</li>
+									</ul>
+									<input type="button" value="Add New" ng-click="addNewInstanceViewbook(objct.items);">
+									<input type="button" value="Delete Selected" ng-click="deleteSelectedViewbook(objct.items);">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+<!------------------------>
+<!--TestForCalender.json-->
+			<div id="TestForCalender" style="display : {{show('calenderSection')}};">
+				<br/><center><h1>Calender Settings</h1></center>
+				<br/><input type="button" value="Load Data" ng-click="getDataForCalender();" ng-disabled="dataLoaded.calenderSection"></center>
+				<input type="button" value="Save Data" ng-click="saveDataForCalender();" ng-disabled="!dataLoaded.calenderSection">
+				<input type="button" value="Discard Changes" ng-click="resetCalender();" ng-disabled="!dataLoaded.calenderSection">
+				<br/>
+				<br/>
+				<div ng-show="dataLoaded.calenderSection">
+					<center>
+						<input type="button" value="Add Event" ng-click="addNewInstanceToCalenderData();">
+					</center>
+					<br/>
+				</div>
+				<div class="panel panel-default" ng-repeat="event in calenderData" emit-last-repeater-element-in-calender-settings>
+					<div class="panel-heading">
+						<label>Title: {{event.testTitle}}</label>
+					</div>
+					<div class="panel-body">
+						<label>Event Title: </label><input type="text" value={{event.testTitle}} ng-model="event.testTitle">
+						<label>Start Date: </label>
+						<input placeholder="Date" type="text" class="datepicker" ng-model="event.selectedDate">
+						<label>Start Time: </label>
+						<input placeholder="Time" type="text" class="timepicker" ng-model="event.selectedTime" style="width:5%;">
+                                                <label>End Date: </label>
+						<input placeholder="Date" type="text" class="datepicker" ng-model="event.selectedEndDate">
+                                                <label>End Time: </label>
+						<input placeholder="Time" type="text" class="timepicker" ng-model="event.selectedTimeEnd" style="width:5%;">
+						<label>Cell Color: </label>
+						<input type="color" name="cellcolor" ng-model="event.cellColor">
+                                                <br/><label>Place: </label>
+						<br/><textarea cols="50" rows="4" ng-model="event.place">{{event.place}}</textarea>
+						<br/><label>Description: </label>
+						<br/><textarea cols="100" rows="12" ng-model="event.testDescription">{{event.testDescription}}</textarea>
+						<br/><input type="button" value="Delete Event" ng-click="deleteInstanceCalender(event.eventId+event.hours+event.minutes)">
+					</div>
+				</div>
+				<div ng-show="dataLoaded.calenderSection">
+					<center>
+						<input type="button" value="Add Event" ng-click="addNewInstanceToCalenderData();">
+					</center>
+					<br/>
+				</div>
+			</div>
+<!------------------------>
+<!--testExternalCall-->
+			<div id="TestExternalCall" style="display : {{show('externalCallSection')}};">
+				<br/><center><h1>External Calls</h1></center>
+				<form>
+				    <label>URL: </label>
+				    <input type="text" ng-model="hostURL">
+				    <label>Query: </label>
+				    <input type="text" ng-model="query">
+				    <label>Method: </label>
+				    <select ng-model="method">
+					<option value="GET">GET</option>
+					<option value="POST">POST</option>
+				    </select>
+				    <button ng-click="click();">Perform</button>
+				    <button ng-click="methods();">Get Methods</button>
+				    <br/>
+				    <br/>
+				    <div ng-show="showParams();">
+					<button ng-click="addParam();" ng-disabled="showJSON();">Add Param</button>
+					<button ng-click="clearParams();">Clear</button>
+					<label>Enter Params in JSON </label><input type="checkbox" ng-model="enableJSON">
+					<div ng-repeat="p in params" ng-hide="showJSON();">
+					    <br/><label>Param Name: </label>
+					    <input type="text" ng-model="p.paramName" placeholder="Enter Param Name">
+					    <label>Param Value: </label>
+					    <input type="text" ng-model="p.paramValue" placeholder="Enter Param Value">
+					</div>
+					<div ng-show="showJSON();">
+					    <textarea cols="64" rows="32" ng-model="jsonObj"></textarea>
+					</div>
+					<br/>
+				    </div>
+				</form>
+				<div id="result">
+				    <pre>{{resp | json}}</pre>
+				</div>
+			</div>
+<!------------------------>
+<!--testCredentialsCall-->
+			<div id="TestCredentialsCall" style="display : {{show('testCredentialsSection')}};">
+				<br/><center><h1>Generate Credentials</h1></center>
+				<br/><button ng-click="generateCred();">GENERATE</button>
+				<br/>Login: {{cred.l}}
+				<br/>Password: {{cred.p}}
+				<br/>Test Language: <select ng-model="testForLang">
+					<option value="eng">English</option>
+					<option value="ndl">Nederlands</option>
+					<option value="dts">Deutsch</option>
+				     </select>
+			</div>
+<!------------------------>
+<!--DataForPoliglot-->
+			<div id="DataForPoliglot" style="display : {{show('poliglotSection')}};">
+				<br/><center><h1>Poliglot Settings</h1></center>
+				<br/><input type="button" value="Load Data" ng-click="getDataForPoliglot();" ng-disabled="dataLoaded.poliglotSection"></center>
+				<input type="button" value="Save Data" ng-click="saveDataForPoliglot();" ng-disabled="!dataLoaded.poliglotSection">
+				<input type="button" value="Discard Changes" ng-click="resetPoliglot();" ng-disabled="!dataLoaded.poliglotSection">
+				<br/>
+				<div ng-show="dataLoaded.poliglotSection">
+					<br/>
+					<center>
+						<input type="button" value="Add Question" ng-click="addNewInstanceToPoliglotData();">
+					</center>
+				</div>
+				<br/>
+				<div class="panel panel-default" ng-repeat="question in poliglotData">
+					<div class="panel-heading">
+						<label>Question {{$index+1}}: </label>
+						<input type="button" value="Delete" ng-click="deleteInstancePoliglot(question.q_id);">
+					</div>
+					<div class="panel-body">
+						<label>Question Id: </label><input type="text" ng-model="question.q_id" required/>
+						<label>Question: </label><input type="text" ng-model="question.question"/>
+						<br/><label>Level: </label>
+						<SELECT ng-model="question.level">
+							<OPTION value="A">A</OPTION>
+							<OPTION value="B">B</OPTION>
+							<OPTION value="C">C</OPTION>
+							<OPTION value="D">D</OPTION>
+							<OPTION value="E">E</OPTION>
+						</SELECT>
+						<label >Language: </label>
+						<SELECT ng-model="question.lang">
+							<OPTION value="eng">English</OPTION>
+							<OPTION value="ndl">Nederlands</OPTION>
+							<OPTION value="dts">Deutsch</OPTION>
+						</SELECT>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<a data-toggle="collapse" href="#{{question.q_id}}">Answers</a>
+								<input type="button" value="Add Answer" ng-click="addNewAnswer(question.q_id);">
+							</div>
+							<div id={{question.q_id}} class="collapse">
+								<div class="panel-body">
+									<div class="well" ng-repeat="answer in question.answers">
+										<label>Answer Id: </label><input type="text" ng-model="answer.a_id" required/>
+										<label>Answer: </label><input type="text" ng-model="answer.answer"/>
+										<label>Correct: </label><input type="checkbox" ng-model="answer.correct"/>
+										<input type="button" value="Delete" ng-click="deleteInstancePoliglot(question.q_id, answer.a_id);">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-show="dataLoaded.poliglotSection">
+					<br/>
+					<center>
+						<input type="button" value="Add Question" ng-click="addNewInstanceToPoliglotData();">
+					</center>
+				</div>
+			</div>
+<!------------------------>
+		</article>
+		</div>
+		<script>
+			var app = angular.module("adminApp", []);
+			//Direcives
+			app.directive("emitLastRepeaterElementInCalenderSettings", 
+				function(){
+					return function(scope){
+							if (scope.$last){
+								scope.$emit('LastCalenderElementRendered');
+							}
+						}
+				}
+			);
+			//----------
+			app.controller("adminController", function($scope, $http){
+				//Actions
+				$scope.$on('LastCalenderElementRendered', function(){
+					$(function(){
+						$("div#TestForCalender > div.panel.panel-default > div.panel-body > input.datepicker").datepicker({
+							dateFormat: "d-m-yy",
+							changeMonth: true,
+						        changeYear: true,
+						});
+						$("div#TestForCalender > div.panel.panel-default > div.panel-body > input.timepicker").timepicker({
+							timeFormat: 'H:i',
+							forceRoundTime: false,
+							step: '15'
+						});
+					});
+					for(var i = 0; i<$scope.calenderData.length; ++i){
+						var m = parseInt($scope.calenderData[i].month) + 1;
+						$scope.calenderData[i].selectedDate = $scope.calenderData[i].day+"-"+ m +"-"+$scope.calenderData[i].year;
+                                                $scope.calenderData[i].selectedEndDate = $scope.calenderData[i].day+"-"+ m +"-"+$scope.calenderData[i].year;
+						$scope.calenderData[i].selectedTime = $scope.calenderData[i].hours+":"+$scope.calenderData[i].minutes;
+                                                $scope.calenderData[i].selectedTimeEnd = $scope.calenderData[i].hoursEnd+":"+$scope.calenderData[i].minutesEnd;
+					}
+				});
+				//---------
+				//Common -------
+				$scope.hostURL='https://agile-waters-10164.herokuapp.com/';
+				$scope.settingsUI = {
+					"publicationsSection" : false,
+					"reportsSection" : false,
+					"viewbookSection" : false,
+					"calenderSection" : false,
+					"externalCallSection" : false,
+					"testCredentialsSection" : false,
+					"poliglotSection" : false
+				};
+
+				$scope.dataLoaded = {
+					"publicationsSection" : false,
+					"reportsSection" : false,
+					"viewbookSection" : false,
+					"calenderSection" : false,
+					"poliglotSection" : false
+				}
+				$scope.switchSection = function(section){
+					for(var key in $scope.settingsUI)
+						$scope.settingsUI[key]=false;					
+					$scope.settingsUI[section]=true;
+					
+				};
+
+				$scope.show = function(section){
+					if($scope.settingsUI[section]==true)
+						return 'block';
+					return 'none';
+				};
+				//Common End-------
+
+				//DataForPublications-------
+				$scope.getDataForPublications = function(){
+					if($scope.dataLoaded.publicationsSection == false){
+						$http.get($scope.hostURL + "getPublications").then(function(response){
+                                                        $http.get($scope.hostURL + "getPublicationsPageSettings").then(function(response2){
+                                                            $scope.publicationData = response.data;
+                                                            var tmp = [];
+                                                            for(var i=0; i<response2.data.carousel.length; ++i){
+                                                                for(var j=0; j<response2.data.carousel[i]["inst"].length; ++j){
+                                                                    response2.data.carousel[i]["inst"][j]["slide"] = i;
+                                                                    tmp.push(response2.data.carousel[i]["inst"][j]);    
+                                                                }
+                                                            }
+                                                            for(var i=0; i<tmp.length; ++i){
+                                                                $scope.publicationData[i].carouselImage = tmp[i].image;
+                                                                $scope.publicationData[i].carouselHeader = tmp[i].header;
+                                                                $scope.publicationData[i].carouselText = tmp[i].text;
+                                                                $scope.publicationData[i].carouselSlideNumber = tmp[i].slide;
+                                                                $scope.publicationData[i].carouselBookId = $scope.publicationData[i].bookId;
+                                                            }
+                                                            $scope.backupCopy = angular.copy($scope.publicationData);
+                                                            $scope.dataLoaded.publicationsSection = true;
+                                                        });
+						});
+					}
+				}
+				$scope.saveDataForPublications = function(){
+					$http.post($scope.hostURL + "DataForPublications", $scope.publicationData);
+				}
+				$scope.addNewInstanceToPublicationData = function(){
+					var newObj = {};
+					newObj["bookDiffLangImages"]={};
+					newObj["langOptions"]=[];
+					newObj["price"]=0;
+					$scope.publicationData.push(newObj);
+				}
+				$scope.deleteInstance = function(id){
+					var i;
+					for(i=0; i<$scope.publicationData.length; ++i){
+						if($scope.publicationData[i].bookId === id){
+							break;
+						}
+					}
+					$scope.publicationData.splice(i, 1);
+				}
+				$scope.deleteSelected = function(id){
+					var i;
+					var indexes = [];
+					for(i=0; i<$scope.publicationData.length; ++i){
+						if($scope.publicationData[i].selected === true){
+							indexes.push(i);
+						}
+					}
+					for(i = indexes.length-1; i>=0; --i){
+						$scope.publicationData.splice(indexes[i], 1);
+					}
+				}
+				$scope.resetPublications = function(){
+					$scope.publicationData = angular.copy($scope.backupCopy);
+				}
+				$scope.updateImages = function(){
+					var newBookDiffLangImages = {};
+					for(var j = 0; j<$scope.book.langOptions.length; ++j){
+						newBookDiffLangImages[$scope.book.langOptions[j].value] = $scope.book.bookDiffLangImages[$scope.book.langOptions[j].value];
+					}
+					$scope.book.bookDiffLangImages = newBookDiffLangImages;
+				}
+				$scope.showLanguageModal = function(id){
+					var i;
+					for(i=0; i<$scope.publicationData.length; ++i){
+						if($scope.publicationData[i].bookId === id){
+							break;
+						}
+					}
+					$scope.languages = $scope.publicationData[i].langOptions;
+					$scope.book = $scope.publicationData[i];
+					$scope.newLangLabel = "";
+					$scope.newLangValue = "";
+					$scope.deleteSelected = function(){
+						var indexes = [];
+						for(var j = 0; j<$scope.languages.length; ++j){
+							if($scope.languages[j].selected === true){
+								indexes.push(j);
+							}
+						}
+						for(i = indexes.length-1; i>=0; --i){
+							$scope.languages.splice(indexes[i], 1);
+						}
+						$scope.updateImages($scope.book, $scope.languages);
+					}
+					$scope.addNewOrChange = function(){
+						var indexes = [];
+						for(var j = 0; j<$scope.languages.length; ++j){
+							if($scope.languages[j].selected === true){
+								indexes.push(j);
+							}
+						}
+						if(indexes.length>0){
+							for(var j = 0; j<indexes.length; ++j){
+								$scope.languages[indexes[j]].label = $scope.newLangLabel;
+								$scope.languages[indexes[j]].value = $scope.newLangValue;
+							}
+						}else{
+							$scope.languages.push({"label": $scope.newLangLabel, "value": $scope.newLangValue});
+						}
+						$scope.updateImages($scope.book, $scope.languages);
+					}
+					$("div#manageLanguage").modal();
+				}
+
+				$scope.showPictureModal = function(id){
+					var i;
+					for(i=0; i<$scope.publicationData.length; ++i){
+						if($scope.publicationData[i].bookId === id){
+							break;
+						}
+					}
+					$scope.pictures = $scope.publicationData[i].bookDiffLangImages;
+					$("div#managePictures").modal();
+				}
+				//DataForPublications End-------
+
+				//DataForReports-------
+				$scope.getDataForReports = function(){
+					if($scope.dataLoaded.reportsSection == false){
+						$http.get($scope.hostURL + "getReports").then(function(response){
+							$scope.reportData = response.data;
+							$scope.backupCopyReport = angular.copy(response.data);
+							$scope.dataLoaded.reportsSection = true;
+						});
+					}
+				}
+				$scope.saveDataForReports = function(){
+					$http.post($scope.hostURL + "DataForReports", $scope.reportData);
+				}
+				$scope.resetReports = function(){
+					$scope.reportData = angular.copy($scope.backupCopyReport);
+				}
+				$scope.addNewInstanceToReportData = function(){
+					var newObj = {};
+					newObj["reportDiffLangImages"]={};
+					newObj["langOptions"]=[];
+					$scope.reportData.push(newObj);
+				}
+				$scope.deleteInstanceReport = function(id){
+					var i;
+					for(i=0; i<$scope.reportData.length; ++i){
+						if($scope.reportData[i].reportId === id){
+							break;
+						}
+					}
+					$scope.reportData.splice(i, 1);
+				}
+				$scope.deleteSelectedReport = function(id){
+					var i;
+					var indexes = [];
+					for(i=0; i<$scope.reportData.length; ++i){
+						if($scope.reportData[i].selected === true){
+							indexes.push(i);
+						}
+					}
+					for(i = indexes.length-1; i>=0; --i){
+						$scope.reportData.splice(indexes[i], 1);
+					}
+				}
+				$scope.updateImagesReport = function(){
+					var newReportDiffLangImages = {};
+					for(var j = 0; j<$scope.report.langOptions.length; ++j){
+						newReportDiffLangImages[$scope.report.langOptions[j].value] = $scope.report.reportDiffLangImages[$scope.report.langOptions[j].value];
+					}
+					$scope.report.reportDiffLangImages = newReportDiffLangImages;
+				}
+				$scope.showLanguageModalReport = function(id){
+					var i;
+					for(i=0; i<$scope.reportData.length; ++i){
+						if($scope.reportData[i].reportId === id){
+							break;
+						}
+					}
+					$scope.languages = $scope.reportData[i].langOptions;
+					$scope.report = $scope.reportData[i];
+					$scope.newLangLabel = "";
+					$scope.newLangValue = "";
+					$scope.deleteSelected = function(){
+						var indexes = [];
+						for(var j = 0; j<$scope.languages.length; ++j){
+							if($scope.languages[j].selected === true){
+								indexes.push(j);
+							}
+						}
+						for(i = indexes.length-1; i>=0; --i){
+							$scope.languages.splice(indexes[i], 1);
+						}
+						$scope.updateImagesReport($scope.report, $scope.languages);
+					}
+					$scope.addNewOrChange = function(){
+						var indexes = [];
+						for(var j = 0; j<$scope.languages.length; ++j){
+							if($scope.languages[j].selected === true){
+								indexes.push(j);
+							}
+						}
+						if(indexes.length>0){
+							for(var j = 0; j<indexes.length; ++j){
+								$scope.languages[indexes[j]].label = $scope.newLangLabel;
+								$scope.languages[indexes[j]].value = $scope.newLangValue;
+							}
+						}else{
+							$scope.languages.push({"label": $scope.newLangLabel, "value": $scope.newLangValue});
+						}
+						$scope.updateImagesReport($scope.book, $scope.languages);
+					}
+					$("div#manageLanguageReport").modal();
+				}
+
+				$scope.showPictureModalReport = function(id){
+					var i;
+					for(i=0; i<$scope.reportData.length; ++i){
+						if($scope.reportData[i].reportId === id){
+							break;
+						}
+					}
+					$scope.pictures = $scope.reportData[i].reportDiffLangImages;
+					$("div#managePicturesReport").modal();
+				}
+				//DataForReports End-------
+				//DataForViewBook-------
+				$scope.getDataForViewbook = function(){
+					if($scope.dataLoaded.viewbookSection == false){
+						$http.get($scope.hostURL + "getBookViewerSettings").then(function(response){
+							$scope.viewbookData = response.data;
+							$scope.backupCopyViewbook = angular.copy(response.data);
+							$scope.dataLoaded.viewbookSection = true;
+						});
+					}
+				}
+				$scope.refreshDataForViewbook = function(){
+					$http.get($scope.hostURL + "getBookViewerSettings").then(function(response){
+						$scope.viewbookData = response.data;
+					});
+				}
+				$scope.saveDataForViewbook = function(){
+					$http.post($scope.hostURL + "DataForBookViewer", $scope.viewbookData);
+				}
+				$scope.resetViewbook = function(){
+					$scope.viewbookData = angular.copy($scope.backupCopyViewbook);
+				}
+				$scope.addNewInstanceViewbook = function(items){
+					items.push({});
+				}
+				$scope.deleteSelectedViewbook = function(items){
+					for(var i = items.length-1; i>=0; --i){
+						if(items[i].selected === true)
+							items.splice(i, 1);
+					}
+				}
+				//DataForViewBook End-------
+
+				//TestForCalender-------
+				$scope.getDataForCalender = function(){
+					if($scope.dataLoaded.calenderSection == false){
+						$http.get($scope.hostURL + "getCalenderEvents").then(function(response){
+							$scope.calenderData = response.data;
+							$scope.backupCopyCalender = angular.copy(response.data);
+							$scope.dataLoaded.calenderSection = true;
+						});
+					}
+				}
+				$scope.saveDataForCalender = function(){
+					for(var i = 0; i<$scope.calenderData.length; ++i){
+						var dateArr = $scope.calenderData[i].selectedDate.split("-");
+                                                var dateArrEnd = $scope.calenderData[i].selectedEndDate.split("-");
+						var m = parseInt(dateArr[1])-1;
+                                                var mEnd = parseInt(dateArrEnd[1])-1;
+						$scope.calenderData[i].day = dateArr[0];
+						$scope.calenderData[i].month = m;
+						$scope.calenderData[i].year = dateArr[2];
+                                                $scope.calenderData[i].dayEnd = dateArrEnd[0];
+						$scope.calenderData[i].monthEnd = mEnd;
+						$scope.calenderData[i].yearEnd = dateArrEnd[2];
+						$scope.calenderData[i].eventId = dateArr[2] + m + dateArr[0];
+						var timeArr = $scope.calenderData[i].selectedTime.split(":");
+                                                var timeArrEnd = $scope.calenderData[i].selectedTimeEnd.split(":");
+						$scope.calenderData[i].hours = timeArr[0];
+						$scope.calenderData[i].minutes = timeArr[1];
+                                                $scope.calenderData[i].hoursEnd = timeArrEnd[0];
+						$scope.calenderData[i].minutesEnd = timeArrEnd[1];
+						
+					}
+					$http.post($scope.hostURL + "DataForCalender", $scope.calenderData);
+				}
+				$scope.resetCalender = function(){
+					$scope.calenderData = angular.copy($scope.backupCopyCalender);
+				}
+
+				$scope.addNewInstanceToCalenderData = function(){
+					var newObj = {};
+					var d = new Date();
+					newObj["selectedDate"] =""+ d.getDate()+"-"+ (d.getMonth()+1) +"-"+d.getFullYear();
+                                        newObj["selectedEndDate"] =""+ d.getDate()+"-"+ (d.getMonth()+1) +"-"+d.getFullYear();
+					newObj["day"]=""+d.getDate();
+					newObj["month"]=""+d.getMonth();
+					newObj["year"]=""+d.getFullYear();
+					newObj["eventId"] = ""+d.getFullYear()+d.getMonth()+d.getDate();
+					newObj["hours"]=""+d.getHours();
+					newObj["minutes"]=("0"+d.getMinutes()).substr(("0"+d.getMinutes()).length-2, 2);
+                                        newObj["hoursEnd"]=""+d.getHours();
+					newObj["minutesEnd"]=("0"+d.getMinutes()).substr(("0"+d.getMinutes()).length-2, 2);
+                                        newObj["place"]="";
+					$scope.calenderData.push(newObj);
+				}
+				$scope.deleteInstanceCalender = function(id){
+					var i;
+					for(i=0; i<$scope.calenderData.length; ++i){
+						if(($scope.calenderData[i].eventId+$scope.calenderData[i].hours+$scope.calenderData[i].minutes) === id){
+							break;
+						}
+					}
+					$scope.calenderData.splice(i, 1);
+				}
+				//TestForCalender End------
+				//TestExternalCall------
+				$scope.params = [];
+				$scope.jsonObj = "";
+				$scope.addParam = function(){
+				    $scope.params.push({paramName:"", paramValue: ""});
+				}
+				$scope.clearParams = function(){
+				    $scope.params = [];
+				    $scope.jsonObj = "";
+				}
+				$scope.showParams = function(){
+				    return $scope.method === 'POST';
+				}
+				$scope.showJSON = function(){
+				    return $scope.enableJSON === true;
+				}
+				$scope.click = function(){
+				    if($scope.method === 'GET'){
+				        $http.get($scope.hostURL+$scope.query).then(function(response){
+				            $scope.resp = response.data;
+				        });
+				    } else if($scope.method === 'POST'){
+				        if($scope.showJSON()===false){
+				            $http.post($scope.hostURL+$scope.query, $scope.params);
+				        } else {
+				            var tmp = JSON.parse($scope.jsonObj);
+				            $http.post($scope.hostURL+$scope.query, tmp);
+				        }
+				    } else {
+				        alert('Select Method');
+				    }
+				}
+				$scope.methods = function(){
+				    $http.get($scope.hostURL+"getMethods").then(function(response){
+				            $scope.resp = response.data;
+				        });
+				}
+				//TestExternalCall End------
+				//TestCredentials ------
+				$scope.generateCred = function(){
+					if($scope.testForLang === undefined){
+						alert("Select language!");
+					} else {
+						$http.get($scope.hostURL+'generateCredentials').then(
+							function(response){
+								$scope.cred = response.data;
+								$scope.cred.lang = $scope.testForLang;
+								$http.post($scope.hostURL+'DataForCredentials',$scope.cred);
+							}
+						);
+					}
+				}
+				//TestCredentials End------
+				//DataForPoliglot ------
+				$scope.getDataForPoliglot = function(){
+					if($scope.dataLoaded.poliglotSection == false){
+						$http.get($scope.hostURL + "getQuestionsForPoliglot").then(function(response){
+							$scope.poliglotData = response.data;
+							var m = {};
+							for(var i = 0; i < $scope.poliglotData.length; ++i){
+								$scope.poliglotData[i].q_id = $scope.poliglotData[i].q_id.split(" ").join("");
+								$scope.poliglotData[i].lang = $scope.poliglotData[i].lang.split(" ").join("");
+								$scope.poliglotData[i].answers = [];
+								m[$scope.poliglotData[i].q_id] = $scope.poliglotData[i];
+								
+							}
+							$http.get($scope.hostURL + "getAnswersForPoliglot").then(function(resp){
+								for(var i = 0; i <resp.data.length; ++i){
+									resp.data[i].q_id = resp.data[i].q_id.split(" ").join("");
+									resp.data[i].a_id = resp.data[i].a_id.split(" ").join("");
+									m[resp.data[i].q_id]["answers"].push(resp.data[i]);
+								}
+								$scope.backupCopyPoliglot = angular.copy($scope.poliglotData);
+								$scope.dataLoaded.poliglotSection = true;
+							});
+						});
+					}
+				}
+				$scope.saveDataForPoliglot = function(){
+					for(var i = 0; i<$scope.poliglotData.length; ++i){
+						var q_id = $scope.poliglotData[i].q_id;
+						if($scope.poliglotData[i].answers !== undefined){
+							for(var j = 0; j<$scope.poliglotData[i].answers.length; ++j){
+								$scope.poliglotData[i].answers[j].q_id = q_id;
+							}
+						}
+					}
+					$http.post($scope.hostURL + "DataForPoliglot", $scope.poliglotData);
+				}
+				$scope.resetPoliglot = function(){
+					$scope.poliglotData = angular.copy($scope.backupCopyPoliglot);
+				}
+				$scope.deleteInstancePoliglot = function(q_id, a_id){
+					var i;
+					for(i=0; i<$scope.poliglotData.length; ++i){
+						if($scope.poliglotData[i].q_id === q_id){
+							break;
+						}
+					}
+					if(a_id === undefined){
+						$scope.poliglotData.splice(i, 1);
+					} else {
+						var j;
+						for(j=0; j<$scope.poliglotData[i]; ++j){
+							if($scope.poliglotData[i].answers[j].a_id === a_id){
+								break;
+							}
+						}
+						$scope.poliglotData[i].answers.splice(j, 1);
+					}
+				}
+
+				$scope.addNewInstanceToPoliglotData = function(){
+					var newObj = {};
+					$scope.poliglotData.push(newObj);
+				}
+
+				$scope.addNewAnswer = function(q_id){
+					if(q_id !== undefined){
+						var newObj = {};
+						var i;
+						for(i=0; i<$scope.poliglotData.length; ++i){
+							if($scope.poliglotData[i].q_id === q_id){
+								break;
+							}
+						}
+						if($scope.poliglotData[i]["answers"] === undefined)
+							$scope.poliglotData[i]["answers"] = [];
+						$scope.poliglotData[i]["answers"].push(newObj);
+					}
+				}
+
+				//DataForPoliglot End------
+			});
+		</script>
+	</body>
+</html>

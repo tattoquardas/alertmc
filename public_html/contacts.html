@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+        <link rel="shortcut icon" href="images/icons/logo.png"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
+        <script src="Scripts/contacts.js"></script>
+        <script src="Scripts/index.js"></script>
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <script>
+            function initialize()
+            {
+              var mapProp = {
+                center: new google.maps.LatLng(50.8523427,4.2768577),
+                zoom:15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              };
+              var mapProp2 = {
+                center: new google.maps.LatLng(51.828932,4.9725348),
+                zoom:15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              };
+              var mapProp3 = {
+                center: new google.maps.LatLng(13.0542863,80.2327761),
+                zoom:15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              };
+              var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+              marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(50.8523427,4.2768577)});
+
+              var map2 = new google.maps.Map(document.getElementById("googleMap2"),mapProp2);
+              marker2 = new google.maps.Marker({map: map2,position: new google.maps.LatLng(51.828932,4.9725348)});
+
+              var map3 = new google.maps.Map(document.getElementById("googleMap3"),mapProp3);
+              marker3 = new google.maps.Marker({map: map3,position: new google.maps.LatLng(13.0542863,80.2327761)});
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+
+        <title class="localize">Contacts</title>
+        <link rel="shortcut icon" href="images/alert.gif"/>
+    </head>
+    
+    <body>
+        <div class="page-wrap">
+            <div id="headSect"></div>
+            <br>
+            <div class="cale localize">
+                CHECK OUR TRAINING CALENDAR!
+                <br>
+                <a  href="calender.html"><c><img src="images/icons/calendar.png"/></c></a>    
+                <br><br>REQUEST FOR THE INFORMATION 
+                <br>
+                <a  href="request.html"><c><img src="images/icons/mail.png"/></c></a>
+            </div>
+            <div class="container-fluid">                
+                <div class="mission-text">
+                    <div class="pageheader localize">
+                        CONTACT US
+                    </div>
+                        <table class="table table-borderless">
+                        <tbody>
+                            <tr style="font-size: 1vw;">
+                                <td class="col-md-4"> 
+                                    <rout>Alert Management Consultants bvba</rout>
+                                    <br>Eikelenbergstraat 20 
+                                    <br>1700 Dilbeek
+                                    <br>Belgium
+                                    <br><a href="tel:+32024669964"><img id="small_icon" src="images/icons/phone.png">+32 (0)2 466 99 64</a>
+                                    <br><img id="small_icon" src="images/icons/fax.png">+32 (0)2 463.39.75
+                                    <br><a href="mailto:info.be@alertmc.com"><img id="small_icon" src="images/icons/email.png">info.be@alertmc.com</a>
+                                                                                       
+                                </td>
+                                <td class="col-md-4"> 
+                                    <rout>Alert Management Consultants bv</rout>
+                                    <br>Boerenstraat 5
+                                    <br>4201 GA Gorinchem
+                                    <br>The Netherlands
+                                    <br><a href="tel:+310183624692"><img id="small_icon" src="images/icons/phone.png">+31 (0)183 62 46 92</a>
+                                    <br><img id="small_icon" src="images/icons/fax.png" >+31 (0)183 62.45.71
+                                    <br><a href="mailto:info.nl@alertmc.com"><img id="small_icon" src="images/icons/email.png" > info.nl@alertmc.com</a>
+                                </td>
+                                <td class="col-md-4">
+                                    <rout>Alert Management Consultants</rout>
+                                    <br>UNITED Appartment 
+                                    <br>No 5/6 , Palat Sankaran Road
+                                    <br>Mahaligapuram, Nungambakkam,
+                                    <br>Chennai-34, India
+                                    <br><a href="tel:914443081436"><img id="small_icon" src="images/icons/phone.png">91-44-43081436/28171378</a>
+                                    <br><a href="mailto:info.india@alertmc.com"><img id="small_icon" src="images/icons/email.png">info.india@alertmc.com</a>                              
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="google-maps" id="googleMap"></div>                                     
+                                </td>
+                                <td class="col-md-4">                         
+                                    <div class="google-maps" id="googleMap2"></div>
+                                </td>
+                                <td class="col-md-4">
+                                    <div class="google-maps" id="googleMap3"></div>   
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="downl" style="width: 100%; text-align: left;">
+                                        <a href="documents/met_de_auto.pdf" download> <c><img style="width: 15%; margin: 0 1%;" src="images/icons/download.png"></c></a>ROUTE DESCRIPTION BY CAR
+                                        <br><br><a href="documents/vanaf_metro.pdf" download> <c><img style="width: 15%; margin: 0 1%;" src="images/icons/download.png"></c></a>ROUTE DESCRIPTION BY SUBWAY
+                                        <br><br><a href="documents/vanaf_trein.pdf" download> <c><img style="width: 15%; margin: 0 1%;" src="images/icons/download.png"></c></a>ROUTE DESCRIPTION BY TRAIN
+                                    </div>  
+                                </td>
+                                <td class="col-md-4">
+                                    <div class="downl" style="width: 100%; text-align: left;">
+                                        <a href="documents/Route_nl_eng.pdf" download> <c><img style="width: 15%; margin: 0 1%;" src="images/icons/download.png"></c></a>ROUTE DESCRIPTION
+                                    </div>
+                                </td>
+                                <td class="col-md-4">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+        <footer id="footer">
+            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+    </body>
+</html>

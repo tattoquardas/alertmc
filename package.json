@@ -1,0 +1,17 @@
+{
+    "name": "BrandNewServer",
+    "version": "1.0.0",
+    "keywords": ["util", "functional", "server", "client", "browser"],
+    "author": "bode",
+    "contributors": [],
+    "dependencies": {
+        "mime" : "*",
+        "nodemailer" : "*",
+        "express" : "*",
+        "pg" : "*",
+        "regex" : "*"
+    },
+    "scripts" : {
+        "start" : "node main.js"
+    }
+}

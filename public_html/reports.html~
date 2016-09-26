@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="Scripts/index.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <title>Reports</title>
+    </head>
+    <body  ng-app="reportsApp" ng-controller="reportsController">
+        <div class="page-wrap">
+            <div id="headSect"></div>
+            <br>
+            <div class="pageheader">
+                REPORTS
+            </div>
+            <div class="container-fluid">    
+                <div class="report_al">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr ng-repeat="data in repeatData">
+                                    <td  class="col-md-3" ng-repeat="x in data" id={{x.reportId}}>
+                                        <div class="imag" id={{x.imagId}}><c><a href={{x.finalURL}}><img src={{x.reportImagSource}} title={{x.reportTitle}} style="width: 70%;"/></a></c></div>
+                                        <br>
+                                        <div class="imag" id={{x.selectId}}>
+                                            <select>
+                                                <option disabled>Choose language</option>
+                                                <option ng-repeat="lang in x.langOptions" value={{lang.value}}" ng-click="changeImage(x.reportId, lang.value)">{{lang.label}}</option>
+                                            </select>
+                                        </div>
+                                        <br>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+	  <script>
+		var app = angular.module("reportsApp", []);
+		app.controller("reportsController", function($scope, $http){
+			$scope.hostURL = 'http://localhost:3000/';
+			$http.get($scope.hostURL + "getReports").then(function(response){
+				$scope.data = response.data;
+				$scope.repeatData = [];
+				var j = -1;
+				for(var i = 0; i<$scope.data.length; ++i){
+					$scope.data[i].finalURL = $scope.data[i].viewReportPage + "?id=" + $scope.data[i].reportId + "&lang=" + $scope.data[i].langOptions[0].value;
+					if(i%4===0){
+						$scope.repeatData.push([]);
+						++j;
+					}
+					$scope.repeatData[j].push($scope.data[i]);
+				}
+				$scope.changeImage = function(reportId, value){
+					var i;
+					for(i = 0; i<$scope.data.length; ++i){
+						if($scope.data[i].reportId == reportId)
+							break;
+					}
+					$scope.data[i].reportImagSource = $scope.data[i].reportDiffLangImages[value];
+					$scope.data[i].finalURL = $scope.data[i].viewReportPage + "?id=" + reportId + "&lang=" + value;
+				}
+			});
+		});
+	  </script>
+        
+        <footer id="footer">
+            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+    </body>
+</html>
+

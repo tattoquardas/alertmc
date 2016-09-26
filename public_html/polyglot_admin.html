@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html ng-app="adminApp" ng-controller="adminController">
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+        <link rel="shortcut icon" href="images/icons/logo.png"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="Scripts/index.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <title class="localize">Polyglot test</title>
+    </head>
+    <body>
+        <div class="page-wrap" style="background-image: url(images/polyglot_back.jpg); background-repeat: no-repeat; background-size: 100%">
+            <div id="headSect"></div>
+            <br>
+            <div style="width: 20%; float: right;"><img src="images/tests_logos/polyglot.png"></div>
+            <div class="mission-text" style="text-align: center; ">                
+                <div class="pageheader localize" style="margin: 0 0 20% 20%;">
+                    POLYGLOT TEST
+                </div>
+                <div class="comm" id="comment_form" style="text-align: center;">
+                    <div>
+                        <form>
+                            <b class="localize">Enter User name:</b>
+                            <br><input style="background-color: #d8d3ef;" type="username" name="username" id="username" value="" placeholder="Username" ng-model="lgn"> 
+                            <br><br>
+                            <b class="localize">Enter Password:</b>
+                            <br><input style="background-color: #d8d3ef;" type="password" name="password" id="password" value="" placeholder="Password" ng-model="pwd">         
+                            <br><br>
+                            <select ng-model="lang">
+                                <option disabled class="localize">Choose language</option>
+                                <option value="eng">English</option>
+                                <option value="ndl">Nederlands</option>
+                                <option value="dts">Deutsch</option>
+                           </select>
+                            <br><br>
+                            <div class="comm" id="comment_form">
+                                <c><input type="button" value="Login" ng-click="submit();"></c>
+                            </div>
+			    <br/>
+			    <div ng-hide="isValid" style="color: red;" class="localize">
+				Invalid login, password or language. Try again!
+			    </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+		var app = angular.module("adminApp", []);
+		app.controller("adminController", function($scope, $http, $location){
+			$scope.hostURL = "https://agile-waters-10164.herokuapp.com/";
+			$scope.isValid = true;
+			$scope.submit = function(){
+				$http.get($scope.hostURL + "login?lgn=" + $scope.lgn + "&pwd=" + $scope.pwd + "&lang=" + $scope.lang).then(function(response){
+					$scope.isValid = true;
+					window.location.href = "polyglot_test.html?label="+response.data["label"]+"&lang=" + $scope.lang;
+				},
+				function(response){
+					$scope.isValid = false;
+				});
+			}
+		});
+	</script>    
+        <footer id="footer">
+            <p>© 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+    </body>
+</html>
+

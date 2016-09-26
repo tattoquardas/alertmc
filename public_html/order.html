@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+        <link rel="shortcut icon" href="images/icons/logo.png"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+	<script src="Scripts/index.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <title class="localize">Make an order</title>
+    </head>
+    <body ng-app="orderApp" ng-controller="orderController">
+        <div class="page-wrap">
+            <div id="headSect"></div>
+                <br>
+            <div class="pageheader localize" ng-show="showOrderForm">
+                MAKE AN ORDER HERE!
+            </div>
+            <div class="pageheader" ng-hide="showOrderForm">
+                THANK YOU FOR ORDER!
+                <br>Your Order ID - {{orderCode}}
+            </div>
+            <div class="mission-text" style="text-align: center;" ng-show="showOrderForm">
+                <div class="comm" id="comment_form">
+                    <form name="orderForm" class="form-horizontal" role="form">
+                        <div>                            
+                            <input type="text" name="firstName" id="f_name" value="" placeholder="First Name" ng-model="firstName" required>
+                            <input type="text" name="lastName" id="l_name" value="" placeholder="Last Name" ng-model="lastName" required>
+                            <input type="email" name="email" id="email" value="" placeholder="Email" ng-model="email" required>              
+                        </div>
+                        <br>
+                        <div>
+                            <input type="text" name="orgName" id="org_name" value="" placeholder="Name of organization" ng-model="org">
+                            <input type="text" name="phone" id="phone" value="" placeholder="Phone number" ng-model="phone" required>
+                            <input type="text" name="vat" id="vat" value="-" placeholder="VAT" ng-model="vat">
+                        </div>
+                        <br>
+                        <div style="text-align: left; margin: 0 0 0 13%;">Delivery address:</div>
+                        <div>                             
+                            <input type="text" name="streetDelivery" id="streetDelivery" value="" placeholder="Street" style="width: 47%;" ng-model="streetDelivery" required>
+                            <input type="text" name="numberDelivery" id="numberDelivery" value="" placeholder="Number" style="width: 14%;" ng-model="numberDelivery" required> 
+                            <input type="number" name="zipDelivery" id="zipDelivery" value="" placeholder="ZIP code" style="width: 14%;" ng-model="zipDelivery" required> 
+                        </div>
+                        <br>
+                        <div>
+                            <input type="text" name="placeDelivery" id="placeDelivery" value="" placeholder="Place" style="width: 46%;" ng-model="placeDelivery" required>
+                            <input type="text" name="countryDelivery" id="countryDelivery" value="" placeholder="Country" style="width: 30%;" ng-model="countryDelivery" required> 
+                        </div>
+                        <br>
+                        <div style="text-align: left; margin: 0 0 0 13%;">
+                            <input type="checkbox" name="same" value="" ng-click="invoiceEqualsDelivery();" ng-model="checked" class="localize"> Delivery and invoice addresses are equal.
+                        </div>
+                        <br>
+                        <div style="text-align: left; margin: 0 0 0 13%;">Invoice address:</div>
+                        <div>                             
+                            <input type="text" name="streetInvoice" id="streetInvoice" value="" placeholder="Street" style="width: 47%;" ng-model="streetInvoice" required>
+                            <input type="text" name="numberInvoice" id="numberInvoice" value="" placeholder="Number" style="width: 14%;" ng-model="numberInvoice" required> 
+                            <input type="number" name="zipInvoice" id="zipInvoice" value="" placeholder="ZIP code" style="width: 14%;" ng-model="zipInvoice" required>
+                        </div>
+                        <br>
+                        <div>
+                            <input type="text" name="placeInvoice" id="placeInvoice" value="" placeholder="Place" style="width: 46%;" ng-model="placeInvoice" required>
+                            <input type="text" name="countryInvoice" id="countryInvoice" value="" placeholder="Country" style="width: 30%;" ng-model="countryInvoice" required> 
+                        </div>                        
+                        <br>
+                        <div>
+                            <textarea rows="3" name="comment" id="comment" placeholder="Comment" style="width: 77%;" ng-model="comment"></textarea>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="report_al">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr ng-repeat="item in records">
+                                            <td style="width: 20%;">
+                                                <div class="imag" id="{{item.bookId}}"><c><a href="BookPages/led_pages.html"><img src={{item.imag}} style="width: 40%;"/></a></c></div>
+                                            </td>
+                                            <td style="font-size: 1vw;">
+                                                <b>Name:</b> {{item.bookName}}                     
+                                                <br><b>Language:</b> {{item.langLabel}}
+                                                <br><span class="glyphicon glyphicon-plus" ng-click="item.quant = item.quant + 1; refreshOverallPrice();" style="cursor:pointer;"></span>
+                                                <b> Quantity: </b> {{item.quant}}
+                                                <span class="glyphicon glyphicon-minus" ng-click="item.quant > 1 ?item.quant = item.quant - 1:item.quant = 1; refreshOverallPrice()" style="cursor:pointer;"></span>                                                
+                                                <br><b>Price: {{item.price}} EURO</b>                                                                                 
+                                                <br><br><span class="glyphicon glyphicon-trash" ng-click="deleteItemFromOrder(item);" style="cursor:pointer;"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  class="col-md-4" style="text-align: center;">
+                                                    <br>
+                                                    <b>TOTAL PRICE:</b> 
+                                            </td>
+                                            <td>
+                                                <br>
+                                                <b style="color: green;">{{overallPrice}} € </b>(Exclusive VAT and Delivery)
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <c><input type="submit" name="submit" value="Order" ng-click="makeOrder();"></c>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+		var app = angular.module("orderApp", []);
+		app.controller("orderController", function($scope, $http){
+			$scope.hostURL = 'https://agile-waters-10164.herokuapp.com/';
+			$scope.subscribe = true;
+                        $scope.showOrderForm = true;
+			$scope.records = [];
+			$scope.overallPrice = 0;
+			$scope.getParam = function(name, url){
+				if (!url)
+					url = window.location.href;
+				name = name.replace(/[\[\]]/g, "\\$&");
+				var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+			        results = regex.exec(url);
+				if (!results)
+					return null;
+				if (!results[2])
+					return '';
+				return decodeURIComponent(results[2].replace(/\+/g, " "));
+			}
+
+			$scope.generateTableWithBooks = function(){
+				var numberOfBooks = $scope.getParam("books");
+				var no = 1;
+				for(var i=0;i<numberOfBooks;){
+					var bookId = $scope.getParam("bookId" + no);
+					var lang = $scope.getParam("lang" + no);
+					var quant = parseInt($scope.getParam("quant" + no));
+					++no;
+					i+=quant;
+					$scope.records.push({"bookId": bookId, "lang": lang, "quant": quant});
+					for(var j=0; j<$scope.data.length; ++j){
+						if($scope.data[j].bookId === bookId){
+							$scope.records[$scope.records.length-1]["bookName"] = $scope.data[j]["bookTitle"];
+							$scope.records[$scope.records.length-1]["price"] = $scope.data[j]["price"];
+							$scope.records[$scope.records.length-1]["imag"] = $scope.data[j]["bookDiffLangImages"][lang];
+							for(var k=0; k<$scope.data[j].langOptions.length; ++k){
+								if($scope.data[j].langOptions[k].value === lang)
+									$scope.records[$scope.records.length-1]["langLabel"] = $scope.data[j].langOptions[k].label;
+							}
+							$scope.overallPrice += $scope.records[$scope.records.length-1]["price"] * quant;
+						}
+					}
+				}
+			}
+			$http.get($scope.hostURL + "getPublications").then(function(response){
+					$scope.data = response.data;
+					$scope.generateTableWithBooks();
+			});
+			$scope.refreshOverallPrice = function(){
+				$scope.overallPrice = 0;
+				for(var i = 0; i<$scope.records.length; ++i)
+					$scope.overallPrice += $scope.records[i]["price"] * $scope.records[i]["quant"];
+			}
+			$scope.deleteItemFromOrder = function(item){
+				var i = 0;
+				while(item != $scope.records[i])
+					++i;
+				$scope.records.splice(i,1);
+				$scope.refreshOverallPrice();
+			}
+			$scope.makeOrder = function(){
+                            var emailValid = $scope.orderForm.email.$valid;
+                            var phoneValid = $scope.orderForm.phone.$valid;
+                            var firstNameValid = $scope.orderForm.firstName.$valid;
+                            var lastNameValid = $scope.orderForm.lastName.$valid;
+                            var streetInvoiceValid = $scope.orderForm.streetInvoice.$valid;
+                            var streetDeliveryValid = $scope.orderForm.streetDelivery.$valid;
+                            var numberInvoiceValid = $scope.orderForm.numberInvoice.$valid;
+                            var numberDeliveryValid = $scope.orderForm.numberDelivery.$valid;
+                            var zipInvoiceValid = $scope.orderForm.zipInvoice.$valid;
+                            var zipDeliveryValid = $scope.orderForm.zipDelivery.$valid;
+                            var placeInvoiceValid = $scope.orderForm.placeInvoice.$valid;
+                            var placeDeliveryValid = $scope.orderForm.placeDelivery.$valid;
+                            var countryInvoiceValid = $scope.orderForm.countryInvoice.$valid;
+                            var countryDeliveryValid = $scope.orderForm.countryDelivery.$valid;
+                            if(emailValid === true && firstNameValid === true && lastNameValid === true && streetInvoiceValid === true && streetDeliveryValid === true && phoneValid === true && numberInvoiceValid === true && numberDeliveryValid === true && zipInvoiceValid === true && zipDeliveryValid === true && placeInvoiceValid === true && placeDeliveryValid === true && countryInvoiceValid === true && countryDeliveryValid === true){
+				var order	=	{
+								"email" : $scope.email,
+								"firstName" : $scope.firstName,
+								"lastName" : $scope.lastName,
+								"org" : $scope.org,
+								"phone" : $scope.phone,
+								"countryDelivery" : $scope.countryDelivery,
+								"countryInvoice" : $scope.countryInvoice,
+								"streetInvoice" : $scope.streetInvoice,
+								"streetDelivery" : $scope.streetDelivery,
+								"numberDelivery" : $scope.numberDelivery,
+								"numberInvoice" : $scope.numberInvoice,
+								"zipDelivery" : $scope.zipDelivery,
+								"zipInvoice" : $scope.zipInvoice,
+								"placeDelivery" : $scope.placeDelivery,
+								"placeInvoice" : $scope.placeInvoice,
+								"vat" : $scope.vat,
+								"comment" : $scope.comment,
+								"books" : $scope.records,
+								"overallPrice" : $scope.overallPrice,
+								"subscribe" : $scope.subscribe
+							}
+				$http.post($scope.hostURL + "DataForOrder", order).then(
+                                    function(response){
+                                        $scope.orderCode = response.data;
+                                    }
+                                );
+                                $scope.showOrderForm = false;
+                            }
+			}
+			$scope.invoiceEqualsDelivery = function(){
+				if($scope.checked === true){
+                                    $scope.countryInvoice = $scope.countryDelivery;
+                                    $scope.streetInvoice = $scope.streetDelivery;
+                                    $scope.numberInvoice = $scope.numberDelivery;
+                                    $scope.placeInvoice = $scope.placeDelivery;
+                                    $scope.zipInvoice = $scope.zipDelivery;
+                                } else {
+                                    $scope.countryInvoice = "";
+                                    $scope.streetInvoice = "";
+                                    $scope.numberInvoice = "";
+                                    $scope.placeInvoice = "";
+                                    $scope.zipInvoice = "";
+                                }
+                                
+			}
+		});
+	</script>
+        <footer id="footer">
+            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+    </body>
+</html>
+

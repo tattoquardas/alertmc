@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+        <link rel="shortcut icon" href="images/icons/logo.png"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="Scripts/forum.js"></script>
+        <script src="Scripts/index.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <title class="localize">Forum</title>
+    </head>
+    
+    <body ng-app="forumApp" ng-controller="forumController">
+        <div class="page-wrap">
+            <div id="headSect"></div>
+            <br>
+            <div class="pageheader localize">
+                WELCOME TO OUR FORUM
+            </div>
+            <div class="container-fluid">
+              <div class="table-responsive">
+               <div class="mission-text">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr bgcolor="006461" style="color: white; font-size: 24px;">
+                            <th class="col-md-1">#</th>
+                            <th class="localize">Topic <a href=""><img style="width: 20px;" src="images/icons/plus.png" id="showCreateTopicForm"></a></th>
+                            <th class="localize">Replies</th>
+                            <th class="localize">Last answer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr bgcolor="33CC99" ng-repeat="x in viewData">
+                            <td>{{x.index}}</td>
+                            <td><a href="topic.html?topicId={{x.realData.topic_id}}">{{x.realData.topic_name}}</a></td>
+                            <td>{{x.realData.replies}}</td>
+                            <td>{{x.realData.lastAnswer}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+               </div>
+              </div>
+            </div>
+
+            <!-- Modal -->
+            <div id="createTopic" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title localize">Create Topic</h4>
+                  </div>
+                  <div class="modal-body">
+                    <label for="topicName" class="localize">Topic name:</label>
+                    <input type="text" id="topicName" ng-model="topicName">
+                    <button type="button" class="btn btn-default" ng-click="createTopic()" data-dismiss="modal">Create</button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        </div>
+
+    <script>
+            var app = angular.module("forumApp", []);
+	    app.filter('nospace', function () {
+			return function (value) {
+		        	return (!value) ? '' : value.replace(/ /g, '');
+		    };
+	    });
+            app.controller("forumController", function($scope, $http){
+                    $scope.hostURL='https://agile-waters-10164.herokuapp.com/'
+                    $scope.createTopic = function(){
+                            if($scope.topicName !== undefined && $scope.topicName !== ""){
+                                var newTopic = {"topicName": $scope.topicName, "replies" : 0, "lastAnswer" : ""};
+                                $http.post($scope.hostURL + "DataForForum", newTopic).then(
+                                        function(response){
+                                            console.log(JSON.stringify(response, null, " "));
+                                            newTopic.topic_id = response.data.topicId;
+                                            $scope.indexes.push($scope.indexes.length+1);
+                                            newTopic.topic_name = newTopic.topicName;
+                                            $scope.viewData.push({"index": $scope.indexes[$scope.indexes.length-1], "realData": newTopic});
+                                        },
+                                        function(response){
+                                            window.location = "400.html";
+                                        }
+                                );
+                            } else {
+                                alert("Topic name is empty");
+                            }
+                    }
+                    $http.post($scope.hostURL + "getForumTopicList").then(
+                            function(response){
+                                    $scope.data = response.data;
+                                    $scope.indexes = [];
+                                    $scope.viewData = [];
+                                    for(var i = 0; i<$scope.data.length; ++i){
+                                            $scope.indexes.push(i+1);
+                                    }
+
+                                    for(var i = 0; i<$scope.data.length; ++i){
+                                            $scope.viewData.push({"index": $scope.indexes[i], "realData": $scope.data[i]});
+                                    }
+                            });
+            });
+    </script>
+        
+        <footer id="footer">
+            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+    </body>
+</html>
+

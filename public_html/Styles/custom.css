@@ -1,0 +1,117 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+html { height: 100%; }
+
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	font-weight: 400;
+	font-size: 100%;
+	height: 100%;
+}
+
+.js body {
+	overflow: hidden;
+}
+
+.container,
+.bb-custom-wrapper,
+.bb-bookblock {
+	width: 100%;
+	height: 100%;
+}
+
+.container {
+	position: relative;
+	left: 0px;
+	-webkit-transition: left 0.3s ease-in-out;
+	-o-transition: left 0.3s ease-in-out;
+	transition: left 0.3s ease-in-out;
+        background-color: #FFFFCC;
+}
+
+.slideRight {
+	left: 240px;
+}
+
+.no-js .container {
+	padding-left: 240px;
+}
+
+.bb-custom-wrapper nav {
+	top: 45%;
+	right: 150px;
+	position: fixed;
+	z-index: 1000;
+}
+
+.bb-custom-wrapper nav span,
+.menu-button {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	top: 0;
+	left: 0;
+	background: #f1103a;
+	border-radius: 50%;
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+	speak: none;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.bb-custom-wrapper nav span:hover,
+.menu-button:hover {
+	background: #000;
+}
+
+.bb-custom-wrapper nav span:last-child {
+	left: 40px;
+}
+
+.no-js .bb-custom-wrapper nav span,
+.no-js .menu-button {
+	display: none;
+}
+
+.js .content {
+	position: absolute;
+	top: 60px;
+	left: 0;
+	width: 100%;
+	bottom: 50px;
+	overflow: hidden;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+.scroller {
+	padding: 10px 5% 10px 5%;
+}
+
+@media screen and (max-width: 800px){
+	.no-js .menu-panel {
+		display: none;
+	}
+
+	.no-js .container {
+		padding: 0;
+	}
+}
+
+@media screen and (max-width: 400px){
+	.menu-panel,
+	.content {
+		font-size: 75%;
+	}
+}

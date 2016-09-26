@@ -1,0 +1,853 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 8-feb-2016, 12:40:46
+    Author     : Alert
+*/
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -30px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.page-wrap:after {
+  height: 50px; 
+}
+
+html, body {
+    height: 100%;
+    width: auto;
+    min-width: 600px;
+    background-color: #FFFFCC !important;
+    font-family:'Josefin Slab', serif !important;
+}
+
+#footer {
+	font-size:0.8vw;
+	color:#AAAAAA;
+	text-align:center;
+}
+/*home page*/
+ul{
+        padding: 0;
+    }
+
+/*green line*/
+/*position*/
+ul.b {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #006461;
+    height: 25px;
+    width: 100%;
+    cursor: pointer;
+}
+
+/*text position*/
+li b {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 4px 4px;
+    text-decoration: none;
+}
+
+/*highlight color*/
+li b:hover {
+    background-color: #686868;
+}
+
+/*active color*/
+li b.active {
+    background-color: #686868;
+}
+
+/*grey line*/
+/*position*/
+ul.a {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #686868;
+    height: 10%;
+    text-align: center;
+}
+
+li {
+        float: outside;
+        display: inline-block;
+        position: relative;
+        line-height: 21px;
+        text-align: center;
+    }
+    
+/*text position*/
+li a {
+    display: block;
+    color: white;
+    font-size: 1.3vw;
+    padding: 20px 10px;
+    line-height: 100%;
+    text-decoration: none;
+    background-color: #686868;
+    text-align: center;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color;
+}
+
+li a:hover  {
+    background-color: white;
+    color: black !important;
+    width: auto;
+}
+
+li.icon {display: none;}
+li.icon:hover  {
+    background-color: white;
+    color: black !important;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width:1100px) {
+   li:not(:first-child) {display: none;}
+   li.icon {
+    float: left;
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width:1100px) {
+  .responsive {position: relative;}
+  .responsive li.icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .responsive li {
+    float: none;
+    display: inline;
+  }
+  .responsive li a {
+    display: block;
+    text-align: left;
+    font-size: 30px;
+  }
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+ul.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: #686868;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 999;
+    opacity: 0;
+}
+
+a.active {
+    background-color: #006461;
+    color: white !important;
+}
+.module {
+  background: url(../images/home/office.jpg) no-repeat;
+  background-position: center;
+  background-size: 100%;
+  padding-bottom: 27%;
+  height: 0;
+  position: relative;
+  overflow: hidden;
+  margin: 0 20% 0 20%;
+  font-family: 'Lato', serif !important;
+  opacity: 0;
+}
+.module > header {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1% 100px;
+  background-attachment: fixed;
+}
+
+.module > header > h1 {
+  margin: 0;
+  font-size: 2vw;
+  color: #006461;
+  border-style: solid;
+  background-color: #F8F8F8 ;
+  opacity: 0.6;
+  border: #000000 ;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.module > imgDescription {
+  background-color: grey;
+  opacity: 0.8;
+  color: white;
+  font-size: 1vw;
+  position: absolute;
+  bottom: 0;
+  top: 100%;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  padding: 1% 0;
+  background-attachment: fixed;
+}
+
+.module > imgDescription > imgDscrTxt {
+  width: 100%;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+
+
+.leftArrow {
+  background: url(../images/icons/new_left_arrow.png);
+  opacity: 0.4;
+  width: 50px;
+  height: 50px;
+  top: 40%;
+  left: -50px;
+  position: absolute;
+  float: left;
+}
+.rightArrow {
+  background: url(../images/icons/new_right_arrow.png);
+  opacity: 0.4;
+  width: 50px;
+  height: 50px;
+  top: 40%;
+  right: -50px;
+  position: absolute;
+  float: right;
+}
+.Arrow{}
+.Arrow:hover{
+    cursor: pointer;
+}
+/* Carousel Control */
+.control-box {
+    text-align: center;
+    margin: 0;
+}
+.carousel-control{
+    background: #666;
+    border-radius: 0px;
+    display: inline-block;
+    font-size: 34px;
+    font-weight: 200;
+    line-height: 18px;
+    opacity: 0.5;
+    padding: 4px 10px 0px;
+    position: static;
+    height: 30px;
+    width: 15px;
+}
+
+li { list-style-type:none;}
+
+::selection { background: #ff5e99; color: #FFFFFF; text-shadow: 0; }
+::-moz-selection { background: #ff5e99; color: #FFFFFF; }
+
+#navigation{
+  position: relative;
+}
+
+/*--------------------------------------------------*/
+
+.logo{
+    float: right; 
+    margin: 0px 15px 0px 30px; 
+    width: 10%;
+    max-width: 100%;
+}
+
+img { max-width:80%; }
+
+c {
+    cursor: pointer;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transition-property: opacity;
+    transition-property: opacity;
+}
+    
+c:hover {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE 8 */
+    filter: alpha(opacity=50); /* IE7 */
+    opacity: 0.4;
+    text-decoration: none;
+}
+
+ul.thumbnails { 
+    margin-bottom: 0;
+    padding: 0;
+    margin: 0;
+    }
+
+ul.thumbnails li, ul.control-box li, ul.b li{
+        display: inline-block !important;
+    }
+
+/* Thumbnail Box */
+.caption h4 {
+    margin: 0;
+    color: #999;
+}
+
+.caption p { 
+    margin: 2% 0 2% 0;
+    color: #444;
+}
+
+.pageheader {
+        text-align: center;
+        font-size: 2vw;
+        opacity: 0;
+        position: relative;
+    }
+.mission-text {
+        font-size: 1.3vw !important;
+        text-align: justify;
+        margin: 0 15% 0 15%;
+        opacity: 0;
+        position: relative;
+    }   
+    
+.report_al {
+        font-size: 1.2vw !important;
+        text-align: left;
+        margin: 0 10% 0 10%;
+    }  
+
+/* contacts*/
+.google-maps {
+        position: relative;
+        padding-bottom: 70%;
+        height: 0;
+        overflow: hidden;
+    }
+    .google-maps iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10px;
+        height: 10px;
+    }
+    
+#small_icon{
+        float: left; 
+        margin: 2% 2% 0 0; 
+        width: 4%;
+    }
+    #showCreateTopicForm{
+        width: 3%; 
+        max-width: 100%;
+    }
+    .downl{
+        width: 5%;
+        color: black; 
+        font-weight: bold;
+        font-size: 0.8vw;
+        text-align: center;
+    }
+    rout{
+        font-size: 1.2vw;
+        font-weight: bold;
+    }
+/*--------------------------------*/
+
+/* Calender Styles */
+
+.calenderStyle {
+	background-color: #666666;
+	color: white;
+        font-weight: bold;
+}
+
+/*----------------*/
+
+/*inputs, comments, buttons*/
+#comment_form input, #comment_form textarea {
+	border: 4px solid rgba(0,0,0,0.1);
+	padding: 8px 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	outline: 0;
+        width: 25%;
+}
+
+
+#comment_form textarea {
+	width: 100%;
+}
+
+#comment_form input[type="submit"], #comment_form input[type="button"], #comment_form input[type="checkbox"] {
+	cursor: pointer;
+	background: -webkit-linear-gradient(top, #efefef, #ddd);
+	background: -moz-linear-gradient(top, #efefef, #ddd);
+	background: -ms-linear-gradient(top, #efefef, #ddd);
+	background: -o-linear-gradient(top, #efefef, #ddd);
+	background: linear-gradient(top, #efefef, #ddd);
+	color: #333;
+	text-shadow: 0px 1px 1px rgba(255,255,255,1);
+	border: 1px solid #ccc;
+        width: auto; 
+        max-width: 100%;
+}  
+    
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+/*----------------------------*/
+div.desc {
+    padding: 15px;
+    text-align: left;
+}
+bord{
+    color:#48669c; 
+    font-weight: bold;
+    font-size: 1.5vw;
+}
+
+.imag{
+    width: auto; 
+    max-width: 100%;
+    text-align: center;
+    float: inside; 
+    margin: auto;
+}
+
+
+/*mission page*/
+.sign {
+    float: left; 
+    margin:0 0 0 0;
+    width: 25%;
+    position: absolute;
+   }
+   .sign figcaption {
+       font-style: italic; 
+       font-size: 0.8vw;
+       margin: 3% 0 0 0;
+       
+   }
+   /*-----------------------*/
+
+/* alti page*/
+
+im_alti {
+    font-size: 0.8vw;
+}
+
+    im_alti_types{
+       width: 50%;
+       margin: 0 20% 0 9%;
+   }
+
+   im_alti_left{
+       position: absolute;
+       top: 12%;
+       width: 12%;
+       max-width: 100%;
+   }
+   
+   im_alti_right{
+       position: absolute;
+       top: 12%;
+       right: 9%;
+       width: 12%;
+       max-width: 100%;
+   } 
+   
+im_alti.active {
+    text-decoration: none;
+}
+
+im_alti:hover{
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE 8 */
+    filter: alpha(opacity=50); /* IE7 */
+    opacity: 0.6;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+ .cont {
+    position: relative;
+}
+
+.box{
+    background:#006461;
+    height:2.1vw;
+    width:2vw;
+    margin: 0 0 0 17%;
+}
+
+#descrip{
+    font-size: 1vw;
+}
+
+   .box_let{
+        color: black;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+   background-color: #FFFF99;
+}
+
+#plus_minus{
+    width: 3%;   
+}
+
+your_type{
+    font-size:2vw; 
+    color: #006461; 
+    font-weight: bold; 
+    text-align: center;
+}
+/*--------------------------*/
+
+
+/*koan page*/
+
+.table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
+    border: none !important;
+}
+
+.small_table{
+    width: 5%;
+    background-color: #48669c;
+    color: white;
+    font-weight: bold;
+    border-style: solid;
+    border-color: #FFFFCC;
+    text-align: center;
+    font-size: 2vw;
+}
+
+.circle{
+    float: right; 
+    width: 30%; 
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -ms-transition-duration: 0.3s; /* IE 9 */
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform, right;
+    transition-property: transform, right;
+    -ms-transition-property: transform, right;
+    box-shadow : 10px 0px 10px 10px grey;
+    
+}
+.circle:hover{
+    ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Safari */
+    transform: rotate(-90deg); /* Standard syntax */
+    cursor: pointer;
+}  
+.umbrella{
+    background: url(../images/icons/umbrella.png) no-repeat;
+    background-position: center;
+    background-size: 75%;
+    padding-bottom: 35%;
+    height: 0;
+    position: relative;
+    overflow: hidden;
+    padding: auto;
+    margin: auto;
+}
+
+koan{
+       width: 6%;
+       -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        -webkit-transition-property: width;
+        transition-property: width;
+        position: absolute;
+       
+   }
+   koan:hover{
+       width: 8%;
+       cursor: pointer;
+   }
+   koan.active{
+       width: 8%;
+   }
+/*--------------------------*/
+
+/*facet page*/
+
+.exmpl{
+    width: 80%;
+    background-color: white;
+    color: black;
+    text-align: left;
+    margin: 0 0 0 15%;
+}
+
+im_facet{ 
+        text-align: center;
+        float: inside; 
+        margin: 0px 10px 0px 10px;
+}
+im_facet.active{
+    box-shadow : 10px 0px 50px 45px black;
+    background-color: black;
+}
+
+im_facet:hover{
+    cursor: pointer;
+    box-shadow : 10px 0px 50px 45px black;
+    background-color: black;
+}
+
+.facet_but{
+    position: relative;
+    float: right;
+    right: 2%;
+    pointer-events: none; 
+}
+
+#table_style{
+    margin: 10% 20% 0 0; width: 100%;
+}
+
+answers{
+}
+
+answers:hover{
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+}
+
+answers.active{
+    color: black;
+    font-weight: bold;
+}
+/*--------------------------*/
+ .cart{
+       width: 15%;
+       left: 0;
+       top: 30%;
+       position: fixed;
+       font-size: 1.2vw;
+       color: red;
+       font-weight: bold;
+       text-align: center;
+ } 
+  
+  
+   /*login page*/
+   #test_icon{
+       width: 100%;
+   }
+   /*------------------------*/
+   
+   /*partners & customs page*/
+   
+   .logo_icon{
+       width: 50%; 
+        text-align: center;
+        float: inside; 
+        margin: 0px 15px 0px 15px;
+   }
+   
+   /*------------------------*/
+   
+   /*polyglot test page*/
+   part{
+       color: white;
+       text-shadow:
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+       font-size: 35px;
+       font-weight: bold;
+       background-color: #bfbfde;
+       
+   }
+   #time{
+       margin: 80px 0 0 5%; 
+       position: fixed; 
+       font-size: 4vw; 
+       background-color: #006461; 
+       color: white; 
+       font-weight: bold; 
+       width: 15%; 
+       text-align: center;
+   }
+   
+   let{
+       font-size: 4vw;  
+       color: white; 
+       font-weight: bold;
+       text-shadow:
+        -1px -1px 0 #000,  
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+   }
+   
+   let:hover{
+       color: black !important;
+       cursor: pointer;
+   }
+   
+   let.active{
+       color: black !important;
+       cursor: pointer;
+   }
+   
+   #let{
+       margin: 200px 0 0 10%; 
+       position: fixed; 
+       background-color: #bfbfde;
+       width: 5%; 
+       text-align: center;
+       display: none;
+   }
+   /*-----------------------*/
+   
+   /*training page*/
+   
+   .cale{
+       float: right;
+       width: 7%;
+       margin: 2% 5% 0 0;
+       color: orangered;
+       font-weight: bold;
+       font-size: 1vw;
+       text-align: center;
+   }
+   
+   /*-----------------------*/
+   
+   /*publications*/
+  
+   .imag:hover{
+       
+   }
+   
+   /*-----------------------*/
+   
+   
+   /*hr page*/
+   pics{
+       width: 10%;
+       -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        -webkit-transition-property: opacity, width;
+        transition-property: opacity, width;
+        opacity: 0;
+        position: absolute;
+       
+   }
+   pics:hover{
+       width: 13%;
+       cursor: pointer;
+   }
+   pics.active{
+       width: 13%;
+   }
+   
+   dimen{ 
+       font-size: 1vw;
+       text-align: center;
+   }
+   
+   dimen:hover{
+       color: #680000;
+       font-weight: bold;
+       cursor: pointer;
+   }
+   
+   dimen.active{
+       color: #680000;
+       font-weight: bold;
+   }
+   /*-----------------------*/
+   /*serv&prod*/
+   .serv{
+    background: url(../images/servProd.png) no-repeat;
+    background-position: center;
+    background-size: 80%;
+    padding-bottom: 50%;
+    height: 0;
+    position: relative;
+    overflow: hidden;
+    padding: auto;
+    margin: auto;
+}
+.punkts{
+    position: absolute;
+    color: black;
+    font-weight: bold;
+    font-size: 1.5vw;
+    text-align: right;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: color, font-size;
+    transition-property: color, font-size;
+}
+.punkts:hover{
+    color: white;
+    font-size: 1.6vw;
+}

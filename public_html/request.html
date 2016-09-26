@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+        <link rel="shortcut icon" href="images/icons/logo.png"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        
+	<script src="Scripts/index.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <title class="localize">Request</title>
+    </head>
+    <body>
+        <div class="page-wrap">
+            <div id="headSect"></div>
+                <br>
+            <div class="pageheader localize">
+                REQUEST FOR THE INFORMATION
+            </div>
+            <br>
+            <div class="mission-text">
+                <form name="seubsForm" class="form-horizontal" role="form" id="submitForm">
+                    <div class="container-fluid">
+                        <table class="table table-bordered" style="width: 100%;">
+                            <thead style="background-color: #006461; color: white; font-weight: bold;">
+                                <td>
+                                    <input type="checkbox" id="trainings" class="all"> TRAININGS
+                                </td>
+                                <td>
+                                    <input type="checkbox" id="hr" class="all"> HR TOOLS
+                                </td>
+                                <td>
+                                    <input type="checkbox" id="services" class="all"> SERVICES
+                                </td>
+                                <td>
+                                    <input type="checkbox" id="tests" class="all"> ONLINE TESTS
+                                </td>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> 
+                                        <input type="checkbox" name="train_koan"  class="trainings" > KOAN
+                                    </td>  
+                                    <td>
+                                        <input type="checkbox" name="hr_koan"  class="hr" > KOAN
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="develop"  class="services" > Development centers
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="test_koan"  class="tests" > KOAN
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="train_alti"  class="trainings" > ALTI
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="hr_alti"  class="hr" > ALTI
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="assess"  class="services" > Assessment centers
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="test_alti"  class="tests" > ALTI
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="train_360"  class="trainings" > 360° Feedback
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="hr_alert"  class="hr" > Alert 360°
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="coach"  class="services" > Coaching
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="test_alert"  class="tests" > Alert 360°
+                                    </td>                                
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="hr_facet"  class="hr" > Facet
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="services" class="services" > 360° Feedback
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="test_facet"  class="tests" > Facet
+                                    </td>                                
+                                </tr> 
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="hr_poly"   class="hr" > Polyglot
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="test_poly"   class="tests" > Polyglot
+                                    </td>                                
+                                </tr>    
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="hr_altio"   class="hr" > ALTIO
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="test_altio"   class="tests" > ALTIO
+                                    </td>                                
+                                </tr>        
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="comm" id="comment_form" style="text-align: left;">     
+                        <div>                            
+                            <input maxlength="40" type="text" name="firstName" id="f_name" placeholder="First Name" required>
+                            <input maxlength="40" type="text" name="lastName" id="l_name" placeholder="Last Name" required>
+                            <input maxlength="40" type="email" name="email" id="email" placeholder="Email" required>                                         
+                        </div>
+                        <br>
+                        <div>
+                            <input maxlength="40" type="text" name="orgName" id="org_name" style="width: 76%;" placeholder="Name of organization"> 
+                        </div>
+                        <br>
+                        <div style="text-align: center;">
+                            <c><input type="button" name="submit" value="Subscribe" id="sendData"></c>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>  
+            $(document).ready(
+                function(){
+                        var hostURL='https://agile-waters-10164.herokuapp.com/';
+                        seubsForm.reset();
+                        $("input[type='checkbox'].all").click(
+                                function(){
+                                    var id = $(this).attr("id");
+                                    $("."+id).prop("checked", this.checked);
+                                }
+                        );
+                        $("input[type='checkbox'][class!='all']").click(
+                                function(){
+                                    var cls = $(this).attr("class");
+                                    var section = $("input[type='checkbox']#"+cls);
+                                    var lenAll = $("input[type='checkbox']."+cls).length;
+                                    var lenSelected = $("input:checked[type='checkbox']."+cls).length;
+                                    $(section).prop("checked", lenAll===lenSelected);
+                                }
+                        );
+                        $("#sendData").click(
+                               function(){
+                                   var subs = {
+                                       "trainings" : [],
+                                       "hr" : [],
+                                       "services" : [],
+                                       "tests" : []
+                                   };
+                                   $.each($("input:checked[type='checkbox'][class!='all']"), function(index){
+                                       subs[this.className].push(this.name);
+                                   });
+                                   var fName = seubsForm.firstName.value;
+                                   var lName = seubsForm.lastName.value;
+                                   var email = seubsForm.email.value;
+                                   var orgName = seubsForm.orgName.value;
+                                   $.post(hostURL + "DataForInformationRequest", JSON.stringify({"subs" : subs, "firstName" : fName, "lastName" : lName, "email" : email, "orgName" : orgName}));
+                               }
+                        );
+                }
+            );
+
+        </script>
+        <footer id="footer">
+            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+    </body>
+</html>

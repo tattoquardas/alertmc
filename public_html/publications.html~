@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="Scripts/index.js"></script>
+        <script src="Scripts/noscroll.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=0.1">
+        <title>Publications</title>
+    </head>
+    <body ng-app="publicationsApp" ng-controller="publicationsController">
+        <div class="page-wrap">
+            <div id="headSect"></div>
+            <br>    
+            <div class="cart" id="scrl"><c><a href={{orderPage}} ng-click="addDataToURL();" disabled><img src="images/icons/cart.png"/> <br>You chose {{goods}} items.</a></c></div>
+            <div class="pageheader" style="margin: 0 40% 0 0;">
+                PUBLICATIONS
+            </div>
+            <div class="container-fluid">    
+                <div class="mission-text">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr ng-repeat="row in data" emit-last-repeater-element>
+                                <td  class="col-md-4">
+                                    <div class="cont">
+                                        <div class="imag" id={{row.bookId}}>
+                                            <a href="{{row.finalURL}}">
+                                                <c><img  src={{row.bookImagSource}} title={{row.bookTitle}} style="width: 70%; "/></c>
+                                                <p id="text" style="position: absolute; top: 40%; left: 35%; opacity: 0; color: #006461; font-weight: bold; z-index: 10; font-size: 40px; text-shadow : 5px 5px 10px #006461;">VIEW</p>    
+                                            </a>
+                                        </div>                                        
+                                    </div>
+                                    <br>
+                                    <div class="imag" id={{row.bookId}}>
+                                        <select>
+                                            <option disabled>Choose language</option>
+                                            <option ng-repeat="lang in row.langOptions" value={{lang.value}} ng-click="changeImage(row.bookId, lang.value)">{{lang.label}}</option>
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <div class="imag"><div class="comm" id="comment_form"><c><input type="submit" value="Order" ng-click="addToCart(row.bookId);"></c></div> </div>
+                                    <br>
+                                </td>
+                                <td ng-bind-html="row.description"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script>
+           var app = angular.module("publicationsApp", ['ngSanitize']);
+           			app.directive("emitLastRepeaterElement", 
+                                    function(){
+                                            return function(scope){
+                                                            if (scope.$last){
+                                                                    scope.$emit('LastElementRendered');
+                                                            }
+                                                    }
+                                    }
+                                );
+           app.controller("publicationsController", function($scope, $http){
+               				$scope.$on('LastElementRendered', function(){
+                                            		$("div.page-wrap > div.container-fluid > div.mission-text > table > tbody > tr > td.col-md-4 > div.cont > div.imag > a > c > img").hover(
+			function(){
+				
+                                $(this).parent().parent().find("#text").animate(  {opacity: '1'});
+			},
+			function(){
+				$(this).parent().parent().find("#text").animate(  {opacity: '0'});
+			}
+		);
+					});
+		   $scope.hostURL = 'https://agile-waters-10164.herokuapp.com/';
+                   $scope.goods=0;
+                   $scope.goodsList = [];
+                   $scope.orderPage = "order.html";
+                   $http.get($scope.hostURL + "getPublications").then(function(response){
+                           $scope.data = response.data;
+                           for(var i = 0; i<$scope.data.length; ++i){
+                                   $scope.data[i].finalURL = $scope.data[i].viewBookPage + "?id=" + $scope.data[i].bookId + "&lang=" + $scope.data[i].langOptions[0].value;
+                                   $scope.data[i].lastIdWithLang = $scope.data[i].bookId+ "&" + $scope.data[i].langOptions[0].value;
+                           }
+                           $scope.changeImage = function(bookId, value){
+                                   var i;
+                                   for(i = 0; i<$scope.data.length; ++i){
+                                           if($scope.data[i].bookId === bookId)
+                                                   break;
+                                   }
+                                   $scope.data[i].bookImagSource = $scope.data[i].bookDiffLangImages[value];
+                                   $scope.data[i].finalURL = $scope.data[i].viewBookPage + "?id=" + bookId + "&lang=" + value;
+                                   $scope.data[i].lastIdWithLang = bookId +"&"+ value;
+                           };
+                           $scope.addToCart = function(bookId){
+                               var i;
+                               for(i = 0; i<$scope.data.length; ++i){
+                                   if($scope.data[i].bookId === bookId)
+                                       break;
+                               }
+                               var bookIdentifier = $scope.data[i].lastIdWithLang.split("&");
+			       for(i = 0; i<$scope.goodsList.length; ++i){
+                                   if($scope.goodsList[i]["bookId"] === bookIdentifier[0] && $scope.goodsList[i]["lang"] === bookIdentifier[1])
+                                       break;
+                               }
+			       if(i<$scope.goodsList.length){
+	                               $scope.goodsList[i]["quant"]++;
+			       } else {
+	                               $scope.goodsList.push({"bookId":  bookIdentifier[0], "lang":  bookIdentifier[1], "quant": 1});
+			       }
+                               $scope.goods++;
+                           };
+                           $scope.addDataToURL = function(){
+                               if($scope.goodsList.length>0){
+                                  $scope.orderPage=$scope.orderPage+"?";
+                                  $scope.orderPage=$scope.orderPage+"books="+$scope.goods+"&";
+                                  for(var i=0; i<($scope.goodsList.length-1); ++i)
+                                       $scope.orderPage+="bookId"+(i+1)+"="+$scope.goodsList[i]["bookId"]+"&"+"lang"+(i+1)+"="+$scope.goodsList[i]["lang"]+"&"+"quant"+(i+1)+"="+$scope.goodsList[i]["quant"]+"&";
+                                  $scope.orderPage+="bookId"+($scope.goodsList.length)+"="+$scope.goodsList[$scope.goodsList.length-1]["bookId"] + "&"+"lang"+($scope.goodsList.length)+"="+$scope.goodsList[$scope.goodsList.length-1]["lang"]+"&"+"quant"+($scope.goodsList.length)+"="+$scope.goodsList[$scope.goodsList.length-1]["quant"];
+
+                               }
+                           };
+                   });
+           });
+        </script>
+        
+        <footer id="footer">
+            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+    </body>
+</html>
+

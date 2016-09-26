@@ -1,0 +1,97 @@
+        <div class="page-wrap">
+            <div id="headSect"></div>
+            <br>
+            
+                <div id="subscribeForm" align="center" class="well-sm" style="overflow:hidden;">
+                    <div class="row">
+                        <div class="col-xs-1" id="verticalLabel" align="left" style="display:block;">
+                                <br>
+                                S<br>
+                                U<br>
+                                B<br>
+                                S<br>
+                                C<br>
+                                R<br>
+                                I<br>
+                                B<br>
+                                E<br>
+                        </div>
+                        <div class="col-xs-11" id="#content">
+                                <label for="first-name">First Name:</label>
+                                <input type="text" class="form-control" id="first-name" ng-model="firstName">
+                                <label for="last-name">Last Name:</label>
+                                <input type="text" class="form-control" id="last-name" ng-model="lastName">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" ng-model="email">
+                                <br/>
+                                <button type="button" class="btn btn-default" ng-click="subscribe()">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="module">
+                    <div class="leftArrow Arrow"></div>
+                    <div class="rightArrow Arrow"></div>
+                    <header>
+                        <h1>Welcome to Alert Managment Consultants!</h1>
+                    </header>
+                    <div class="imgDescription"><div id="imgDscrTxt"></div></div>
+                </div>
+                <br>
+                <div class="mission-text">
+                    <div class="container-fluid">
+                        <ul class="nav nav-tabs">
+                          <li ng-repeat="menuItem in dataForCarousel.menus" ng-class="($index==0) ? 'active' : ''">
+                                <a data-toggle="tab" href="#menu{{$index}}">{{menuItem}}</a>
+                          </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div ng-repeat="item in dataForCarousel.items" id="menu{{$index}}" class="tab-pane fade" ng-class="($index==0) ? 'in active' : ''">
+                                <div class="col-xs-12">
+                                    <div class="carousel slide" id="myCarousel{{$index}}">
+                                        <div class="carousel-inner">
+                                            <div ng-repeat="sld in item.slides" class="item" ng-class="($index==0) ? 'active' : ''">
+                                                <ul class="thumbnails">
+                                                    <li class="col-sm-3" ng-repeat="i in sld.inst">
+                                                        <a href={{i.link}} style="background-color: #FFFFCC"><c><img src={{i.image}} alt="" style="width: 200px;"></c></a>
+                                                        <div class="caption">
+                                                            <h4>{{i.header}}</h4>
+                                                            <p>{{i.text}}</p>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div><!-- /Slide1 -->  
+                                        </div>
+                                    </div><!-- /#myCarousel -->
+                                </div>
+                                <nav id="navigation{{$index+1}}">
+                                   <ul class="control-box">
+                                      <li ><c data-slide="prev" href="#myCarousel{{$index}}" class=""><i class="glyphicon glyphicon-chevron-left"></i></c></li>
+                                      <li><c data-slide="next" href="#myCarousel{{$index}}" class=""><i class="glyphicon glyphicon-chevron-right"></i></c></li>
+                                   </ul>
+                                </nav>      
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.container -->
+            </div>
+        </div>
+        <script>
+             var app = angular.module("indexApp", []);
+             app.controller("indexController", function($scope, $http){
+		$scope.hostURL='http://localhost:3000/';
+		$scope.subscribe = function(){
+			var newSubscr = {"firstName" : $scope.firstName, "lastName" : $scope.lastName, "email" : $scope.email};
+			$http.post($scope.hostURL + "DataForSubscribe", newSubscr);
+		};
+		$http.get($scope.hostURL + "getIndexPageSettings").then(
+			function(response){
+				$scope.dataForCarousel = response.data.carousel;
+			}
+		);
+	});
+        </script>
+        <footer id="footer">
+            <p> &#169 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html ng-app="topicApp" ng-controller="topicController">
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+	<link rel="shortcut icon" href="images/icons/logo.png"/>      
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="Scripts/topic.js"></script>
+        <script src="Scripts/index.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <title>{{topicName}}</title>
+    </head>
+    <body>
+        <div class="page-wrap">
+            <div id="headSect"></div>
+            <br>
+            <div class="pageheader">
+                {{topicName}}
+            </div>
+            <div class="mission-text">
+                <div class="table-responsive">
+                    <div class="container-fluid">          
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr ng-repeat="x in data">
+                                    <td style="width: 15%;">
+                                        <div class = "imag"><img style="width: 50%;" src="images/icons/man.png"/></div>
+                                        <div style="text-align: center">{{x.author}}</div>
+                                        <div style="text-align: center">{{x.comment_date}}</div>
+                                        <div style="text-align: center">{{x.comment_time}}</div>
+                                    </td>
+                                    <td ng-bind-html="x.comment" style="all: revert;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                <form name="commForm">
+                    <div ng-show="showError" class="alert alert-danger" class="localize"> Please fill all required fields </div>
+                    <div class="comm" id="comment_form">
+                        <div>
+                            <input maxlength="40" type="text" name="firstName" id="f_name" value="" placeholder="First Name" ng-model="firstName" required>
+                            <input maxlength="40" type="text" name="lastName" id="l_name" value="" placeholder="Last Name" ng-model="lastName" required>
+                            <input maxlength="40" type="email" name="email" id="email" value="" placeholder="Email" ng-model="email" required>
+                        </div>
+                        <br>
+                        <div>
+                            <textarea id="commentEditor" rows="10" cols="20"></textarea>
+                        </div>
+                        <span>
+                            <c><input type="button" name="submit" value="Add Comment" ng-click="createComment()"></c>
+                        </span>
+                        <span>
+                            <input type="checkbox" name="subs" value="" ng-model="wantSubscribe" class="localize"> I want to subcribe
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+        <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+        <script>
+            tinymce.init({ selector:'textarea' });
+            function getStats(id) {
+                var body = tinymce.get(id).getBody(), text = tinymce.trim(body.innerText || body.textContent);
+                return {
+                    chars: text.length,
+                    words: text.split(/[\w\u2019\'-]+/).length
+                };
+            }
+        </script>
+        <script>
+                var app = angular.module("topicApp", ['ngSanitize', 'ngCookies']);
+                app.controller("topicController", function($scope, $http, $location, $cookies){
+			$scope.hostURL = 'https://agile-waters-10164.herokuapp.com/';
+                        $scope.showError = false;
+                        $(
+                                function(){
+                                    var fName = $cookies.get("firstName");
+                                    var lName = $cookies.get("lastName");
+                                    var email = $cookies.get("email");
+                                    if(fName !== undefined && lName !== undefined && email !== undefined){
+                                        $scope.firstName = fName;
+                                        $scope.lastName = lName;
+                                        $scope.email = email;
+                                    }
+                                }
+                        );
+                        $scope.getParam = function(name, url){
+                                                if (!url)
+                                                        url = window.location.href;
+                                                name = name.replace(/[\[\]]/g, "\\$&");
+                                                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                                results = regex.exec(url);
+                                                if (!results)
+                                                        return null;
+                                                if (!results[2])
+                                                        return '';
+                                                return decodeURIComponent(results[2].replace(/\+/g, " "));
+                                          }
+                        $scope.topicId = $scope.getParam('topicId',$location.absUrl());
+                        $scope.createComment = function(){
+                                var editorStats = getStats("commentEditor");
+                                if(editorStats.words<=1000 && editorStats.words<=5000){
+                                    $scope.comment = tinyMCE.activeEditor.getContent();
+                                    $(
+                                        function(){
+                                            $cookies.put("firstName", $scope.firstName);
+                                            $cookies.put("lastName", $scope.lastName);
+                                            $cookies.put("email", $scope.email);
+                                        }
+                                    );
+                                    var isFirstNameValid = $scope.commForm.firstName.$valid;
+                                    var isLastNameValid = $scope.commForm.lastName.$valid;
+                                    var isEmailValid = $scope.commForm.email.$valid;
+                                    if(isFirstNameValid && isLastNameValid && isEmailValid){
+                                        $(
+                                            function(){
+                                                $cookies.put("firstName", $scope.firstName);
+                                                $cookies.put("lastName", $scope.lastName);
+                                                $cookies.put("email", $scope.email);
+                                            }
+                                        );
+                                        $scope.showError = false;
+                                        var newComment = {"topicId": $scope.topicId, "firstName": $scope.firstName, "lastName": $scope.lastName, "email": $scope.email, "comment": $scope.comment, "wantSubscribe" : $scope.wantSubscribe, "replies" : $scope.data.length+1};
+                                        newComment["comment_date"] = (new Date()).getDate() + "-" + (parseInt((new Date()).getMonth())+1) + "-" + (new Date()).getFullYear();
+                                        newComment["comment_time"] = (new Date()).getHours() + ":";
+                                        if((new Date()).getMinutes()<=9){
+                                            newComment["comment_time"] += "0" + (new Date()).getMinutes();
+                                        } else {
+                                            newComment["comment_time"] += (new Date()).getMinutes();
+                                        }
+                                        $http.post($scope.hostURL + "DataForTopic", newComment).then(
+                                                function(response){
+                                                        if(newComment.wantSubscribe === true){
+                                                                var newSubscriber = newComment;
+                                                                $http.post($scope.hostURL + "DataForSubscribe", newSubscriber);
+                                                        }
+                                                        var tmp = {
+                                                                "comment": $scope.comment,
+                                                                "author": $scope.firstName + " " + $scope.lastName,
+                                                                "comment_date" : newComment["comment_date"],
+                                                                "comment_time" : newComment["comment_time"]
+                                                        }
+                                                        $scope.data.push(tmp);
+                                                }
+                                        );
+                                    } else {
+                                        $scope.showError = true;
+                                    }
+                                } else {
+                                    alert("Comment ");
+                                }
+                        }
+                        $http.get($scope.hostURL + "getCommentsForTopic?topic_id="+$scope.topicId).then(
+                                function(response){
+                                        $scope.data = response.data;
+		                        $http.get($scope.hostURL + "getTopic?topic_id="+$scope.topicId).then(
+						function(resp){
+							$scope.topicName = resp.data.topic_name;
+						}
+					);
+                                });
+                });
+        </script>
+        
+        <footer id="footer">
+            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+    </body>
+</html>
+

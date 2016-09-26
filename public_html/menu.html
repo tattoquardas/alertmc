@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+        
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
+        <link rel="shortcut icon" href="images/icons/logo.png"/>
+        
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="Scripts/menu.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        
+    </head>
+    <body>
+        <div class="langSect">
+            <ul class="b">    
+                <ul style="float:right;list-style-type:none;">
+                    <li><b class="active" id="en">EN</b></li>
+                    <li><b id="nl">NL</b></li>
+                </ul>
+            </ul>
+        </div>    
+        <div class="menuSect" id="nav">
+            <ul class="a">
+                <li><img style="width: 200px;" src="images/Alert.png"></li>
+                <li><a id="home" href="index.html" class="localize">Home</a></li>
+                
+                <li class="dropdown"><a id="about" class="localize">About us &#9662;</a>
+                    <ul class="dropdown-content">
+                        <a href="about_us.html" class="localize">About us</a>
+                        <a href="mission.html" class="localize">Our mission & vision</a>
+                        <a href="serv_prod.html" class="localize">Our Services and Products</a>
+                        <a href="partners.html" class="localize">Partners & customers</a>
+                    </ul>
+                </li>
+                
+                <li class="dropdown"><a id="training" class="localize">Training &#9662;</a>
+                    <ul class="dropdown-content">
+                        <a href="training.html" class="localize">Training</a>
+                        <a href="training_koan.html" class="localize">KOAN Training</a>
+                        <a href="training_alti.html" class="localize">ALTI Training</a>
+                        <a href="training_360.html" class="localize">360° Feedback Training</a>
+                    </ul>
+                </li>
+                
+                <li class="dropdown"><a id="hr" class="localize">HR tools &#9662;</a>
+                    <ul class="dropdown-content">
+                        <a href="hr.html" class="localize">HR tools</a>
+                        <a href="koan.html" class="localize">KOAN</a>
+                        <a href="alti.html" class="localize">ALTI</a>
+                        <a href="360.html" class="localize">Alert 360° </a>
+                        <a href="facet.html" class="localize">Facet</a>
+                        <a href="polyglot.html" class="localize">Polyglot</a>
+                        <a href="altio.html" class="localize">ALTIO</a>
+                    </ul>
+                </li>
+                
+                <li id="assesmentAndDevCenter" class="dropdown"><a class="localize">Services &#9662;</a>
+                    <ul class="dropdown-content">
+                        <a href="services.html" class="localize">Services</a>
+                        <a href="asses_center.html" class="localize">Assessment centers</a>
+                        <a href="develop_center.html" class="localize">Development centers</a>
+                        <a href="coaching.html" class="localize">Coaching</a>
+                        <a href="360_serv.html" class="localize">360° Feedback</a>
+                    </ul>
+                </li>
+                
+                <li><a id="forum" href="forum.html" class="localize">Forum</a></li>
+                
+                <li><a id="blog" href="https://lievencornelis.wordpress.com/" class="localize">Blog</a></li>
+                
+                <li id="pubAndRep" class="dropdown"><a class="localize">Publications&Reports &#9662;</a>
+                    <ul class="dropdown-content">
+                        <a href="publications.html" class="localize">Publications</a>
+                        <a href="reports.html" class="localize">Reports</a>
+                    </ul>
+                </li>
+                
+                <li><a id="contacts" href="contacts.html" class="localize">Contacts</a></li>
+                <li id="tests" class="dropdown"><a class="localize">Online tests &#9662;</a>
+                    <ul class="dropdown-content">
+                        <a href="http://www.alertlearning.be/examples/jsp/New360V4BSL/LoginScreen.jsp?language=English"><img src="images/tests_logos/360.png" id="test_icon"></a>
+                        <a href="#"><img src="images/tests_logos/Facet.jpg" id="test_icon"></a>
+                        <a href="http://www.alertlearning.be/examples/jsp/KOANPMIV4/Login.jsp?lan=EnglishUK"><img src="images/tests_logos/koan.png" id="test_icon"></a>
+                        <a href="polyglot_admin.html"><img src="images/tests_logos/polyglot.png" id="test_icon"></a>
+                        <a href="http://www.alertlearning.be/examples/jsp/HRTOOLBOX/ALTIOV4/Login.jsp?lan=English"><img src="images/tests_logos/altiO.jpg" id="test_icon"></a>
+                        <a href="http://www.alertlearning.be/examples/jsp/HRTOOLBOX/ALTIOV4/Login.jsp?lan=English"><img src="images/tests_logos/alti.png" id="test_icon"></a>
+                    </ul>
+                </li>
+                <li class="icon">
+                    <div href="javascript:void(0);" onclick="myFunction()"><img style="width: 55px;" src="images/icons/menu.png"></div>
+                </li>
+            </ul>
+        </div>
+        <script>
+            function myFunction() {
+                document.getElementsByClassName("a")[0].classList.toggle("responsive");
+            }
+        </script>
+    </body>
+</html>

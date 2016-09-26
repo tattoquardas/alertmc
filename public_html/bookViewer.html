@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js" ng-app="viewerApp" ng-controller="viewerController">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="Styles/jquery.jscrollpane.custom.css" />
+		<link rel="stylesheet" type="text/css" href="Styles/bookblock.css" />
+		<link rel="stylesheet" type="text/css" href="Styles/custom.css" />
+                <link rel="shortcut icon" href={{book.shortcutIcon}}/>
+                <title>{{book.title}}</title>
+	</head>
+	<body>
+		<div id="container" class="container" style="visibility: hidden;">	
+			<div class="bb-custom-wrapper">
+				<div id="bb-bookblock" class="bb-bookblock">
+					<div ng-repeat="x in book.items" class="bb-item" id={{x.itemName}} emit-last-repeater-element>
+						<div class="content" style="overflow-y: scroll;">
+							<div class="scroller">
+                                                            <img ng-src={{x.image}} align="center" style="width: 100%"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+                                <nav style="left: 2%;">
+					<span id="bb-nav-prev">&larr;</span>
+                                </nav>
+                                <nav>
+					<span id="bb-nav-next">&rarr;</span>
+                                </nav>
+			</div>
+				
+		</div><!-- /container -->
+		<script>
+			var app = angular.module("viewerApp", []);
+			app.directive("emitLastRepeaterElement", 
+				function(){
+					return function(scope){
+							if (scope.$last){
+								scope.$emit('LastElementRendered');
+							}
+						}
+				}
+			);
+			app.controller("viewerController", function($scope, $http, $location){
+				$scope.hostURL='https://agile-waters-10164.herokuapp.com/';
+
+				$scope.$on('LastElementRendered', function(){
+						setTimeout(function(){
+							for(var i = 1; i<$scope.book.items.length; ++i){
+								var itemName = $scope.book.items[i].itemName;
+								$("div#"+itemName).css({display: 'none'});
+							}
+							Page.init();
+							$("div#container").css({visibility: 'visible'});
+						}, 1500);
+					});
+				$scope.getParam = function(name, url){
+					if (!url)
+						url = window.location.href;
+					name = name.replace(/[\[\]]/g, "\\$&");
+					var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+				        results = regex.exec(url);
+					if (!results)
+						return null;
+					if (!results[2])
+						return '';
+					return decodeURIComponent(results[2].replace(/\+/g, " "));
+				}
+				$scope.bookId = $scope.getParam('id', $location.absUrl());
+				$scope.lang = $scope.getParam('lang', $location.absUrl());
+				$http.get($scope.hostURL + "getBookViewerSettings").then(function(response){
+					$scope.data = response.data;
+					$scope.book = $scope.data[$scope.bookId][$scope.lang];
+				});
+			});
+		</script>
+		<div id="loadedScripts">
+			<script src="Scripts/modernizr.custom.79639.js"></script>
+			<script src="Scripts/jquery.mousewheel.js"></script>
+			<script src="Scripts/jquery.jscrollpane.min.js"></script>
+			<script src="Scripts/jquerypp.custom.js"></script>
+			<script src="Scripts/jquery.bookblock.js"></script>
+			<script src="Scripts/page.js"></script>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="shortcut icon" href="images/icons/logo.png"/>
+        <link rel="stylesheet" href="Styles/styles.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="Scripts/calender.js"></script>
+        <script src="Scripts/index.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <title class="pageheader localize">Training calendar</title>
+    </head>
+    <body ng-app="calenderApp" ng-controller="calenderController" style="font-size: 1vw;">
+        <div class="page-wrap">
+	    <div id="headSect"></div>
+	    <br>
+            <div class="pageheader localize">
+                TRAINING CALENDAR
+            </div>
+	    <div class="container-fluid">
+		<div id="calender" class="well-lg calenderStyle">		
+			<div id="calenderHeader">
+					<form role="form">
+						<div class="row">
+							<div class="col-xs-2">
+                                                            <center><h1 id="selectedMonth" style="font-size: 2.5vw;"></h1></center>
+							</div>
+							<br/>
+							<div class="col-xs-1">
+								Month:<br/>
+								<select class="form-control" id="month" style="font-size: 1vw;"></select>
+							</div>
+							<div class="col-xs-1">
+								Year:<br/>
+								<select class="form-control" id="year" style="font-size: 1vw;"></select>
+							</div>
+							<div class="col-xs-1">
+								<br/>
+                                                                <button type="button" class="btn btn-primary" id="showButton" ng-click="fillData()" style="font-size: 1vw;">Show calender</button>
+							</div>
+						</div>
+					</form>
+			</div>
+			<br/>
+			<div class="row">
+				<div id="calenderTable" class="col-xs-9">
+					<table  style="width: 100%; background-color: #686868;" border="1">
+						<thead>
+							<tr style="background-color: #006461;">
+								<th>
+									<center>Monday</center>
+								</th>
+								<th>
+									<center>Tuesday</center>
+								</th>
+								<th>
+									<center>Wednesday</center>
+								</th>
+								<th>
+									<center>Thursday</center>
+								</th>
+								<th>
+									<center>Friday</center>
+								</th>
+								<th>
+									<center>Saturday</center>
+								</th>
+								<th>
+									<center>Sunday</center>
+								</th>
+							</tr>
+						</thead>
+						<tbody id="dates">
+						</tbody>
+					</table>
+				</div>
+				<div id=EventDisplay" class="col-xs-3">
+					<div id="future">
+						<h3 align="center" style="font-size: 2.5vw;">Future Events</h3>
+						<table style="width: 100%; background-color: #686868;" border="1">
+							<thead>
+								<tr style="background-color: #006461;">
+									<th>
+										<center><h3 style="font-size: 2vw;">Date/Time</h3></center>
+									</th>
+									<th>
+										<center><h3 style="font-size: 2vw;">Event Name</h3></center>
+									</th>
+								</tr>
+							</thead>
+							<tbody id="dates">
+								<tr ng-repeat="event in eventsFuture | limitTo:4">
+									<td>
+										<center>{{event.day}}.{{(event.month+1) | number}}.{{event.year}}, {{event.hours}}:{{event.minutes}}</center>
+									</td>
+									<td>
+										<center><b>{{event.testTitle}}</b></center>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div id="past">
+						<h3 align="center" style="font-size: 2.5vw;">Past Events</h3>
+						<table  style="width: 100%; background-color: #686868;" border="1">
+							<thead>
+								<tr style="background-color: #006461;">
+									<th>
+										<center><h3 style="font-size: 2vw;">Date/Time</h3></center>
+									</th>
+									<th>
+										<center><h3 style="font-size: 2vw;">Event Name</h3></center>
+									</th>
+								</tr>
+							</thead>
+							<tbody id="dates">
+								<tr ng-repeat="event in eventsPast | limitTo:4">
+									<td>
+										<center>{{event.day}}.{{(event.month+1) | number}}.{{event.year}}, {{event.hours}}:{{event.minutes}}</center>
+									</td>
+									<td>
+										<center><b>{{event.testTitle}}</b></center>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br/>
+		    <!-- Modal -->
+		    <div id="eventModal" class="modal fade" role="dialog">
+			    <div class="modal-dialog">
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				    		<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h1 class="modal-title"></h1>
+						</div>
+						<div class="modal-body">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+				    </div>
+
+			    </div>
+		    </div>
+		    <!-- Modal -->
+		    <div id="registerModal" class="modal fade" role="dialog">
+			    <div class="modal-dialog">
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				    		<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h1 align="center" class="modal-title"> Registration </h1>
+							<h3 id="regEventName">Event Name: <b><span>Name</span></b> </h3>
+							<h3 id="regEventTime">Event Time: <b><span>Time</span></b> </h3>
+						</div>
+						<form name="registerForm" role="form" ng-submit="postRegisterForm();">
+							<div class="modal-body">
+								<center>
+								<table style="width:50%;">
+									<tr>
+										<td style="width:25%;"><label>First Name</label></td><td style="width:75%;"><input name="first" type="text" placeholder="First Name" ng-model="postRegisterFormData.firstName"/></td>
+									</tr>
+									<tr>
+										<td style="width:25%;"><label>Last Name</label></td><td style="width:75%;"><input name="last" type="text" placeholder="Last Name" ng-model="postRegisterFormData.lastName"/></td>
+									</tr>
+									<tr>
+										<td style="width:25%;"><label>Organization</label></td><td style="width:75%;"><input name="org" type="text" placeholder="Organization" ng-model="postRegisterFormData.org"/></td>
+									</tr>
+									<tr>
+										<td style="width:25%;"><label>Address</label></td><td style="width:75%;"><input name="addr" type="text" placeholder="Address" ng-model="postRegisterFormData.addr"/></td>
+									</tr>
+									<tr>
+										<td style="width:25%;"><label>Tel:</label></td><td style="width:75%;"><input type="text" name="phone" placeholder="Phone" ng-model="postRegisterFormData.phone"/></td>
+									</tr>
+									<tr>
+										<td style="width:25%;"><label>E-mail</label></td><td style="width:75%;"><input type="email" name="email" placeholder="E-mail" ng-model="postRegisterFormData.email"/></td>
+									</tr>
+								</table>
+								</center>
+							</div>
+							<div class="modal-footer">
+								<input type="submit" class="btn btn-default" value="Submit"/>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+				    </div>
+
+			    </div>
+		    </div>
+	    </div>
+        </div>
+	    <script>
+		var app = angular.module("calenderApp", []);
+		app.controller("calenderController", function($scope, $http){
+			$scope.hostURL='https://agile-waters-10164.herokuapp.com/';
+			$scope.postRegisterForm = function(){
+				$http.post($scope.hostURL + "RegisterForEvent", $scope.postRegisterFormData);
+			}
+			$scope.fillData = function(){
+					var today = new Date();
+					$("div.container-fluid > div#calender > div.row > div#calenderTable > table > tbody#dates > tr > td#"+today.getFullYear()+today.getMonth()+today.getDate()).css({background: "red"});
+					for(var i=0; i<$scope.data.length; ++i){
+						var curId = $scope.data[i].year+$scope.data[i].month+$scope.data[i].day;
+						var cell = $("div.container-fluid > div#calender > div.row >div#calenderTable > table > tbody#dates > tr > td#"+curId);
+						if($scope.eventBucket[curId].length<=1)
+							$(cell).css({background: $scope.data[i].cellColor, border: "4px solid green"});
+						else
+							$(cell).css({border: "4px solid green"});
+						var container = $("div.container-fluid > div#calender > div.row> div#calenderTable > table > tbody#dates > tr > td#"+curId+" > div.cell > center > div.eventName");
+						var title="<b>";
+						for(var j=0; j<$scope.eventBucket[curId].length; ++j){
+							if(j<($scope.eventBucket[curId].length - 1))
+								title+=$scope.eventBucket[curId][j].testTitle+", ";
+							else
+								title+=$scope.eventBucket[curId][j].testTitle;
+						}
+						title+="</b>";
+						$(container).html(title);
+					}
+					$("div.container-fluid > div#calender > div.row > div#calenderTable > table > tbody#dates > tr > td.nonempty-cell").click(
+						function(){
+							var tdId = $(this).attr('id');
+							if($scope.eventBucket[tdId].length<=1){
+								var i;
+								for(i = 0; i<$scope.data.length; ++i){
+									if(tdId === $scope.data[i].eventId){
+										break;
+									}
+								}
+								if(i<$scope.data.length){
+									$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-header > h1.modal-title").html($scope.data[i].testTitle);
+									$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-body").html("<b>When: "+$scope.data[i].hours+":"+$scope.data[i].minutes+", "+$scope.data[i].day+"."+(parseInt($scope.data[i].month)+1)+"."+$scope.data[i].year+"<br>End: " + $scope.data[i].hoursEnd+":"+$scope.data[i].minutesEnd+", "+$scope.data[i].dayEnd+"."+(parseInt($scope.data[i].monthEnd)+1)+"."+$scope.data[i].yearEnd + "<br>Place: " + $scope.data[i].place + "</b><br/>"+$scope.data[i].testDescription);
+									$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-footer").html("<button type=\"button\" class=\"btn btn-default\" id=\"regButton\" data-dismiss=\"modal\">Register</button><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>");
+									$("button#regButton").click(
+										function(){
+											$("h3#regEventName > b > span").html($scope.data[i].testTitle);
+											$("h3#regEventTime > b > span").html($scope.data[i].hours+":"+$scope.data[i].minutes+", "+$scope.data[i].day+"."+(parseInt($scope.data[i].month)+1)+"."+$scope.data[i].year);
+											$scope.postRegisterFormData = {};
+                                                                                        $scope.postRegisterFormData["eventId"] = $scope.data[i].eventId;
+											$("div#registerModal").modal();	
+										}
+									);
+									$("div#eventModal").modal();
+								}
+							} else {
+								var listOfEvents = $scope.eventBucket[tdId];
+								$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-header > h1.modal-title").html("Today: "+listOfEvents[0].day+"."+(parseInt(listOfEvents[0].month)+1)+"."+listOfEvents[0].year);
+								var text = "<table class=\"table table-bordered table-hover\">";
+								text+= "<thead><tr><th>Time</th><th>Traning Name</th></tr></thead><tbody>";
+								for(var i=0; i<listOfEvents.length;++i){
+									text+="<tr id=\""+tdId+listOfEvents[i].hours+listOfEvents[i].minutes+"\"><td>"+listOfEvents[i].hours+":"+listOfEvents[i].minutes+"</td><td>"+listOfEvents[i].testTitle+"</td></tr>"
+								}
+								text+="</tbody></table>"
+								$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-body").html(text);
+								$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-footer").html("<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>");
+								var clk = function(){
+										var prevHeaderState = $("div#eventModal > div.modal-dialog > div.modal-content > div.modal-header").clone();
+										var prevBodyState = $("div#eventModal > div.modal-dialog > div.modal-content > div.modal-body").clone();
+										var prevFooterState = $("div#eventModal > div.modal-dialog > div.modal-content > div.modal-footer").clone();
+										var Id = $(this).attr("id");
+										var i;
+										for(i = 0; i<$scope.data.length; ++i){
+											if(Id === $scope.data[i].eventId+$scope.data[i].hours+$scope.data[i].minutes){
+												break;
+											}
+										}
+										if(i<$scope.data.length){
+											$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-header > h1.modal-title").html($scope.data[i].testTitle);
+											$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-body").html("<b>When: "+$scope.data[i].hours+":"+$scope.data[i].minutes+", "+$scope.data[i].day+"."+(parseInt($scope.data[i].month)+1)+"."+$scope.data[i].year+"<br>End: " + $scope.data[i].hoursEnd+":"+$scope.data[i].minutesEnd+", "+$scope.data[i].dayEnd+"."+(parseInt($scope.data[i].monthEnd)+1)+"."+$scope.data[i].yearEnd + "<br>Place: " + $scope.data[i].place + "</b><br/>"+$scope.data[i].testDescription);
+											$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-footer").html("<button type=\"button\" class=\"btn btn-default\" id=\"regButton\" data-dismiss=\"modal\">Register</button><button type=\"button\" class=\"btn btn-default\" id=\"backButton\">Back</button><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>");
+											$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-footer > button#backButton").click(
+		function(){
+			$("div#eventModal > div.modal-dialog > div.modal-content").html("");
+			$("div#eventModal > div.modal-dialog > div.modal-content").prepend(prevFooterState);
+			$("div#eventModal > div.modal-dialog > div.modal-content").prepend(prevBodyState);
+			$("div#eventModal > div.modal-dialog > div.modal-content").prepend(prevHeaderState);
+			$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-body > table > tbody > tr").click(
+									clk
+								);
+
+		}
+);
+							$("button#regButton").click(
+								function(){
+									$("h3#regEventName > b > span").html($scope.data[i].testTitle);
+									$("h3#regEventTime > b > span").html($scope.data[i].hours+":"+$scope.data[i].minutes+", "+$scope.data[i].day+"."+(parseInt($scope.data[i].month)+1)+"."+$scope.data[i].year);
+									$scope.postRegisterFormData = {};
+                                                                        $scope.postRegisterFormData["eventId"] = $scope.data[i].eventId;
+									$("div#registerModal").modal();									
+								}
+							);								}
+									}
+								$("div#eventModal > div.modal-dialog > div.modal-content > div.modal-body > table > tbody > tr").click(
+									clk
+								);
+								$("div#eventModal").modal();
+							}
+						}
+					);
+			}
+			$scope.compareDates = function(a,b){
+				var aY = parseInt(a.year);
+				var bY = parseInt(b.year);
+				var aM = parseInt(a.month);
+				var bM = parseInt(b.month);
+				var aD = parseInt(a.day);
+				var bD = parseInt(b.day);
+				var aH = parseInt(a.hours);
+				var bH = parseInt(b.hours);
+				var aMins = parseInt(a.minutes);
+				var bMins = parseInt(b.minutes);
+				if(aY!=bY)
+					return aY-bY;
+				else if(aM!=bM)
+					return aM-bM;
+				else if(aD!=bD)
+					return aD-bD;
+				else if(aH!=bH)
+					return aH-bH;
+				else
+					return aMins-bMins;
+				
+			}
+			$http.get($scope.hostURL + "getCalenderEvents").then(
+				function(response) {
+				        $scope.data = response.data;
+					var today = new Date();
+					var a = {"year": today.getFullYear(), "month": today.getMonth(), "day": today.getDate()};
+					$scope.eventsFuture = [];
+					$scope.eventsPast = [];
+					$scope.eventBucket = {};
+					$scope.data.sort($scope.compareDates);
+					for(var i = 0; i<$scope.data.length; ++i){
+						if($scope.compareDates(a, $scope.data[i])<=0){
+							$scope.eventsFuture.push($scope.data[i]);
+						}else{
+							$scope.eventsPast.push($scope.data[i]);
+						}
+						if($scope.data[i].eventId in $scope.eventBucket){
+							$scope.eventBucket[$scope.data[i].eventId].push($scope.data[i]);
+						} else {
+							$scope.eventBucket[$scope.data[i].eventId] = [];
+							$scope.eventBucket[$scope.data[i].eventId].push($scope.data[i]);
+						}
+					}
+					$scope.eventsFuture.sort($scope.compareDates);
+					$scope.eventsPast.sort($scope.compareDates);
+                                        $scope.eventsPast.reverse();
+					$scope.fillData();
+			});
+
+		});
+	    </script>
+	    <footer id="footer">
+		 <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+	    </footer>
+    </body>
+</html>
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html ng-app="topicApp" ng-controller="topicController">
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">       
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="Scripts/topic.js"></script>
+        <script src="Scripts/index.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <title>{{data.topicName}}</title>
+    </head>
+    <body>
+        <div class="page-wrap">
+            <div id="headSect"></div>
+            <br>
+            <div class="pageheader">
+                TOPIC: {{data.topicName}}
+            </div>
+            <div class="mission-text">
+                <div class="table-responsive">
+                    <div class="container-fluid">          
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr ng-repeat="x in data">
+                                    <td  class="col-md-2">
+                                        <div class = "imag" id="leder"><img src="images/icons/man.png"/></div>
+                                        <div style="text-align: center">{{x.author}}</div>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            {{x.comment}}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                <div class="comm" id="comment_form">
+                    <div>
+                        <input type="text" name="name" id="f_name" value="" placeholder="First Name" ng-model="firstName">
+                        <input type="text" name="name" id="l_name" value="" placeholder="Last Name" ng-model="lastName">
+                        <input type="email" name="email" id="email" value="" placeholder="Email" ng-model="email">
+                    </div>
+                    <br>
+                    <div>
+                        <textarea rows="10" name="comment" id="comment" placeholder="Comment" ng-model="comment"></textarea>
+                    </div>
+                    <span>
+                        <c><input type="button" name="submit" value="Add Comment" ng-click="createComment()"></c>
+                    </span>
+                    <span>
+                        <input type="checkbox" name="subs" value="" ng-model="wantSubscribe"> I want to subcribe
+                    </span>
+                </div>
+            </div>
+        </div>
+        <script>
+                var app = angular.module("topicApp", []);
+                app.controller("topicController", function($scope, $http, $location){
+			$scope.hostURL = 'http://localhost:3000/';
+                        $scope.getParam = function(name, url){
+                                                if (!url)
+                                                        url = window.location.href;
+                                                name = name.replace(/[\[\]]/g, "\\$&");
+                                                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                                results = regex.exec(url);
+                                                if (!results)
+                                                        return null;
+                                                if (!results[2])
+                                                        return '';
+                                                return decodeURIComponent(results[2].replace(/\+/g, " "));
+                                          }
+                        $scope.topicId = $scope.getParam('topicId',$location.absUrl());
+                        $scope.createComment = function(){
+                                var newComment = {"topicId": $scope.topicId, "firstName": $scope.firstName, "lastName": $scope.lastName, "email": $scope.email, "comment": $scope.comment, "wantSubscribe" : $scope.wantSubscribe};
+                                $http.post($scope.hostURL + "DataForTopic", newComment).then(
+                                        function(response){
+                                                /*newTopic.topicId = response.data.topicId;
+                                                newTopic.replies = 0;
+                                                newTopic.lastAnswer = "";*/
+                                                //alert(JSON.stringify(newTopic));
+                                        }
+                                );
+                        }
+                        $http.get($scope.hostURL + "getCommentsForTopic?topic_id="+$scope.topicId).then(
+                                function(response){
+                                        $scope.data = response.data;
+                                });
+                });
+        </script>
+        
+        <footer id="footer">
+            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+        </footer>
+    </body>
+</html>
+

@@ -1,0 +1,23 @@
+{
+	"eng" : {
+			"A" : "A. Section 1 - Eng",
+			"B" : "B. Section 2 - Eng",
+			"C" : "C. Section 3 - Eng",
+			"D" : "D. Section 4 - Eng",
+			"E" : "E. Section 5 - Eng"
+		},
+	"ndl" : {
+			"A" : "A. Section 1 - Ndl",
+			"B" : "B. Section 2 - Ndl",
+			"C" : "C. Section 3 - Ndl",
+			"D" : "D. Section 4 - Ndl",
+			"E" : "E. Section 5 - Ndl"
+		},
+	"dts" : {
+			"A" : "A. Section 1 - Dts",
+			"B" : "B. Section 2 - Dts",
+			"C" : "C. Section 3 - Dts",
+			"D" : "D. Section 4 - Dts",
+			"E" : "E. Section 5 - Dts"
+		}
+}

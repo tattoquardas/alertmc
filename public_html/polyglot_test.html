@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html ng-app="testApp" ng-controller="testController">
+    <head>
+        <link rel="stylesheet" href="Styles/styles.css">
+        <link rel="shortcut icon" href="images/icons/logo.png"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="Scripts/index.js"></script>
+        <script src="Scripts/noscroll.js"></script>
+        <script src="Scripts/polyglot.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
+        <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
+        <title class="localize">Polyglot test</title>
+    </head>
+    <body>
+        <div class="page-wrap" style="background-image: url(images/poly_test_back.jpg); background-repeat: no-repeat; background-size: 100% 100%">
+            <div id="headSect"></div>
+            <br>
+            <div style="width: 20%; float: right;"><img src="images/tests_logos/polyglot.png"></div>
+            <div id="time" class="scrl"></div>
+            <div id="let" class="scrl">  
+                <let id="A" class="active">A</let>
+                <br><let id="B">B</let>
+                <br><let id="C">C</let>
+                <br><let id="D">D</let>
+                <br><let id="E">E</let>
+            </div>
+            
+            <div class="mission-text">
+                <div class="pageheader" style="margin: 0 0 0 20%;" class="localize">
+                    POLYGLOT TEST
+                </div>    
+                <div style="margin: 0 10% 0 10%">
+                    <div class="comm" id="comment_form">
+                        <div class="localize">Instructions:</div>
+                        <div class="localize"> You have 30 minutes to complete PolyGlot English. If you don't know the answer to a particular question, 
+                        we suggest that you proceed with the other questions and that you return to the non-answered ones after completing the test.
+                        </div>
+                        <div class="localize">Please follow the instructions given at the beginning of each part of the test.</div>
+                        <br>
+                        <span class="localize">When you are ready, click</span> <c><input id="start" type="button" name="submit" value="Start"></c>
+                    </div>
+                    <form id="test">
+                    </form>
+                </div>       
+            </div>
+        </div>
+        
+        <footer>
+            <div id="footer"><p>© 1991 - 2016 Alert Managment Consultants</p></div>
+        </footer>
+    </body>
+</html>
+
