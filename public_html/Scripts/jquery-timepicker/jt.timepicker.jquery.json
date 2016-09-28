@@ -18,7 +18,7 @@
 		"jquery": ">=1.7"
 	},
 	"keywords": [ "timepicker", "time", "picker", "ui", "calendar", "input", "form" ],
-	"homepage": "https://jonthornton.github.com/jquery-timepicker/",
+	"homepage": "http://jonthornton.github.com/jquery-timepicker/",
 	"bugs": {
 		"url": "https://github.com/jonthornton/jquery-timepicker/issues"
 	},

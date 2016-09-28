@@ -22,7 +22,7 @@ var serverSettings = {
     
     settingsDirectory : "Settings",
     
-    conString : "pg://fbdfsqfaqsyfev:lGozRRrF_aCe42pGZCU1asw2c7@ec2-54-235-199-36.compute-1.amazonaws.com/d7k98vi1h94arh",
+    conString : "pg://postgres:postgres@localhost:5432/alertDB",
     
     emailServer : "no-reply@alertmc.com",
     
@@ -81,7 +81,6 @@ var serverSettings = {
             DataForInformationRequest : "Params : JSON object"
         }
     }
-    
 };
 
 var sessionState = {
@@ -830,6 +829,14 @@ var handlers = {
         }
     },
     
+    getSecuredPageHandler : function(data){
+        //TODO
+    },
+    
+    loginHandler : function(data){
+        //TODO
+    },
+    
     sendOptionsResponseHandler : function(data){
         data.response.writeHead(200, serverSettings.optionsMethodHeader);
         data.response.end();
@@ -856,6 +863,8 @@ var handlers = {
 
 var emmiterEvents = {
     getStaticFile : emitter.on("getStaticFile", handlers.getStaticFileHandler),
+    getSecuredPage : emitter.on("getSecuredPage", handlers.getSecuredPageHandler),
+    login : emitter.on("login", handlers.loginHandler),
     executeNonStaticRequest : emitter.on("executeNonStaticRequest", handlers.executeNonStaticRequestHandler),
     sendOptionsResponse : emitter.on("sendOptionsResponse", handlers.sendOptionsResponseHandler),
     error404 : emitter.on("error404", handlers.error404Handler),

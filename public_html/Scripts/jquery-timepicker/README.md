@@ -1,15 +1,15 @@
 Timepicker Plugin for jQuery
 ========================
 
-[<img src="https://jonthornton.github.com/jquery-timepicker/lib/screenshot.png" alt="timepicker screenshot" />](https://jonthornton.github.com/jquery-timepicker)
+[<img src="http://jonthornton.github.com/jquery-timepicker/lib/screenshot.png" alt="timepicker screenshot" />](http://jonthornton.github.com/jquery-timepicker)
 
-[See a demo and examples here](https://jonthornton.github.com/jquery-timepicker)
+[See a demo and examples here](http://jonthornton.github.com/jquery-timepicker)
 
 jquery.timepicker is a lightweight timepicker plugin for jQuery inspired by Google Calendar. It supports both mouse and keyboard navigation, and weighs in at 2.7kb minified and gzipped.
 
 Requirements
 ------------
-* [jQuery](https://jquery.com/) (>= 1.7)
+* [jQuery](http://jquery.com/) (>= 1.7)
 
 Usage
 -----
@@ -132,7 +132,7 @@ When scrolling on the edge of the picker, it prevent parent containers (<body>) 
 *default: false*
 
 - **timeFormat**  
-How times should be displayed in the list and input element. Uses [PHP's date() formatting syntax](https://php.net/manual/en/function.date.php). Characters can be escaped with a preceeding double slash (e.g. `H\\hi`). Alternatively, you can specify a function instead of a string, to use completely custom time formatting. In this case, the format function receives a Date object and is expected to return a formatted time as a string.
+How times should be displayed in the list and input element. Uses [PHP's date() formatting syntax](http://php.net/manual/en/function.date.php). Characters can be escaped with a preceeding double slash (e.g. `H\\hi`). Alternatively, you can specify a function instead of a string, to use completely custom time formatting. In this case, the format function receives a Date object and is expected to return a formatted time as a string.
 *default: 'g:ia'*
 
 - **typeaheadHighlight**  
@@ -209,7 +209,7 @@ Events
 ------
 
 - **change**  
-The native ```onChange``` event will fire any time the input value is updated, whether by selection from the timepicker list or manual entry into the text input. Your code should bind to ```change``` after initializing timepicker, or use [event delegation](https://api.jquery.com/on/).
+The native ```onChange``` event will fire any time the input value is updated, whether by selection from the timepicker list or manual entry into the text input. Your code should bind to ```change``` after initializing timepicker, or use [event delegation](http://api.jquery.com/on/).
 
 - **changeTime**  
 Called after a valid time value is entered or selected. See ```timeFormatError``` and ```timeRangeError``` for error events. Fires before ```change``` event.
@@ -259,7 +259,7 @@ The `ui-timepicker-positioned-top` class will be applied only when the dropdown 
 
 ## Packaging
 
-Install from [Bower](https://bower.io/) as ```jquery-timepicker-jt```.
+Install from [Bower](http://bower.io/) as ```jquery-timepicker-jt```.
 
 An AngularJS directive is available at https://github.com/Recras/angular-jquery-timepicker
 
@@ -268,7 +268,7 @@ Available via CDN at [https://cdnjs.com/libraries/jquery-timepicker](https://cdn
 Help
 ----
 
-Submit a [GitHub Issues request](https://github.com/jonthornton/jquery-timepicker/issues/new). Please try provide code that demonstrates the problem; you can use [this jsFiddle](https://jsfiddle.net/jonthornton/28uvg/) as a starting point.
+Submit a [GitHub Issues request](https://github.com/jonthornton/jquery-timepicker/issues/new). Please try provide code that demonstrates the problem; you can use [this jsFiddle](http://jsfiddle.net/jonthornton/28uvg/) as a starting point.
 
 Development guidelines
 ----------------------
@@ -276,8 +276,8 @@ Development guidelines
 1. Install dependencies (jquery + grunt) `npm install`
 2. For sanity checks and minification run `grunt`, or just `grunt lint` to have the code linted
  
-jquery-timepicker follows [semantic versioning](https://semver.org/).
+jquery-timepicker follows [semantic versioning](http://semver.org/).
 
 - - -
 
-This software is made available under the open source MIT License. &copy; 2014 [Jon Thornton](https://www.jonthornton.com) and [contributors](https://github.com/jonthornton/jquery-timepicker/graphs/contributors)
+This software is made available under the open source MIT License. &copy; 2014 [Jon Thornton](http://www.jonthornton.com) and [contributors](https://github.com/jonthornton/jquery-timepicker/graphs/contributors)

@@ -7,7 +7,6 @@ var urlToId	=	{
                                 "about_us.html" : "about"
 			};
 
-
 $(document).ready(
 	function(){
 		var page = (window.location.pathname.split("/")).pop();

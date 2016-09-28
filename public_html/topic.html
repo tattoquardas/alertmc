@@ -82,7 +82,7 @@
         <script>
                 var app = angular.module("topicApp", ['ngSanitize', 'ngCookies']);
                 app.controller("topicController", function($scope, $http, $location, $cookies){
-			$scope.hostURL = 'https://agile-waters-10164.herokuapp.com/';
+			$scope.hostURL = 'http://localhost:3000/';
                         $scope.showError = false;
                         $(
                                 function(){

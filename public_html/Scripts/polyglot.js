@@ -1,6 +1,6 @@
 var app = angular.module("testApp", []);
 	app.controller("testController", function($scope, $http){
-		$scope.hostURL = "https://agile-waters-10164.herokuapp.com/";
+		$scope.hostURL = "http://localhost:3000/";
 		$scope.getParam = function(name, url){
  	               if (!url)
    	                    url = window.location.href;

@@ -48,7 +48,7 @@
 	  <script>
 		var app = angular.module("reportsApp", []);
 		app.controller("reportsController", function($scope, $http){
-			$scope.hostURL = 'https://agile-waters-10164.herokuapp.com/';
+			$scope.hostURL = 'http://localhost:3000/';
 			$http.get($scope.hostURL + "getReports").then(function(response){
 				$scope.data = response.data;
 				$scope.repeatData = [];

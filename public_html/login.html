@@ -5,16 +5,26 @@
         <link rel="shortcut icon" href="images/icons/logo.png"/>
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
-        <title>404 not found</title>
+        <title>Login</title>
         <link rel="shortcut icon" href="images/alert.gif"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <div style='margin: 20% 0 0 35%; font-size: 1vw;'>
-            <div style='float: left;'><img src="images/sad.png"></div>
-            <br>    
-            <div style='color: red; font-weight: bold;'>ERROR 404.</div> 
-            <div>Unfortunately, this page is not found...</div>
+            <div style='float: left; margin: 0 0 20% 0;'><img src="images/sad.png"></div>
+            <div>
+                <form name="data">
+                    <label for="login">Login:</label>
+                    <br>
+                    <input type="text" name="login" required>
+                    <br>
+                    <label for="pass">Password:</label>
+                    <br>
+                    <input type="password" name="pass" required>
+                    <br>
+                    <input type="submit" value="Login">
+                </form>
+            </div>
         </div>
     </body>
 </html>

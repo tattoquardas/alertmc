@@ -80,7 +80,7 @@
 		    };
 	    });
             app.controller("forumController", function($scope, $http){
-                    $scope.hostURL='https://agile-waters-10164.herokuapp.com/'
+                    $scope.hostURL='http://localhost:3000/';
                     $scope.createTopic = function(){
                             if($scope.topicName !== undefined && $scope.topicName !== ""){
                                 var newTopic = {"topicName": $scope.topicName, "replies" : 0, "lastAnswer" : ""};

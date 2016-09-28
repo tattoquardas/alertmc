@@ -5,14 +5,14 @@ var imgs;
 
 $(document).ready(
 	function(){
-                var hostURL="https://agile-waters-10164.herokuapp.com/";
+                $("#headSect").load("menu.html");
+                var hostURL='http://localhost:3000/';
                 $( ".module" ).animate(  {opacity: '1'}, 1500 );
                 $( ".mission-text" ).animate(  {opacity: '1'}, 2500 );
                 $( ".pageheader" ).animate(  {opacity: '1'}, 1500 );
-		$.get(hostURL + "getIndexPageSettings", function(data, status){
+		$.post(hostURL + "getIndexPageSettings", function(data, status){
 		        imgs=data.imagesForSlideshow;
 		});
-		$("#headSect").load("menu.html");
 
 		$("div.module").mouseenter(
 			function(){

@@ -200,7 +200,7 @@
 	    <script>
 		var app = angular.module("calenderApp", []);
 		app.controller("calenderController", function($scope, $http){
-			$scope.hostURL='https://agile-waters-10164.herokuapp.com/';
+			$scope.hostURL='http://localhost:3000/';
 			$scope.postRegisterForm = function(){
 				$http.post($scope.hostURL + "RegisterForEvent", $scope.postRegisterFormData);
 			}
