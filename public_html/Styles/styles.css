@@ -151,7 +151,11 @@ li.icon:hover  {
   .responsive ul.dropdown-content{
       display: none;
     position: relative;
-}
+  }
+  
+  .responsive  #test_icon{
+       width: 15%;
+   }
 }
 
 .dropdown {
