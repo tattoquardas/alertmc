@@ -35,7 +35,7 @@
                                     <div class="cont">
                                         <div class="imag" id={{curBook.bookId}}>
                                             <a href="{{curBook.finalURL}}">
-                                                <c><img  ng-src={{curBook.bookImagSource}} title={{curBook.bookTitle}} style="width: 50%; " id="bookIm"/></c>
+                                                <c><img  ng-src={{curBook.bookImagSource}} title={{curBook.bookTitle}} alt={{curBook.bookTitle}} style="width: 50%; " id="bookIm"/></c>
                                                 <p id="text" style="position: absolute; top: 40%; left: 35%; opacity: 0; color: #006461; font-weight: bold; z-index: 10; font-size: 40px; text-shadow : 5px 5px 10px #006461;">VIEW</p>    
                                             </a>
                                         </div>                                        
@@ -62,7 +62,7 @@
                                             <div ng-repeat="sld in dataForCarousel" class="item" ng-class="($index===0) ? 'active' : ''">
                                                 <ul class="thumbnails">
                                                     <li class="col-sm-3" ng-repeat="i in sld.inst">
-                                                        <c><img ng-src={{i.image}} alt="" style="width: 10vw;" ng-click='showBook(i.bookId);'></c>
+                                                        <c><img ng-src={{i.image}} alt={{curBook.bookTitle}} style="width: 10vw;" ng-click='showBook(i.bookId);'></c>
                                                         <div class="caption">
                                                             <p>{{i.header}}</p>
                                                             <h4 style="font-size: 1.5vw;">{{i.text}}</h4>

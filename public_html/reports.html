@@ -29,7 +29,7 @@
                             <tbody>
                                 <tr ng-repeat="data in repeatData">
                                     <td  ng-repeat="x in data" id={{x.reportId}}>
-                                        <div class="imag" id={{x.imagId}}><c><a href={{x.finalURL}}><img ng-src={{x.reportImagSource}} title={{x.reportTitle}} style="width: 70%;"/></a></c></div>
+                                        <div class="imag" id={{x.imagId}}><c><a href={{x.finalURL}}><img ng-src={{x.reportImagSource}} alt={{x.reportTitle}} title={{x.reportTitle}} style="width: 70%;"/></a></c></div>
                                         <br>
                                         <div class="imag" id={{x.selectId}}>
                                             <select ng-model="selectedItem" ng-options="lang.label for lang in x.langOptions track by lang.value" ng-change="changeImage(x.reportId, selectedItem.value)">
