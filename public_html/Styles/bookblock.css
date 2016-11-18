@@ -117,3 +117,9 @@
 	display: none;
 	background: #fff;
 }
+
+.back{
+    padding: 15px;
+    width: 7%;
+    cursor: pointer;
+}

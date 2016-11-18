@@ -859,3 +859,7 @@ answers.active{
     color: white;
     font-size: 1.6vw;
 }
+.coaching{
+    margin: 2% 10% 0% 15%; 
+    width: 40%;
+}

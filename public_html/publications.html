@@ -22,8 +22,8 @@
         <div class="page-wrap">
             <div id="headSect"></div>
             <br>    
-            <div class="cart" id="scrl"><c><a href={{orderPage}} ng-click="addDataToURL();" id="cartLink" style="pointer-events: none; cursor: default;"><img class="" id="cartImg" src="images/icons/cart.png" style="width: 40%;"/> <br>You chose <br> {{goods}} items.</a></c></div>
-            <div class="pageheader localize" style="margin: 0 40% 0 0;">
+            <div class="cart" id="scrl"><c><a href={{orderPage}} ng-click="addDataToURL();" id="cartLink" style="pointer-events: none; cursor: default;"><img class="" id="cartImg" src="images/icons/cart.png" style="width: 40%;"/> <br><span class="localize">You selected</span> <br> {{goods}} <span class="localize">items.</span></a></c></div>
+            <div class="pageheader localize" style="margin: 0 45% 0 0;">
                 PUBLICATIONS
             </div>
             <div class="container-fluid">    
@@ -36,7 +36,7 @@
                                         <div class="imag" id={{curBook.bookId}}>
                                             <a href="{{curBook.finalURL}}">
                                                 <c><img  ng-src={{curBook.bookImagSource}} title={{curBook.bookTitle}} alt={{curBook.bookTitle}} style="width: 50%; " id="bookIm"/></c>
-                                                <p id="text" style="position: absolute; top: 40%; left: 35%; opacity: 0; color: #006461; font-weight: bold; z-index: 10; font-size: 40px; text-shadow : 5px 5px 10px #006461;">VIEW</p>    
+                                                <p id="text" style="position: absolute; top: 40%; left: 27%; opacity: 0; color: #006461; font-weight: bold; z-index: 10; font-size: 40px; text-shadow : 5px 5px 10px #006461;">VIEW</p>    
                                             </a>
                                         </div>                                        
                                     </div>
@@ -46,8 +46,8 @@
                                             <option value="" ng-disabled>Choose language</option>
                                         </select>
                                     </div><br>
-                                    <div class="text-center" style="color: green;"><b>PRICE: {{curBook.price}}€</div><br>
-                                    <div class="imag"><div class="comm" id="comment_form"><c><input type="submit" value="Put in basket" ng-click="addToCart(curBook.bookId);"></c></div> </div>
+                                    <div class="text-center" style="color: green;"><b class="localize">PRICE:</b> <b>{{curBook.price}}€</b></div><br>
+                                    <div class="imag"><div class="comm" id="comment_form"><c><input type="submit" value="Add to shopping cart" ng-click="addToCart(curBook.bookId);"></c></div> </div>
                                     <br>
                                 </td>
                                 <td ng-bind-html="curBook.description" style="font-size: 1vw;"></td>
@@ -166,7 +166,7 @@
         </script>
         
         <footer id="footer">
-            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+            <p>&#169 1991 - 2016 Alert Management Consultants</p>
         </footer>
     </body>
 </html>

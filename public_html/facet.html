@@ -26,9 +26,6 @@
                 <p>
                     <span class="localize">Our intelligence test, called Facet, is based on the idea of intelligence consisting of different facets or factors. 
                         These three global factors are verbal, numerical and visual-special skills. These three factors together give an indication of someone's general intellectual capacities.</span>
-                    <div class="localize">o Verbal skills</div>
-                    <div class="localize">o Numerical skills</div> 
-                    <div class="localize">o Visuo-spatial skills </div>
                 </p>
                 
                 <br><p>
@@ -37,22 +34,23 @@
                     <div class="localize">• Speed and accuracy measurement, where the candidate performs a task requiring attention.</div>
                 </p>
                 
-                <br><div class="localize">Below you can find some examples.</div> <marquee behavior="slide" direction="left"><b id="try" style="color: RED; font-size: 3vw;">TRY TO SOLVE SOME EXAMPLES HERE:</b></marquee>
+                <br><div class="localize">Below you can find some examples.</div> <marquee behavior="slide" direction="left"><b id="try" style="color: RED; font-size: 3vw;" class="localize">TRY TO SOLVE SOME EXAMPLES HERE:</b></marquee>
                 
                 <bord class="localize">I  VERBAL SKILLS</bord>
+                <div class="localize">Example 1:</div>
                 <br><div class ="exmpl localize">
                     This exercise consists of word pairs. The goal is to discover the relationship between the two words in the word pair. The
                     next goal is to indicate a word pair (in the row next to the original word pair) that has the same relationship as the original word pair.
                 </div> 
                 
-                <div class="localize">Example 1:</div>
+                
                 <div class="comm" id="comment_form"><c><input type="button" id="submit1" value="Check answer" onclick="facet1()" class="facet_but"></button></c></div>
                 <div class="container-fluid">
                     <table  class="table table-bordered" id="table_style">
                         <thead>
                             <tr>
                                 <td>
-                                    <b>Word pair</b>
+                                    <b class="localize">Word pair</b>
                                 </td>
                                 <td class="text-center localize">
                                     Answer 1
@@ -74,22 +72,22 @@
                         <tbody>
                             <tr id="first">
                                 <td>
-                                <b class="localize">A. pencil / to draw</b>
+                                <b class="localize">pencil / to draw</b>
                                 </td>
-                                <td class="text-center localize">
-                                    <answers>brush</answers>
+                                <td class="text-center">
+                                    <answers class="localize">brush</answers>
                                 </td>
-                                <td class="text-center localize" id="pbt">
-                                    <answers id="pb" >paint brush</answers>
+                                <td class="text-center" id="pbt">
+                                    <answers id="pb" class="localize">paint brush</answers>
                                 </td>
-                                <td class="text-center localize">
-                                    <answers>painter</answers>
+                                <td class="text-center">
+                                    <answers class="localize">painter</answers>
                                 </td>
-                                <td class="text-center localize" id="tpt">
-                                    <answers id="tp" >to paint</answers>
+                                <td class="text-center" id="tpt">
+                                    <answers id="tp" class="localize">to paint</answers>
                                 </td>
-                                <td class="text-center localize">
-                                    <answers>painting</answers>
+                                <td class="text-center">
+                                    <answers class="localize">painting</answers>
                                 </td>
                             </tr>
                         </tbody>
@@ -99,21 +97,19 @@
                 <div id="ans_check"></div>
                 <div class="text-center"><i id="desc1"></i></div>
                 
-                <br><br><bord>II NUMERICAL SKILLS</bord>
+                <br><br><bord class="localize">II NUMERICAL SKILLS</bord>
+                <div class="localize">Example 2:</div>
                 <br><div class ="exmpl localize">
                     In the following exercise each row consists of a series of numbers or letters that have been placed in a certain order. 
                     Every row is based on a certain system. Find out what that system is and complete the missing number or letter.
                 </div> 
                 
-                Example 2:
+                
                 <div class="comm" id="comment_form"><c><input type="button" id="submit2" value="Check answer" onclick="facet2()" class="facet_but"></button></c></div>
                 <div class="container-fluid">
                     <table  class="table-bordered" id="table_style">
                         <tbody>
                             <tr id="second" class="text-center">
-                                <td class="col-md-2">
-                                    A.
-                                </td>
                                 <td class="col-md-2">
                                     1
                                 </td>
@@ -144,7 +140,7 @@
                 <br><br><bord class="localize">III VISUO-SPATIAL SKILLS </bord>
                 
                 <div class="localize">Example 3:</div>
-                <br><br><b class="localize">Which cube is it?</b>
+                <br><br><b class="localize">Which cube is the orrect one?</b>
                 <div class="comm" id="comment_form"><c><input type="button" id="submit3" value="Check answer" onclick="facet3()" class="facet_but"></button></c></div>
                 
                 <div class="imag"><img src="images/facet/cube.png" alt="Scanning image of cube" style="width: 30%;" class="logo_icon"></div><br>

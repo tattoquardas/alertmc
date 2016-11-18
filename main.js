@@ -11,6 +11,8 @@ var regex = require("regex");
 
 var emitter = new events.EventEmitter();
 
+pg.defaults.ssl = true;
+
 var serverSettings = {
     
     indexPage : "index.html",
@@ -22,7 +24,7 @@ var serverSettings = {
     
     settingsDirectory : "Settings",
     
-    conString : "pg://postgres:postgres@localhost:5432/alertDB",
+    conString : "pg://fbdfsqfaqsyfev:lGozRRrF_aCe42pGZCU1asw2c7@ec2-54-235-199-36.compute-1.amazonaws.com/d7k98vi1h94arh",
     
     emailServer : "no-reply@alertmc.com",
     

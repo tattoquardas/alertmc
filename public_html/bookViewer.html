@@ -12,7 +12,8 @@
                 <title>{{book.title}}</title>
 	</head>
 	<body>
-		<div id="container" class="container" style="visibility: hidden;">	
+            <img src="images/icons/back.png" alt="back" class="back" onclick="goBack()">
+		<div id="container" class="container" style="visibility: hidden;">                    
 			<div class="bb-custom-wrapper">
 				<div id="bb-bookblock" class="bb-bookblock">
 					<div ng-repeat="x in book.items" class="bb-item" id={{x.itemName}} emit-last-repeater-element>
@@ -77,6 +78,11 @@
 				});
 			});
 		</script>
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
 		<div id="loadedScripts">
 			<script src="Scripts/modernizr.custom.79639.js"></script>
 			<script src="Scripts/jquery.mousewheel.js"></script>

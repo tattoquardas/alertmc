@@ -40,7 +40,7 @@ function facet1(){
     var ans1 = $("div.page-wrap > div.mission-text > div.container-fluid > table.table-bordered > tbody > tr > td.text-center > answers#pb").attr("class");
     var ans2 = $("div.page-wrap > div.mission-text > div.container-fluid > table.table-bordered > tbody > tr > td.text-center > answers#tp").attr("class");
     
-    if(ans1==="active" && ans2==="active"){
+    if(ans1==="localize active" && ans2==="localize active"){
         
     document.getElementById("ans_check").innerHTML="<div class=\"logo\"><img src=\"images/icons/right.png\"></div>";   
     document.getElementById("desc1").innerHTML="CONGRATULATIONS!";
