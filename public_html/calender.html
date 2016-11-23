@@ -11,13 +11,13 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
-        <title class="pageheader localize">Training calendar</title>
+        <title class="pageheader">Training calendar</title>
     </head>
     <body ng-app="calenderApp" ng-controller="calenderController" style="font-size: 1vw;">
         <div class="page-wrap">
 	    <div id="headSect"></div>
 	    <br>
-            <div class="pageheader localize">
+            <div class="pageheader">
                 TRAINING CALENDAR
             </div>
 	    <div class="container-fluid">
@@ -30,16 +30,16 @@
 							</div>
 							<br/>
 							<div class="col-xs-1">
-								Month:<br/>
+                                                            <span class="localize">Month:</span><br/>
 								<select class="form-control" id="month" style="font-size: 1vw;"></select>
 							</div>
 							<div class="col-xs-1">
-								Year:<br/>
+								<span class="localize">Year</span><br/>
 								<select class="form-control" id="year" style="font-size: 1vw;"></select>
 							</div>
 							<div class="col-xs-1">
 								<br/>
-                                                                <button type="button" class="btn btn-primary" id="showButton" ng-click="fillData()" style="font-size: 1vw;">Show calender</button>
+                                                                <button type="button" class="btn btn-primary localize" id="showButton" ng-click="fillData()" style="font-size: 1vw;">Show calender</button>
 							</div>
 						</div>
 					</form>
@@ -51,25 +51,25 @@
 						<thead>
 							<tr style="background-color: #006461;">
 								<th>
-									<center>Monday</center>
+									<center class="localize">Monday</center>
 								</th>
 								<th>
-									<center>Tuesday</center>
+									<center class="localize">Tuesday</center>
 								</th>
 								<th>
-									<center>Wednesday</center>
+									<center class="localize">Wednesday</center>
 								</th>
 								<th>
-									<center>Thursday</center>
+									<center class="localize">Thursday</center>
 								</th>
 								<th>
-									<center>Friday</center>
+									<center class="localize">Friday</center>
 								</th>
 								<th>
-									<center>Saturday</center>
+									<center class="localize">Saturday</center>
 								</th>
 								<th>
-									<center>Sunday</center>
+									<center class="localize">Sunday</center>
 								</th>
 							</tr>
 						</thead>
@@ -79,15 +79,15 @@
 				</div>
 				<div id=EventDisplay" class="col-xs-3">
 					<div id="future">
-						<h3 align="center" style="font-size: 2.5vw;">Future Events</h3>
+                                            <h3 align="center" style="font-size: 2.5vw;" class="localize">Future Events</h3>
 						<table style="width: 100%; background-color: #686868;" border="1">
 							<thead>
 								<tr style="background-color: #006461;">
 									<th>
-										<center><h3 style="font-size: 2vw;">Date/Time</h3></center>
+                                                        <center><h3 style="font-size: 2vw;" class="localize">Date/Time</h3></center>
 									</th>
 									<th>
-										<center><h3 style="font-size: 2vw;">Event Name</h3></center>
+										<center><h3 style="font-size: 2vw;" class="localize">Event Name</h3></center>
 									</th>
 								</tr>
 							</thead>
@@ -104,15 +104,15 @@
 						</table>
 					</div>
 					<div id="past">
-						<h3 align="center" style="font-size: 2.5vw;">Past Events</h3>
+						<h3 align="center" style="font-size: 2.5vw;" class="localize">Past Events</h3>
 						<table  style="width: 100%; background-color: #686868;" border="1">
 							<thead>
 								<tr style="background-color: #006461;">
 									<th>
-										<center><h3 style="font-size: 2vw;">Date/Time</h3></center>
+										<center><h3 style="font-size: 2vw;" class="localize">Date/Time</h3></center>
 									</th>
 									<th>
-										<center><h3 style="font-size: 2vw;">Event Name</h3></center>
+										<center><h3 style="font-size: 2vw;" class="localize">Event Name</h3></center>
 									</th>
 								</tr>
 							</thead>
