@@ -11,5 +11,6 @@
 "Diensten",
 "Publicaties&Reports &#9662;",
 "Publicaties",
-"VRAAG MEER INFORMATIE OP"
+"VRAAG MEER INFORMATIE OP",
+"<input type=\"button\" name=\"submit\" value=\"Schrijven\" id=\"sendData\">"
 ]

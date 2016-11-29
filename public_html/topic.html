@@ -49,8 +49,8 @@
                     <div ng-show="showError" class="alert alert-danger" class="localize"> Please fill all required fields </div>
                     <div class="comm" id="comment_form">
                         <div>
-                            <input maxlength="40" type="text" name="firstName" id="f_name" value="" placeholder="First Name" ng-model="firstName" required>
-                            <input maxlength="40" type="text" name="lastName" id="l_name" value="" placeholder="Last Name" ng-model="lastName" required>
+                            <span class="localize"><input maxlength="40" type="text" name="firstName" id="f_name" value="" placeholder="First Name" ng-model="firstName" required></span>
+                            <span class="localize"><input maxlength="40" type="text" name="lastName" id="l_name" value="" placeholder="Last Name" ng-model="lastName" required></span>
                             <input maxlength="40" type="email" name="email" id="email" value="" placeholder="Email" ng-model="email" required>
                         </div>
                         <br>
@@ -61,7 +61,7 @@
                             <c><input type="button" name="submit" value="Add Comment" ng-click="createComment()"></c>
                         </span>
                         <span>
-                            <input type="checkbox" name="subs" value="" ng-model="wantSubscribe" class="localize"> I want to subcribe
+                            <input type="checkbox" name="subs" value="" ng-model="wantSubscribe"><span class="localize"> I want to subcribe</span>
                         </span>
                     </div>
                 </form>

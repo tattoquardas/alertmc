@@ -19,6 +19,7 @@
 "I VERBAAL",
 "Voorbeeld 1:",
 "Deze  opdracht bestaat uit een woordenpaar. Het is de bedoeling de relatie te ontdekken tussen deze twee woorden. Vervolgens dient in de woordenrij ernaast een woordenpaar aangeduid te worden dat zich op dezelfde manier verhoudt als het opgegeven paar.",
+"<input type=\"button\" id=\"submit1\" value=\"Controleer\" onclick=\"facet1()\" class=\"facet_but\">",
 "Woordpaar",
 "Antwoord 1",
 "Antwoord 2",
@@ -34,7 +35,9 @@
 "II NUMERIEK",
 "Voorbeeld 2:",
 "In het onderstaande oefening wordt een reeks cijfers gegeven, die in een welbepaalde volgorde geplaatst zijn. De rij is op één of ander systeem gebaseerd. Het komt er nu op aan dit systeem te ontdekken en daarna met het volgende cijfer aan te vullen.",
+"<input type=\"button\" id=\"submit2\" value=\"Controleer\" onclick=\"facet2()\" class=\"facet_but\">",
 "III VISUOSPATIEEL",
 "Voorbeeld 3:",
-"Welke kubus is de juiste?"
+"Welke kubus is de juiste?",
+"<input type=\"button\" id=\"submit3\" value=\"Controleer\" onclick=\"facet3()\" class=\"facet_but\">"
 ]
