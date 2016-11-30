@@ -1,7 +1,6 @@
 {
     "imagesForSlideshow" : [
         {"imageName": "office.jpg", "imageDescription": "Office in Dilbeek, Belgium"},
-        {"imageName": "office2.jpg", "imageDescription": "Office in Dilbeek, Belgium"},
-        {"imageName": "ned_image.jpg", "imageDescription": "Office in Gorinchem, The Netherlands"}
+        {"imageName": "office2.jpg", "imageDescription": "Office in Dilbeek, Belgium"}
     ]
 }

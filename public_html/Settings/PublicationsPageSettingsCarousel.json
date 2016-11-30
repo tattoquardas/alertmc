@@ -3,6 +3,12 @@
         {
             "inst": [
                 {
+                    "bookId": "guide",
+                    "image": "images/books/guide/en/guide1.png",
+                    "header": "Type Guide",
+                    "text": "Lieven Cornelis"
+                },
+                {
                     "bookId": "leder",
                     "image": "images/books/leder/leder1.png",
                     "header": "Jeder kind is uniek",
@@ -18,13 +24,7 @@
                     "bookId": "car",
                     "image": "images/books/career/en/first.jpg",
                     "header": "Type and career",
-                    "text": "by Lieven Cornelis"
-                },
-                {
-                    "bookId": "guide",
-                    "image": "images/books/guide/en/guide1.png",
-                    "header": "Type Guide",
-                    "text": "by Lieven Cornelis"
+                    "text": "Lieven Cornelis"
                 }
             ]
         },
@@ -34,7 +34,7 @@
                     "bookId": "strategy",
                     "image": "images/books/strategy/en/first.jpg",
                     "header": "Strategies to solve your training puzzle",
-                    "text": "by Lieven Cornelis"
+                    "text": "Lieven Cornelis"
                 }
             ]
         }

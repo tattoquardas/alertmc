@@ -457,7 +457,7 @@ div.desc {
 bord{
     color:#48669c; 
     font-weight: bold;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
 }
 
 .imag{
@@ -864,4 +864,11 @@ answers.active{
 .coaching{
     margin: 2% 10% 0% 15%; 
     width: 40%;
+}
+.training_img{
+    float: left; margin: 1% 2% 2% 0%; width: 40%;
+}
+
+.tab{
+    margin: 0 0 0 5%;
 }
