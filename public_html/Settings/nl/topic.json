@@ -6,11 +6,11 @@
 "Onze Diensten en Producten",
 "Partners & Klanten",
 "HR Instrumenten &#9662;",
+"HR Instrumenten",
 "Diensten &#9662;",
 "Diensten",
-"Publicaties&Reports &#9662;",
+"Publicaties&Rapportage  &#9662;",
 "Publicaties",
 "<input maxlength=\"40\" type=\"text\" name=\"firstName\" id=\"f_name\" value=\"\" placeholder=\"Voornaam\" ng-model=\"firstName\" required>",
-"<input maxlength=\"40\" type=\"text\" name=\"lastName\" id=\"l_name\" value=\"\" placeholder=\"Naam\" ng-model=\"lastName\" required>",
-"Ik wens mij in te schrijven."
+"<input maxlength=\"40\" type=\"text\" name=\"lastName\" id=\"l_name\" value=\"\" placeholder=\"Naam\" ng-model=\"lastName\" required>"
 ]

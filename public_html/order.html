@@ -20,9 +20,11 @@
         <div class="page-wrap">
             <div id="headSect"></div>
                 <br>
-            <div class="pageheader" ng-show="showOrderForm">
+            <div class="pageheader localize" ng-show="showOrderForm">
                 MAKE AN ORDER HERE!
             </div>
+            <div style="text-align: center; color: red;" class="localize">!!! Only if you have a VAT number, you can place an order !!!</div>
+            <br>
             <div class="pageheader" ng-hide="showOrderForm">
                 THANK YOU FOR ORDER!
                 <br>Your Order ID - {{orderCode}}
@@ -37,12 +39,12 @@
                         </div>
                         <br>
                         <div>
-                            <input type="text" name="orgName" id="org_name" value="" placeholder="Name of organization" ng-model="org">
+                            <input type="text" name="orgName" id="org_name" value="" placeholder="Name of organization" ng-model="org" required>
                             <input type="text" name="phone" id="phone" value="" placeholder="Phone number" ng-model="phone" required>
                             <input type="text" name="vat" id="vat" value="-" placeholder="VAT" ng-model="vat">
                         </div>
                         <br>
-                        <div style="text-align: left; margin: 0 0 0 13%;">Delivery address:</div>
+                        <div style="text-align: left; margin: 0 0 0 13%;" class="localize">Delivery address:</div>
                         <div>                             
                             <input type="text" name="streetDelivery" id="streetDelivery" value="" placeholder="Street" style="width: 47%;" ng-model="streetDelivery" required>
                             <input type="text" name="numberDelivery" id="numberDelivery" value="" placeholder="Number" style="width: 14%;" ng-model="numberDelivery" required> 
@@ -55,10 +57,10 @@
                         </div>
                         <br>
                         <div style="text-align: left; margin: 0 0 0 13%;">
-                            <input type="checkbox" name="same" value="" ng-click="invoiceEqualsDelivery();" ng-model="checked" class="localize"> Delivery and invoice addresses are equal.
+                            <input type="checkbox" name="same" value="" ng-click="invoiceEqualsDelivery();" ng-model="checked"><span class="localize"> Delivery and invoice addresses are equal.</span>
                         </div>
                         <br>
-                        <div style="text-align: left; margin: 0 0 0 13%;">Invoice address:</div>
+                        <div style="text-align: left; margin: 0 0 0 13%;" class="localize">Invoice address:</div>
                         <div>                             
                             <input type="text" name="streetInvoice" id="streetInvoice" value="" placeholder="Street" style="width: 47%;" ng-model="streetInvoice" required>
                             <input type="text" name="numberInvoice" id="numberInvoice" value="" placeholder="Number" style="width: 14%;" ng-model="numberInvoice" required> 
@@ -82,23 +84,23 @@
                                                 <div class="imag" id="{{item.bookId}}"><c><a href="BookPages/led_pages.html"><img src={{item.imag}} style="width: 40%;"/></a></c></div>
                                             </td>
                                             <td style="font-size: 1vw;">
-                                                <b>Name:</b> {{item.bookName}}                     
-                                                <br><b>Language:</b> {{item.langLabel}}
-                                                <br><span class="glyphicon glyphicon-plus" ng-click="item.quant = item.quant + 1; refreshOverallPrice();" style="cursor:pointer;"></span>
-                                                <b> Quantity: </b> {{item.quant}}
-                                                <span class="glyphicon glyphicon-minus" ng-click="item.quant > 1 ?item.quant = item.quant - 1:item.quant = 1; refreshOverallPrice()" style="cursor:pointer;"></span>                                                
-                                                <br><b>Price: {{item.price}} EURO</b>                                                                                 
+                                                <b class="localize">Title:</b> {{item.bookName}}                     
+                                                <br><b class="localize">Language:</b> {{item.langLabel}}
+                                                <br><span class="glyphicon glyphicon-minus" ng-click="item.quant > 1 ?item.quant = item.quant - 1:item.quant = 1; refreshOverallPrice()" style="cursor:pointer;"></span>    
+                                                <b class="localize"> Quantity: </b> {{item.quant}}
+                                                <span class="glyphicon glyphicon-plus" ng-click="item.quant = item.quant + 1; refreshOverallPrice();" style="cursor:pointer;"></span>                                                             
+                                                <br><b><span class="localize">Price:</span> {{item.price}} EURO</b>                                                                                 
                                                 <br><br><span class="glyphicon glyphicon-trash" ng-click="deleteItemFromOrder(item);" style="cursor:pointer;"></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td  class="col-md-4" style="text-align: center;">
                                                     <br>
-                                                    <b>TOTAL PRICE:</b> 
+                                                    <b class="localize">TOTAL PRICE:</b> 
                                             </td>
                                             <td>
                                                 <br>
-                                                <b style="color: green;">{{overallPrice}} € </b>(Exclusive VAT and Delivery)
+                                                <b style="color: green;">{{overallPrice}} € </b><span class="localize">(Exclusive VAT and delivery cost)</span>
                                             </td>
                                         </tr>
                                     </tbody>

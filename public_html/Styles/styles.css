@@ -293,8 +293,8 @@ li { list-style-type:none;}
 
 .logo{
     float: right; 
-    margin: 0px 15px 0px 30px; 
-    width: 10%;
+    margin: 0px 15px 0px 20px; 
+    width: 5%;
     max-width: 100%;
 }
 
@@ -457,7 +457,7 @@ div.desc {
 bord{
     color:#48669c; 
     font-weight: bold;
-    font-size: 1.2vw;
+    font-size: 1.5vw;
 }
 
 .imag{
@@ -637,10 +637,9 @@ koan{
 
 .exmpl{
     width: 80%;
-    background-color: white;
     color: black;
     text-align: left;
-    margin: 0 0 0 15%;
+    margin: 0 0 0 8%;
 }
 
 im_facet{ 
@@ -772,7 +771,7 @@ answers.active{
    
    .cale{
        float: right;
-       width: 6%;
+       width: 7%;
        margin: 2% 5% 0 0;
        color: orangered;
        font-weight: bold;

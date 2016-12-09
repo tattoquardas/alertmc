@@ -18,8 +18,8 @@
         <div class="page-wrap">
             <div id="headSect"></div>
             <br>
+             <div class="logo"><img src="images/tests_logos/Facet.jpg" alt="Facet logo" ></div>
             <div class="mission-text">
-                <div class="logo"><img src="images/tests_logos/Facet.jpg" alt="Facet logo" ></div>
                 <div class="pageheader">
                     FACET            
                 </div>
@@ -30,8 +30,10 @@
                 
                 <br><p>
                     <span class="localize">Facet also goes beyond the traditional intelligence test. You have the option of testing two extra facets, as follows:</span>
-                    <div class="localize">• Memory measurement. In this test the person being tested has to read texts and look at pictures for a specified length of time. Afterwards, the person responds to questions which indicate how much he/she is still able to remember.</div>
-                    <div class="localize">• Speed and accuracy measurement, where the candidate performs a task requiring attention.</div>
+                    <div class="tab">
+                        <div class="localize">✔ Memory measurement. In this test the person being tested has to read texts and look at pictures for a specified length of time. Afterwards, the person responds to questions which indicate how much he/she is still able to remember.</div>
+                        <div class="localize">✔ Speed and accuracy measurement, where the candidate performs a task requiring attention.</div>
+                    </div>
                 </p>
                 
                 <br><div class="localize">Below you can find some examples.</div> <marquee behavior="slide" direction="left"><b id="try" style="color: RED; font-size: 3vw;" class="localize">TRY TO SOLVE SOME EXAMPLES HERE:</b></marquee>
@@ -41,10 +43,9 @@
                 <br><div class ="exmpl localize">
                     This exercise consists of word pairs. The goal is to discover the relationship between the two words in the word pair. The
                     next goal is to indicate a word pair (in the row next to the original word pair) that has the same relationship as the original word pair.
-                </div> 
+                </div>                 
                 
                 
-                <div class="comm" id="comment_form"><c class="localize"><input type="button" id="submit1" value="Check answer" onclick="facet1()" class="facet_but"></c></div>
                 <div class="container-fluid">
                     <table  class="table table-bordered" id="table_style">
                         <thead>
@@ -94,6 +95,7 @@
                     </table>
                 </div>
                 <br>
+                <div class="comm" id="comment_form"><c class="localize"><input type="button" id="submit1" value="Check answer" onclick="facet1()" class="facet_but"></c></div>
                 <div id="ans_check"></div>
                 <div class="text-center"><i id="desc1"></i></div>
                 
@@ -102,10 +104,8 @@
                 <br><div class ="exmpl localize">
                     In the following exercise each row consists of a series of numbers or letters that have been placed in a certain order. 
                     Every row is based on a certain system. Find out what that system is and complete the missing number or letter.
-                </div> 
-                
-                
-                <div class="comm" id="comment_form"><c class="localize"><input type="button" id="submit2" value="Check answer" onclick="facet2()" class="facet_but"></button></c></div>
+                </div>                               
+               
                 <div class="container-fluid">
                     <table  class="table-bordered" id="table_style">
                         <tbody>
@@ -134,15 +134,14 @@
                         </tbody>
                     </table>
                 </div><br>
+                 <div class="comm" id="comment_form"><c class="localize"><input type="button" id="submit2" value="Check answer" onclick="facet2()" class="facet_but"></button></c></div>
                 <div id="ans_check2"></div>
                 <div class="text-center"><i id="desc2"></i></div>
                 
                 <br><br><bord class="localize">III VISUO-SPATIAL SKILLS </bord>
                 
                 <div class="localize">Example 3:</div>
-                <br><br><b class="localize">Which cube is the correct one?</b>
-                <div class="comm" id="comment_form"><c class="localize"><input type="button" id="submit3" value="Check answer" onclick="facet3()" class="facet_but"></button></c></div>
-                
+                <br><br><b class="localize">Which cube is the correct one?</b>                
                 <div class="imag"><img src="images/facet/cube.png" alt="Scanning image of cube" style="width: 30%;" class="logo_icon"></div><br>
                 <div class="container-fluid">
                     <table class="table table-borderless" id="table_style">
@@ -163,8 +162,7 @@
                                 <td class="col-md-2">
                                     <im_facet><img src="images/facet/ans5.png" alt="Fifth version of cube" class="logo_icon"></im_facet>
                                 </td>
-                            </tr>
-                            <div id="ans_check3"></div>
+                            </tr>                            
                             <tr class="text-center">
                                 <td class="col-md-2">
                                     1
@@ -186,11 +184,13 @@
                     </table>
                 </div>
                 <br>
+                <div class="comm" id="comment_form"><c class="localize"><input type="button" id="submit3" value="Check answer" onclick="facet3()" class="facet_but"></button></c></div>
+                <div id="ans_check3"></div>
                 <div class="text-center"><i id="desc3"></i></div>
             </div>
         </div>
         <footer id="footer">
-            <p>&#169 1991 - 2016 Alert Managment Consultants</p>
+            <p>&#169 1991 - 2016 Alert Management Consultants</p>
         </footer>
     </body>
 </html>

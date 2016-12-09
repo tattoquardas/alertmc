@@ -49,7 +49,7 @@ function facet1(){
     }
     
     else {
-        document.getElementById("desc1").innerHTML="<img src=\"images/icons/bulb.png\" style=\"width:40px; height:40px;\"> A pencil is related to drawing, as a paint brush is related to the verb ‘to paint’.<br>On the answer sheet answer 2 and 4 are circled.";
+        document.getElementById("desc1").innerHTML="<img src=\"images/icons/bulb.png\" style=\"width:40px; height:40px;\"> Wrong answer: The right solution is answer 2 and 4. <br>A pencil is related to drawing, as a paint brush is related to the verb ‘to paint’.";
         document.getElementById("ans_check").innerHTML="<div class=\"logo\"><img src=\"images/icons/wrong.png\"></div>";
     }    
         document.getElementById("pbt").style.backgroundColor = "#90da47";
@@ -72,7 +72,7 @@ function facet2(){
     }
     else{
         document.getElementById("ans_check2").innerHTML="<div class=\"logo\"><img src=\"images/icons/wrong.png\"></div>"; 
-        document.getElementById("desc2").innerHTML="<img src=\"images/icons/bulb.png\" style=\"width:40px; height:40px;\">This series can be completed by the number <b style=\"background-color: #90da47; padding:0 20px 0 20px;\"> 11 </b>, since the intermediate number was always left out. <br>The number 11 should be written on the answer sheet.";       
+        document.getElementById("desc2").innerHTML="<img src=\"images/icons/bulb.png\" style=\"width:40px; height:40px;\">Wrong answer: The right solution is  <b style=\"background-color: #90da47; padding:0 20px 0 20px;\"> 11 </b>. <br>This series an be completed by the number 11, since the intermediate number was always left out.";       
     }
 }   
 
@@ -90,6 +90,7 @@ function facet3(){
     }
     else{
         document.getElementById("ans_check3").innerHTML="<div class=\"logo\"><img src=\"images/icons/wrong.png\"></div>"; 
+        document.getElementById("desc3").innerHTML="Wrong answer: the right solution is cube number 2.";
     }
     document.getElementById("t").style.boxShadow = "10px 0px 50px 45px #129303";
     document.getElementById("t").style.backgroundColor = "#129303";
