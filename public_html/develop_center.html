@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script src="Scripts/index.js"></script>
+        <script src="Scripts/dev_center.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Josefin+Slab">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
@@ -17,12 +18,15 @@
         <div class="page-wrap">
             <div id="headSect"></div>
             <br>
-            <div class="mission-text">
-
+            <div class="downl" style="width: 100%; margin: 0% 0 0 0; width: 5%;">
+                        <a href="documents/Planning_eng.pdf" download> <c><img style="width: 50px;" alt="Download program" src="images/icons/download.png"></c></a><span> DOWNLOAD DEVELOPMENT CENTER PROGRAM</span>
+                </div>
+            <div class="mission-text">                
                 <div class="pageheader">
                     DEVELOPMENT CENTRE  
                     <br><i class="localize">Developing potential.</i>
                 </div>
+                
                 <p class="localize">
                     A Development Centres (DC) serves a similar purpose to an Assessment Centre, in that it is used to 
                     determine the individual’s specific strengths and weaknesses. However, in a Development Centre, the 
@@ -47,54 +51,82 @@
                     candidate is relatively strong, as well as the areas in which he or she needs to be supported, redirected or coached.</div>
                     <div class="localize">- Career development programmes that are geared towards helping employees to reposition their career within the organisation.</div>
                 </p>
-
-                <br><bord class="localize">Will you be commissioning an assessment as the employer?</bord>
-
-                <br><br><b>.1. <i class="localize">Preparatory interview</i></b>
-                <p class="localize">
-                    To optimally tailor the assessment process to your wishes, we will first organise a preparatory interview.
-                    During this interview, we gain a concrete picture of your wishes, requirements and expectations. We will 
-                    also jointly determine the best reporting format for the assessment results at this stage.
-                </p>
-                <br><b>2. <i class="localize">Development Centre</i></b>         
-                <p> 
-                    <span class="localize">A Development Centre may consist of the following elements:</span>
-                    <br> - <b class="localize">360°Feedback:</b> <span class="localize">This element is based on a survey held within the candidate’s immediate professional
-                    environment (colleagues, managers, team members). The survey yields quantifiable data regarding the 
-                    candidate’s performance in the context of his or her existing position.</span>
-                    <br> - <b class="localize">Personality Test (KOAN-PI):</b> <span class="localize"> Provides insight into how likely it is that the candidate will demonstrate
-                    specific competences in future roles. </span>
-                    <br> - <b class="localize">Facet Intelligence Test:</b> <span class="localize"> Provides insight in the candidate’s capacity to solve numerical and verbal.</span>
-                    <br> - <b class="localize">In-basket test with roleplaying:</b> <span class="localize"> Provides insight in the candidate’s handling of complex situations, how
-                    he or she takes decisions and sets priorities, and whether the candidate has the potential to effectively 
-                    handle roles specific to the position.</span>
-                    <br> - <b class="localize">Interview:</b> <span class="localize"> Provides insight in the extent to which the candidate has already demonstrated particular competences in the past.</span>
-                    <br> - <b class="localize">Group exercise:</b> <span class="localize"> This element can be included in the Development Centre programme if different employees from the same organisation will be taking part in a DC on the same day.</span>
-                    <br> - <b class="localize">ALTI / MBTI:</b> <span class="localize"> If the commissioning company already uses this self-report questionnaire within its own
-                    organisation, it may be useful to include it in the DC programme. Another instrument frequently used in 
-                    the context of career- and performance-related questions is ALTI. Knowing the candidate’s psychological 
-                    type can help create added value. In view of the descriptive nature of these instruments, ALTI and MBTI 
-                    should not be used within programmes that are strictly geared towards selection or promotion.</span>
-                    <br> - <b class="localize">Feedback (mandatory):</b> <span class="localize"> At the end of the session, we provide the candidate with extensive personalised feedback regarding his or her performance.</span>
-                </p>
-
-                <br><b>3. <i class="localize">Communication of results</i></b>
-                <p class="localize">
-                    The results of all Development Centre elements will be communicated to you by means of an extensive
-                    report. We will consult with you beforehand to jointly determine the precise reporting format. Naturally, 
-                    this report will be treated with strict confidentiality, and we will fully respect the ownership of the various 
-                    details contained within.
-                </p>
-
-                <p class="localize">The following chart provides an example of a typical Development Centre sequence. As stated earlier, this 
-                sequence can be tailored to your specific wishes and requirements.</p>
-
-                <p class="localize">Before taking part in the DC itself, candidates are asked to fill in various online questionnaires (KOAN-PI, 
-                ALTI and 360°). The completed questionnaires need to be submitted to Alert Management Consultants at 
-                least 2 days prior to the DC itself.</p> 
-                <div class="downl" style="width: 100%;">
-                        <br><a href="documents/Planning_eng.pdf" download> <c><img style="width: 50px;" alt="Download program" src="images/icons/download.png"></c></a><span class="localize"> DOWNLOAD DEVELOPMENT CENTRES PROGRAM</span>
+                <div class="container-fluid" style="margin: 2% 0 5% 0;">
+                    <div class="text-center" style=" position: relative;">
+                        <dev_center class="active" onclick="show('emp')" style="left: 20%;"><img src="images/blue_button.png" alt="KOAN-PI logo"></dev_center>
+                        <dev_center class="active" onclick="show('emp')" style="left: 22%; width: 30%; color: #48669c;"><span class="localize">Will you be commissioning an assessment as the employer?</span></dev_center>
+                        <dev_center onclick="show('ass')" style="left: 55%;"><img src="images/red_button.png" alt="KOAN-PM logo"></dev_center>
+                        <dev_center onclick="show('ass')" style="left: 57%; width: 30%; color: #cc0000;"><span class="localize">Will you be taking part in an assessment?</span></dev_center>
                     </div>
+                </div>
+                <br>
+                <div id="emp">
+                    <bord class="localize">Will you be commissioning an assessment as the employer?</bord>
+
+                    <br><br><b>.1. <i class="localize">Preparatory interview</i></b>
+                    <p class="localize">
+                        To optimally tailor the assessment process to your wishes, we will first organise a preparatory interview.
+                        During this interview, we gain a concrete picture of your wishes, requirements and expectations. We will 
+                        also jointly determine the best reporting format for the assessment results at this stage.
+                    </p>
+                    <br><b>2. <i class="localize">Development Centre</i></b>         
+                    <p> 
+                        <span class="localize">A Development Centre may consist of the following elements:</span>
+                        <div class="tab">    
+                            <br> ✔ <b class="localize">360°Feedback:</b> <span class="localize">This element is based on a survey held within the candidate’s immediate professional
+                            environment (colleagues, managers, team members). The survey yields quantifiable data regarding the 
+                            candidate’s performance in the context of his or her existing position.</span>
+                            <br> ✔ <b class="localize">Personality Test (KOAN-PI):</b> <span class="localize"> Provides insight into how likely it is that the candidate will demonstrate
+                            specific competences in future roles. </span>
+                            <br> ✔ <b class="localize">Facet Intelligence Test:</b> <span class="localize"> Provides insight in the candidate’s capacity to solve numerical and verbal.</span>
+                            <br> ✔ <b class="localize">In-basket test with roleplaying:</b> <span class="localize"> Provides insight in the candidate’s handling of complex situations, how
+                            he or she takes decisions and sets priorities, and whether the candidate has the potential to effectively 
+                            handle roles specific to the position.</span>
+                            <br> ✔ <b class="localize">Interview:</b> <span class="localize"> Provides insight in the extent to which the candidate has already demonstrated particular competences in the past.</span>
+                            <br> ✔ <b class="localize">Group exercise:</b> <span class="localize"> This element can be included in the Development Centre programme if different employees from the same organisation will be taking part in a DC on the same day.</span>
+                            <br> ✔ <b class="localize">ALTI:</b> <span class="localize"> If the commissioning company already uses this self-report questionnaire within its own
+                            organisation, it may be useful to include it in the DC programme. Another instrument frequently used in 
+                            the context of career- and performance-related questions is ALTI. Knowing the candidate’s psychological 
+                            type can help create added value. In view of the descriptive nature of these instruments, ALTI 
+                            should not be used within programmes that are strictly geared towards selection or promotion.</span>
+                            <br> ✔ <b class="localize">Feedback (mandatory):</b> <span class="localize"> At the end of the session, we provide the candidate with extensive personalised feedback regarding his or her performance.</span>
+                        </div>
+                    </p>
+
+                    <br><b>3. <i class="localize">Communication of results</i></b>
+                    <p class="localize">
+                        The results of all Development Centre elements will be communicated to you by means of an extensive
+                        report. We will consult with you beforehand to jointly determine the precise reporting format. Naturally, 
+                        this report will be treated with strict confidentiality, and we will fully respect the ownership of the various 
+                        details contained within.
+                    </p>
+
+                    <p class="localize">The following chart provides an example of a typical Development Centre sequence. As stated earlier, this 
+                    sequence can be tailored to your specific wishes and requirements.</p>
+
+                    <p class="localize">Before taking part in the DC itself, candidates are asked to fill in various online questionnaires (KOAN-PI, 
+                    ALTI and 360°). The completed questionnaires need to be submitted to Alert Management Consultants at 
+                    least 2 days prior to the DC itself.</p>   
+                </div>
+                <div id="ass">
+                        <bord class="localize">Will you be taking part in an assessment?</bord>
+
+                    <br>
+                    <p>
+                        <span class="localize">An average Development Centre consists of the following elements:</span>
+                        <div class="tab">    
+                            <br><b>✔ 360° Feedback</b>
+                            <br><b class="localize">✔ Facet Intelligence Test</b>
+                            <br><b class="localize">✔ In-basket test with roleplaying</b>
+                            <br><b>✔ Interview</b>
+                            <br><b>✔ ALTI</b>
+                            <br><b>✔ Feedback </b>
+                        </div>
+                    </p>
+                    <br>
+                    <p><span class="localize">Before participating in the Assessment Centre, you will be asked to complete the KOAN-PI </span> <b class="localize">personality test.</b> 
+                        <span class="localize">After the assessment, you will be provided with a descriptive report that goes into the findings of the KOAN-PI Personality Test.</span></p>
+                </div>                  
             </div>            
         </div>
         

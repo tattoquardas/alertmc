@@ -8,6 +8,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
 
 	<script src="Scripts/index.js"></script>
 
@@ -86,9 +87,9 @@
                                             <td style="font-size: 1vw;">
                                                 <b class="localize">Title:</b> {{item.bookName}}                     
                                                 <br><b class="localize">Language:</b> {{item.langLabel}}
-                                                <br><span class="glyphicon glyphicon-minus" ng-click="item.quant > 1 ?item.quant = item.quant - 1:item.quant = 1; refreshOverallPrice()" style="cursor:pointer;"></span>    
+                                                <br><span class="glyphicon glyphicon-minus" ng-click="item.quant > 1 ?item.quant = item.quant - 1:item.quant = 1; refreshOverallPrice(); refreshCookies(item);" style="cursor:pointer;"></span>    
                                                 <b class="localize"> Quantity: </b> {{item.quant}}
-                                                <span class="glyphicon glyphicon-plus" ng-click="item.quant = item.quant + 1; refreshOverallPrice();" style="cursor:pointer;"></span>                                                             
+                                                <span class="glyphicon glyphicon-plus" ng-click="item.quant = item.quant + 1; refreshOverallPrice(); refreshCookies(item);" style="cursor:pointer;"></span>                                                             
                                                 <br><b><span class="localize">Price:</span> {{item.price}} EURO</b>                                                                                 
                                                 <br><br><span class="glyphicon glyphicon-trash" ng-click="deleteItemFromOrder(item);" style="cursor:pointer;"></span>
                                             </td>
@@ -115,8 +116,8 @@
             </div>
         </div>
         <script>
-		var app = angular.module("orderApp", []);
-		app.controller("orderController", function($scope, $http){
+		var app = angular.module("orderApp", ['ngCookies']);
+		app.controller("orderController", function($scope, $http, $cookies){
 			$scope.hostURL = 'http://localhost:3000/';
 			$scope.subscribe = true;
                         $scope.showOrderForm = true;
@@ -133,7 +134,7 @@
 				if (!results[2])
 					return '';
 				return decodeURIComponent(results[2].replace(/\+/g, " "));
-			}
+			};
 
 			$scope.generateTableWithBooks = function(){
 				var numberOfBooks = $scope.getParam("books");
@@ -158,7 +159,11 @@
 						}
 					}
 				}
-			}
+                                
+                                console.log(JSON.stringify($cookies.getObject("cart")));
+                                console.log(JSON.stringify($scope.records));
+                                
+			};
 			$http.get($scope.hostURL + "getPublications").then(function(response){
 					$scope.data = response.data;
 					$scope.generateTableWithBooks();
@@ -167,14 +172,55 @@
 				$scope.overallPrice = 0;
 				for(var i = 0; i<$scope.records.length; ++i)
 					$scope.overallPrice += $scope.records[i]["price"] * $scope.records[i]["quant"];
-			}
+                                
+                                console.log(JSON.stringify($cookies.getObject("cart")));
+                                console.log(JSON.stringify($scope.records));
+			};
+                        $scope.refreshCookies = function(item){
+                                var cart = $cookies.getObject("cart");
+                                
+                                var j = 0;
+                                while(cart[j].bookId !== item.bookId)
+                                    ++j;
+                                
+                                cart[j].quant = item.quant;
+                                var n_goods = 0;
+                                for(var i=0; i<cart.length; ++i){
+                                    n_goods+=cart[i].quant;
+                                }
+                                var expireDate = new Date();
+                                expireDate.setDate(expireDate.getDate() + 1);
+                                $cookies.putObject("cart",  cart, {'expires': expireDate});
+                                $cookies.putObject("n_goods",  n_goods, {'expires': expireDate});
+			};
 			$scope.deleteItemFromOrder = function(item){
 				var i = 0;
-				while(item != $scope.records[i])
-					++i;
+				while(item !== $scope.records[i])
+                                    ++i;
+                                    
+                                var cart = $cookies.getObject("cart");
+                                var n_goods = $cookies.getObject("n_goods");
+                                
+                                var j = 0;
+                                while(cart[j].bookId !== $scope.records[i].bookId)
+                                    ++j;
+                                
+                                n_goods -= cart[j].quant;
+                                cart.splice(j,1);
+                                
+                                var expireDate = new Date();
+                                expireDate.setDate(expireDate.getDate() + 1);
+                                
+                                if(n_goods>0){   
+                                    $cookies.putObject("cart",  cart, {'expires': expireDate});
+                                    $cookies.putObject("n_goods",  n_goods, {'expires': expireDate});
+                                }else{
+                                    $cookies.remove("cart");
+                                    $cookies.remove("n_goods");
+                                }
 				$scope.records.splice(i,1);
 				$scope.refreshOverallPrice();
-			}
+			};
 			$scope.makeOrder = function(){
                             var emailValid = $scope.orderForm.email.$valid;
                             var phoneValid = $scope.orderForm.phone.$valid;
@@ -212,15 +258,17 @@
 								"books" : $scope.records,
 								"overallPrice" : $scope.overallPrice,
 								"subscribe" : $scope.subscribe
-							}
+							};
 				$http.post($scope.hostURL + "DataForOrder", order).then(
                                     function(response){
                                         $scope.orderCode = response.data;
+                                        $cookies.remove("cart");
+                                        $cookies.remove("n_goods");
                                     }
                                 );
                                 $scope.showOrderForm = false;
                             }
-			}
+			};
 			$scope.invoiceEqualsDelivery = function(){
 				if($scope.checked === true){
                                     $scope.countryInvoice = $scope.countryDelivery;
@@ -236,7 +284,7 @@
                                     $scope.zipInvoice = "";
                                 }
                                 
-			}
+			};
 		});
 	</script>
         <footer id="footer">

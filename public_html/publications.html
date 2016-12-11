@@ -13,6 +13,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <meta charset="UTF-8" name="viewport" content="maximum-scale=1.0">
@@ -22,7 +23,7 @@
         <div class="page-wrap">
             <div id="headSect"></div>
             <br>    
-            <div class="cart" id="scrl"><c><a href={{orderPage}} ng-click="addDataToURL();" id="cartLink" style="pointer-events: none; cursor: default;"><img class="" id="cartImg" src="images/icons/cart.png" style="width: 40%;"/> <br><span class="localize">You selected</span> <br> {{goods}} <span class="localize">items.</span></a></c></div>
+            <div class="cart" id="scrl"><c><a href={{orderPage}} ng-click="addDataToURL();" id="cartLink"><img class="" id="cartImg" src="images/icons/cart.png" style="width: 40%;"/> <br><span class="localize">You selected</span> <br> {{goods}} <span class="localize">items.</span></a></c></div>
             <div class="pageheader localize" style="margin: 0 45% 0 0;">
                 PUBLICATIONS
             </div>
@@ -50,7 +51,7 @@
                                     <div class="imag"><div class="comm" id="comment_form"><c><input type="submit" value="Add to shopping cart" ng-click="addToCart(curBook.bookId);"></c></div> </div>
                                     <br>
                                 </td>
-                                <td ng-bind-html="curBook.description" style="font-size: 1vw;"></td>
+                                <td ng-bind-html="curBook.description[lang]" style="font-size: 1vw;"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -85,8 +86,8 @@
             </div>
         </div>
         <script>
-           var app = angular.module("publicationsApp", ['ngSanitize']);
-           app.controller("publicationsController", function($scope, $http){
+           var app = angular.module("publicationsApp", ['ngSanitize', 'ngCookies']);
+           app.controller("publicationsController", function($scope, $http, $cookies, $interval){
                     $("#bookIm").hover(
                         function(){
                             $("#text").animate(  {opacity: '1'});
@@ -96,11 +97,30 @@
                         }
                     );
 		   $scope.hostURL = 'http://localhost:3000/';
-                   $scope.goods=0;
-                   $scope.goodsList = [];
+                   
+                   $scope.goodsList = $cookies.getObject("cart");
+                   $scope.goods = $cookies.getObject("n_goods");
+                   
+                   if($scope.goodsList===undefined || $scope.goodsList.length<=0){
+                       $scope.goodsList = [];
+                       $scope.goods = 0;
+                       $("#cartLink").css({"pointer-events" : "none", "cursor": "default"});
+                   }
+                   
                    $scope.orderPage = "order.html";
                    $http.get($scope.hostURL + "getPublications").then(function(response){
                            $scope.data = response.data;
+                           $scope.lang = $cookies.get("lang");
+                           $scope.stopInterval = $interval(function() {
+                                                        var newLang = $cookies.get("lang");
+                                                        if(newLang !== $scope.lang){
+                                                            $scope.lang = newLang;
+                                                        }
+                                                 }, 500);
+                           for(var i = 0; i<$scope.data.length; ++i){
+                               $scope.data[i].description = $scope.data[i].description.replace(/(\r\n|\n|\r)/gm,"")
+                               $scope.data[i].description = JSON.parse($scope.data[i].description);
+                           }
                            for(var i = 0; i<$scope.data.length; ++i){
                                    $scope.data[i].finalURL = $scope.data[i].viewBookPage + "?id=" + $scope.data[i].bookId + "&lang=" + $scope.data[i].langOptions[0].value;
                                    $scope.data[i].lastIdWithLang = $scope.data[i].bookId+ "&" + $scope.data[i].langOptions[0].value;
@@ -133,8 +153,14 @@
 	                               $scope.goodsList.push({"bookId":  bookIdentifier[0], "lang":  bookIdentifier[1], "quant": 1});
 			       }
                                $scope.goods++;
+                               var expireDate = new Date();
+                               expireDate.setDate(expireDate.getDate() + 1);
+                               $cookies.putObject("cart",  $scope.goodsList, {'expires': expireDate});
+                               $cookies.putObject("n_goods",  $scope.goods, {'expires': expireDate});
+                               
                            };
                            $scope.addDataToURL = function(){
+                               console.log($scope.goodsList.length>0);
                                if($scope.goodsList.length>0){
                                   $scope.orderPage=$scope.orderPage+"?";
                                   $scope.orderPage=$scope.orderPage+"books="+$scope.goods+"&";
@@ -158,13 +184,12 @@
                                 $scope.curBook = $scope.data[i];
                             }
                         }
-                    }
+                    };
            });
            $('.carousel').carousel({
                 interval: 6000
     	   });
         </script>
-        
         <footer id="footer">
             <p>&#169 1991 - 2016 Alert Management Consultants</p>
         </footer>
