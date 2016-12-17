@@ -2,7 +2,7 @@ var a = ['emp', 'ass'];
 
 $(document).ready(
 	function(){
-            for(var i=1; i<a.length; ++i){
+            for(var i=0; i<a.length; ++i){
            $("#"+a[i]).hide();
         }
         $("dev_center").click(
