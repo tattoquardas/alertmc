@@ -43,7 +43,7 @@ function facet1(){
     if(ans1==="localize active" && ans2==="localize active"){
         
     document.getElementById("ans_check").innerHTML="<div class=\"logo\"><img src=\"images/icons/right.png\"></div>";   
-    document.getElementById("desc1").innerHTML="CONGRATULATIONS!";
+    document.getElementById("desc1").innerHTML="CORRECT!";
     document.getElementById("desc1").style.color="green";
     document.getElementById("desc1").style.fontWeight="bold";
     }
@@ -51,10 +51,10 @@ function facet1(){
     else {
         var language = readCookie("lang");        
         if(language=="en"){
-            document.getElementById("desc1").innerHTML="<img src=\"images/icons/bulb.png\" style=\"width:40px; height:40px;\"> Wrong answer: The right solution is answer 2 and 4. <br>A pencil is related to drawing, as a paint brush is related to the verb ‘to paint’.";
+            document.getElementById("desc1").innerHTML="Wrong answer: The right solution is answer 2 and 4. <br>A pencil is related to drawing, as a paint brush is related to the verb ‘to paint’.";
         }
         else if(language=="nl"){
-            document.getElementById("desc1").innerHTML="<img src=\"images/icons/bulb.png\" style=\"width:40px; height:40px;\"> Fout antwoord: de juiste oplossing is antwoord 2 en 4. <br>En potloot is gerelateerd met tekenen zoals een penseel met schilderen.";
+            document.getElementById("desc1").innerHTML=" Fout antwoord: de juiste oplossing is antwoord 2 en 4. <br>En potloot is gerelateerd met tekenen zoals een penseel met schilderen.";
         }
         document.getElementById("ans_check").innerHTML="<div class=\"logo\"><img src=\"images/icons/wrong.png\"></div>";
     }    
@@ -72,7 +72,7 @@ function facet2(){
     if(document.getElementById("numb").value==="11"){
         
     document.getElementById("ans_check2").innerHTML="<div class=\"logo\"><img src=\"images/icons/right.png\"></div>";   
-    document.getElementById("desc2").innerHTML="CONGRATULATIONS!";
+    document.getElementById("desc2").innerHTML="CORRECT!";
     document.getElementById("desc2").style.color="green";
     document.getElementById("desc2").style.fontWeight="bold";
     }
@@ -80,10 +80,10 @@ function facet2(){
         document.getElementById("ans_check2").innerHTML="<div class=\"logo\"><img src=\"images/icons/wrong.png\"></div>"; 
         var language = readCookie("lang");        
         if(language=="en"){
-            document.getElementById("desc2").innerHTML="<img src=\"images/icons/bulb.png\" style=\"width:40px; height:40px;\">Wrong answer: The right solution is  <b style=\"background-color: #90da47; padding:0 20px 0 20px;\"> 11 </b>. <br>This series an be completed by the number 11, since the intermediate number was always left out.";
+            document.getElementById("desc2").innerHTML="Wrong answer: The right solution is  <b style=\"background-color: #90da47; padding:0 20px 0 20px;\"> 11 </b>. <br>This series an be completed by the number 11, since the intermediate number was always left out.";
         }   
         else if(language=="nl"){
-            document.getElementById("desc2").innerHTML="<img src=\"images/icons/bulb.png\" style=\"width:40px; height:40px;\">Fout antwoord: de juiste oplossing is <b style=\"background-color: #90da47; padding:0 20px 0 20px;\"> 11 </b>. <br>Deze reeks kan worden aangevuld met het nummer 11 aangezien de even nummers werden weggelaten.";
+            document.getElementById("desc2").innerHTML="Fout antwoord: de juiste oplossing is <b style=\"background-color: #90da47; padding:0 20px 0 20px;\"> 11 </b>. <br>Deze reeks kan worden aangevuld met het nummer 11 aangezien de even nummers werden weggelaten.";
         }
     }
 }   
@@ -96,7 +96,7 @@ function facet3(){
     if(ans==="active"){
         
     document.getElementById("ans_check3").innerHTML="<div class=\"logo\"><img src=\"images/icons/right.png\"></div>";   
-    document.getElementById("desc3").innerHTML="CONGRATULATIONS!";
+    document.getElementById("desc3").innerHTML="CORRECT!";
     document.getElementById("desc3").style.color="green";
     document.getElementById("desc3").style.fontWeight="bold";
     }

@@ -29,16 +29,16 @@
                         <table class="table table-bordered" style="width: 100%;">
                             <thead style="background-color: #006461; color: white; font-weight: bold;">
                                 <td>
-                                    <input type="checkbox" id="trainings" class="all"> TRAININGS
+                                    <input type="checkbox" id="trainings" class="all"> TRAINING
                                 </td>
                                 <td>
                                     <input type="checkbox" id="hr" class="all"> HR TOOLS
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="services" class="all"> SERVICES
+                                    <input type="checkbox" id="services" class="all"><span class="localize"> SERVICES</span>
                                 </td>
                                 <td>
-                                    <input type="checkbox" id="tests" class="all"> ONLINE TESTS
+                                    <input type="checkbox" id="tests" class="all"><span class="localize"> ONLINE TESTS</span>
                                 </td>
                             </thead>
                             <tbody>
@@ -50,7 +50,7 @@
                                         <input type="checkbox" name="hr_koan"  class="hr" > KOAN
                                     </td>
                                     <td>
-                                        <input type="checkbox" name="develop"  class="services" > Development centers
+                                        <input type="checkbox" name="develop"  class="services" > Development centre
                                     </td>
                                     <td>
                                         <input type="checkbox" name="test_koan"  class="tests" > KOAN
@@ -64,7 +64,7 @@
                                         <input type="checkbox" name="hr_alti"  class="hr" > ALTI
                                     </td>
                                     <td>
-                                        <input type="checkbox" name="assess"  class="services" > Assessment centers
+                                        <input type="checkbox" name="assess"  class="services" > Assessment centre
                                     </td>
                                     <td>
                                         <input type="checkbox" name="test_alti"  class="tests" > ALTI
@@ -136,11 +136,11 @@
                         </div>
                         <br>
                         <div>
-                            <input maxlength="40" type="text" name="description" id="org_name" style="width: 76%;" placeholder="Description"> 
+                            <textarea type="text" name="description" id="org_name" rows="10" cols="20" placeholder="Description"></textarea>
                         </div>
                         <br>
                         <div style="text-align: center;">
-                            <c class="localize"><input type="button" name="submit" value="Send request" id="sendData"></c>
+                            <c><input type="button" name="submit" value="Send request" id="sendData"></c>
                         </div>
                     </div>
                 </form>

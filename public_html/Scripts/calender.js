@@ -1,7 +1,7 @@
 var numToName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 var genCalendar = function(){
-			var month = $("div.container-fluid > div#calender > div#calenderHeader > form > div.row > div.col-xs-1 > select#month").val();
+			var month = $("div.container-fluid > div#calender > div#calenderHeader > form > div.row > div.col-xs-2 > select#month").val();
 			var year = $("div.container-fluid > div#calender > div#calenderHeader > form > div.row > div.col-xs-1 > select#year").val();
 			var m = [[-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1], [-1,-1,-1,-1,-1,-1,-1]];
 			var currWeek = 0;
@@ -64,7 +64,7 @@ $(document).ready(
 	function(){
 		$("#headSect").load("menu.html");
 //-------------------------------------------------------------------------------------------------------------------------------------------
-		var monthList = $("div.container-fluid > div#calender > div#calenderHeader > form > div.row > div.col-xs-1 > select#month");
+		var monthList = $("div.container-fluid > div#calender > div#calenderHeader > form > div.row > div.col-xs-2 > select#month");
 		$(monthList).append($('<option>', {value:0, text:"January"}));
 		$(monthList).append($('<option>', {value:1, text:"February"}));
 		$(monthList).append($('<option>', {value:2, text:"March"}));
@@ -91,7 +91,7 @@ $(document).ready(
 		$("button#showButton").click(
 			function(){
 				genCalendar();
-				var month = $("div.container-fluid > div#calender > div#calenderHeader > form > div.row > div.col-xs-1 > select#month").val();
+				var month = $("div.container-fluid > div#calender > div#calenderHeader > form > div.row > div.col-xs-2 > select#month").val();
 				var year = $("div.container-fluid > div#calender > div#calenderHeader > form > div.row > div.col-xs-1 > select#year").val();
 				$("#selectedMonth").text(""+numToName[month]+", "+year);
 			}

@@ -12,6 +12,8 @@
 "Diensten",
 "Publicaties&Rapportage &#9662;",
 "Publicaties",
+"Rapporten",
+"Online testen",
 "TRAINING KALENDER",
 "Maand",
 "Jaar",
@@ -31,5 +33,12 @@
 "Evenement",
 "Registratie",
 "Evenement:",
-"Tijdstip"
+"Tijdstip",
+"Voornaam",
+"Naam",
+"Organisatie",
+"Straat + nummer",
+"Plaats",
+"Land",
+"Telefonnummer"
 ]
